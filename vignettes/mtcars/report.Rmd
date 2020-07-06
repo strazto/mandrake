@@ -4,7 +4,7 @@ author: You
 output: html_document
 ---
 
-```{r setup}
+```{r setup_report}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
