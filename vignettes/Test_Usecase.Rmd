@@ -61,10 +61,38 @@ my_plan %>%
 ```
 
 ```{r}
+cache <- drake::get_cache()
 my_config <- drake_config(my_plan)
+drake::make(config = my_config)
+
 ```
 
+```{r}
+plan_extracted <- my_plan %>%
+  extract_column_names(cache, group = "cluster_id") %>%
+  dplyr::mutate(target_column_list = purrr::map_chr(target_column_list, yaml::as.yaml))
+```
 
 ```{r}
-vis_drake_graph(my_config, group = "cluster_id", clusters = c("summ", "coef"))
+my_config <- drake_config(plan_extracted)
+```
+
+```{r}
+alert_behaviour <- function(){
+  js <- "
+  function(props) {
+    alert('selected node with on_select_col: \\r\\n' +
+            this.body.data.nodes.get(props.nodes[0]).on_select_col);
+  }"
+}
+```
+
+```{r}
+vis_drake_graph(
+  my_config, 
+  group = "cluster_id", 
+  clusters = c("summ", "coef"), 
+  build_times = FALSE,
+  on_select_col = "target_column_list",
+  on_select = alert_behaviour())
 ```
