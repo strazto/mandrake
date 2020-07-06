@@ -1,0 +1,1 @@
+This example project analyzes the `mtcars` dataset to try to determine if there is an association between a car's weight and its fuel efficiency. Run `make.R` to run or update the whole workflow, and read the output `report.md` file to see the results. In practice, you do not need to use the file structure provided, but it does happen to be a reasonable way of doing things.

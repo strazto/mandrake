@@ -1,0 +1,62 @@
+---
+title: "Test_Usecase"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Test_Usecase}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mondrake)
+library(drake)
+library(knitr)
+
+source("mtcars/R/functions.R")
+```
+
+
+```{r plan}
+# This is where you set up your workflow plan,
+# a data frame with the steps of your analysis.
+
+my_plan <- drake::drake_plan(
+  report = knit(knitr_in("mtcars/report.Rmd"), file_out("mtcars/report.md"), quiet = TRUE),
+  small = simulate(48),
+  large = simulate(64),
+  regression1 = target(
+    reg1(data),
+    transform = map(data = c(small, large), .tag_out = reg)
+  ),
+  regression2 = target(
+    reg2(data),
+    transform = map(data, .tag_out = reg)
+  ),
+  summ = target(
+    suppressWarnings(summary(reg$residuals)),
+    transform = map(reg)
+  ),
+  coef = target(
+    suppressWarnings(summary(reg))$coefficients,
+    transform = map(reg)
+  )
+)
+
+my_plan
+```
+
+```{r}
+my_config <- drake_config(my_plan)
+```
+
+
+```{r}
+vis_drake_graph(my_config)   
+```
