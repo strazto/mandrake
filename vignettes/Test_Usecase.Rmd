@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 library(mandrake)
 library(drake)
 library(knitr)
+library(magrittr)
 
 source("mtcars/R/functions.R")
 ```
@@ -54,7 +55,9 @@ my_plan <- drake::drake_plan(
   trace = TRUE
 )
 
-my_plan
+my_plan %>% 
+  dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
+  knitr::kable("html")
 ```
 
 ```{r}
@@ -63,5 +66,5 @@ my_config <- drake_config(my_plan)
 
 
 ```{r}
-vis_drake_graph(my_config)#, group = )
+vis_drake_graph(my_config, group = "cluster_id", clusters = c("summ", "coef"))
 ```
