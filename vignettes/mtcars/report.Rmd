@@ -4,6 +4,11 @@ author: You
 output: html_document
 ---
 
+```{r setup}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
 # The weight and fuel efficiency of cars
 
 Is there an association between the weight and the fuel efficiency of cars? To find out, we use the `mtcars` dataset from the `datasets` package. The `mtcars` data originally came from the 1974 Motor Trend US magazine, and it contains design and performance data on 32 models of automobile.
