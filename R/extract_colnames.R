@@ -24,15 +24,15 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
   plan %<>%
     dplyr::mutate(
       !!tmp_col := dplyr::if_else(
-        is.na(),
+        is.na(!!rlang::sym(group)),
         target,
-        .
+        !!rlang::sym(group)
       ))
 
   out <- plan
 
   # Within the group, subset it, if it should cluster
-  out %>%
+  out %<>%
     dplyr::group_by(!!rlang::sym(tmp_col)) %>%
     dplyr::slice_head(n = 1) %>%
     dplyr::ungroup()
