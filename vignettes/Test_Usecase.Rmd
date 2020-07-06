@@ -33,19 +33,19 @@ my_plan <- drake::drake_plan(
   large = simulate(64),
   regression1 = target(
     reg1(data),
-    transform = map(data = c(small, large), .tag_out = reg)
+    transform = map(data = c(small, large), .tag_out = reg, .tag_in = cluster_id)
   ),
   regression2 = target(
     reg2(data),
-    transform = map(data, .tag_out = reg)
+    transform = map(data, .tag_out = reg, .tag_in = cluster_id)
   ),
   summ = target(
     suppressWarnings(summary(reg$residuals)),
-    transform = map(reg)
+    transform = map(reg, .tag_in = cluster_id)
   ),
   coef = target(
     suppressWarnings(summary(reg))$coefficients,
-    transform = map(reg)
+    transform = map(reg, .tag_in = cluster_id)
   ),
   
   unrelated = target(
@@ -63,5 +63,5 @@ my_config <- drake_config(my_plan)
 
 
 ```{r}
-vis_drake_graph(my_config)   
+vis_drake_graph(my_config)#, group = )
 ```
