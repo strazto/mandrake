@@ -81,18 +81,22 @@ my_config <- drake_config(plan_extracted)
 alert_behaviour <- function(){
   js <- "
   function(props) {
-    alert('selected node with on_select_col: \\r\\n' +
-            this.body.data.nodes.get(props.nodes[0]).on_select_col);
+    alert('selected ' +  this.body.data.nodes.get(props.nodes[0]).label + 
+           ': \\r\\n ======= \\r\\nCOLNAMES: \\r\\n' +
+           this.body.data.nodes.get(props.nodes[0]).on_select_col);
   }"
 }
 ```
 
 ```{r}
-vis_drake_graph(
+graph_info <- drake_graph_info(
   my_config, 
   group = "cluster_id", 
   clusters = c("summ", "coef"), 
   build_times = FALSE,
-  on_select_col = "target_column_list",
+  on_select_col = "target_column_list")
+
+render_drake_graph(
+  graph_info, 
   on_select = alert_behaviour())
 ```
