@@ -1,0 +1,8 @@
+pandoc: 2.3.1
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  Test_Usecase: Test_Usecase.html
+  report: mtcars/report.html
+last_built: 2020-07-06T08:50Z
+
