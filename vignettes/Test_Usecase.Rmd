@@ -15,9 +15,10 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(mondrake)
+library(mandrake)
 library(drake)
 library(knitr)
+library(magrittr)
 
 source("mtcars/R/functions.R")
 ```
@@ -33,30 +34,69 @@ my_plan <- drake::drake_plan(
   large = simulate(64),
   regression1 = target(
     reg1(data),
-    transform = map(data = c(small, large), .tag_out = reg)
+    transform = map(data = c(small, large), .tag_out = reg, .tag_in = cluster_id)
   ),
   regression2 = target(
     reg2(data),
-    transform = map(data, .tag_out = reg)
+    transform = map(data, .tag_out = reg, .tag_in = cluster_id)
   ),
   summ = target(
     suppressWarnings(summary(reg$residuals)),
-    transform = map(reg)
+    transform = map(reg, .tag_in = cluster_id)
   ),
   coef = target(
     suppressWarnings(summary(reg))$coefficients,
-    transform = map(reg)
-  )
+    transform = map(reg, .tag_in = cluster_id)
+  ),
+  
+  unrelated = target(
+    mtcars
+  ),
+  trace = TRUE
 )
 
-my_plan
+my_plan %>% 
+  dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
+  knitr::kable("html")
 ```
 
 ```{r}
+cache <- drake::get_cache()
 my_config <- drake_config(my_plan)
+drake::make(config = my_config)
+
 ```
 
+```{r}
+plan_extracted <- my_plan %>%
+  extract_column_names(cache, group = "cluster_id") %>%
+  dplyr::mutate(target_column_list = purrr::map_chr(target_column_list, yaml::as.yaml))
+```
 
 ```{r}
-vis_drake_graph(my_config)   
+my_config <- drake_config(plan_extracted)
+```
+
+```{r}
+alert_behaviour <- function(){
+  js <- "
+  function(props) {
+    alert('selected ' +  this.body.data.nodes.get(props.nodes[0]).label + 
+           ': \\r\\n ======= \\r\\nCOLNAMES: \\r\\n' +
+           this.body.data.nodes.get(props.nodes[0]).on_select_col);
+  }"
+}
+```
+
+```{r}
+graph_info <- drake_graph_info(
+  my_config, 
+  group = "cluster_id", 
+  clusters = c("summ", "coef"), 
+  build_times = FALSE,
+  on_select_col = "target_column_list")
+
+render_drake_graph(
+  graph_info, 
+  on_select = alert_behaviour())
 ```
