@@ -46,7 +46,12 @@ my_plan <- drake::drake_plan(
   coef = target(
     suppressWarnings(summary(reg))$coefficients,
     transform = map(reg)
-  )
+  ),
+  
+  unrelated = target(
+    mtcars
+  ),
+  trace = TRUE
 )
 
 my_plan
