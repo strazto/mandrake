@@ -45,7 +45,8 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
     dplyr::select(!!tmp_col, !!colname_out)
 
   out %<>%
-    dplyr::right_join(plan, by = tmp_col)
+    dplyr::right_join(plan, by = tmp_col) %>%
+    dplyr::select(-tmp_col)
 
   out
 }
