@@ -84,9 +84,14 @@ my_config <- drake_config(plan_extracted)
 alert_behaviour <- function(){
   js <- "
   function(props) {
-    alert('selected ' +  this.body.data.nodes.get(props.nodes[0]).label + 
-           ': \\r\\n ======= \\r\\nCOLNAMES: \\r\\n' +
-           this.body.data.nodes.get(props.nodes[0]).on_select_col);
+    node = this.body.data.nodes.get(props.nodes[0]);
+    cr = '\\r\\n';
+    alert('selected ' +  node.label + ':' + cr +
+            '=======' + cr +
+            'COLNAMES:' + cr +
+           node.on_select_col + cr + 
+           '=============== '
+           );
   }"
 }
 
