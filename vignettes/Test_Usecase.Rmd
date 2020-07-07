@@ -127,6 +127,12 @@ graph <- render_drake_graph(
   graph_info, 
   on_select = embed_behaviour(),
   ncol_legend = 2
-  )
+  ) %>%
+  visNetwork::visHierarchicalLayout(
+    direction = "LR", levelSeparation = 250
+    ) %>%
+  visNetwork::visEdges(
+    smooth = list(type = "cubicBezier", forceDirection = "horizontal")
+    )
 graph
 ```
