@@ -113,7 +113,6 @@ embed_behaviour <- function() {
 
 ```
 
-# The graph
 
 ```{r}
 graph_info <- drake_graph_info(
@@ -134,5 +133,9 @@ graph <- render_drake_graph(
   visNetwork::visEdges(
     smooth = list(type = "cubicBezier", forceDirection = "horizontal")
     )
+```
+
+# Graph
+```{r}
 graph
 ```
