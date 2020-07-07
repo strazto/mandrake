@@ -80,7 +80,7 @@ plan_extracted <- my_plan %>%
 my_config <- drake_config(plan_extracted)
 ```
 
-```{r}
+```{r, include=FALSE}
 alert_behaviour <- function(){
   js <- "
   function(props) {
@@ -94,7 +94,9 @@ alert_behaviour <- function(){
            );
   }"
 }
+```
 
+```{r}
 embed_behaviour <- function() {
   glue::glue(
     "function(props) {",
@@ -110,6 +112,8 @@ embed_behaviour <- function() {
 }
 
 ```
+
+# The graph
 
 ```{r}
 graph_info <- drake_graph_info(
