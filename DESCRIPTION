@@ -16,3 +16,6 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
+Imports: 
+    drake (>= 7.7.0.9001),
+    visNetwork
