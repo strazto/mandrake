@@ -70,7 +70,10 @@ drake::make(config = my_config)
 ```{r}
 plan_extracted <- my_plan %>%
   extract_column_names(cache, group = "cluster_id") %>%
-  dplyr::mutate(target_column_list = purrr::map_chr(target_column_list, yaml::as.yaml))
+  dplyr::mutate(
+    target_column_list = purrr::map_chr(
+      target_column_list, 
+      ~ knitr::kable(., "html")))
 ```
 
 ```{r}
@@ -86,6 +89,21 @@ alert_behaviour <- function(){
            this.body.data.nodes.get(props.nodes[0]).on_select_col);
   }"
 }
+
+embed_behaviour <- function() {
+  glue::glue(
+    "function(props) {",
+      "container = this.body.container;",
+      "legend = $(container).prev()[0];",
+      "node = this.body.data.nodes.get(props.nodes[0]);",
+      "legend.innerHTML = node.on_select_col;",
+    "}",
+    .sep = "\n",
+    .open = "<{",
+    .close = "}>"
+  ) %>% as.character()
+}
+
 ```
 
 ```{r}
@@ -96,7 +114,10 @@ graph_info <- drake_graph_info(
   build_times = FALSE,
   on_select_col = "target_column_list")
 
-render_drake_graph(
+graph <- render_drake_graph(
   graph_info, 
-  on_select = alert_behaviour())
+  on_select = embed_behaviour(),
+  ncol_legend = 2
+  )
+graph
 ```
