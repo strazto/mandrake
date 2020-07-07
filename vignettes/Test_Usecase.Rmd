@@ -120,7 +120,7 @@ graph_info <- drake_graph_info(
   my_config, 
   group = "cluster_id", 
   clusters = c("summ", "coef"), 
-  build_times = FALSE,
+  build_times = "none",
   on_select_col = "target_column_list")
 
 graph <- render_drake_graph(
