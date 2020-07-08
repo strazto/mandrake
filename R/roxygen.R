@@ -37,7 +37,9 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     dplyr::mutate(
       capture_end = capture.start + capture.length,
       match = stringr::str_sub(x, capture.start, capture_end)
-      )
+      ) %>%
+    tidyr::pivot_wider(id_cols = name, names_from = name, values_from = match) %>%
+    dplyr::mutate(dplyr::across(c(dir, alias), ~list(yaml::yaml.load(.))))
 
   matches
 }
