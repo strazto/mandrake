@@ -1,6 +1,6 @@
 
 
-
+#' @export
 roxy_tag_parse.roxy_tag_col <- function(x) {
   # \h is regex for horizontal whitespace (not linefeeds etc)
   # \h mightnt be defined in R's version of regex, will have to write a custom
@@ -16,9 +16,28 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
   )
 
   matched_sig <- gregexpr(front_pattern, x, perl = TRUE)
+  matches <- list()
 
+  types <- c("capture.start", "capture.length")
 
+  for (type in types) {
+    matches[[type]] <- matched_sig %>%
+      .[[1]] %>%
+      attr(type) %>%
+      tibble::as_tibble() %>%
+      tidyr::pivot_longer(tidyr::everything(), values_to = type)
+  }
 
+  matches %<>%
+  {
+    dplyr::left_join(.$capture.start, .$capture.length, by = "name")
+  }
 
+  matches %<>%
+    dplyr::mutate(
+      capture_end = capture.start + capture.length,
+      match = stringr::str_sub(x, capture.start, capture_end)
+      )
 
+  matches
 }
