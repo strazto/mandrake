@@ -23,6 +23,18 @@
       "Repository": "CRAN",
       "Hash": "f697db7d92b7028c4b3436e9603fb636"
     },
+    "drake": {
+      "Package": "drake",
+      "Version": "7.7.0.9001",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "drake",
+      "RemoteUsername": "ropensci",
+      "RemoteRef": "ce29aadc313b44bb7ae192556ab69c9bc527ff2d",
+      "RemoteSha": "ce29aadc313b44bb7ae192556ab69c9bc527ff2d",
+      "Hash": "2c2faeee1aa9d6807db66dff000f1b43"
+    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.14",
@@ -127,6 +139,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "8f24b65b86f4d6d7b1e2d8a4ce2c02fb"
+    },
+    "visNetwork": {
+      "Package": "visNetwork",
+      "Version": "2.0.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "12545f2acf49d1d346d075580122d89c"
     },
     "xfun": {
       "Package": "xfun",
