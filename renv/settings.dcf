@@ -1,5 +1,5 @@
 external.libraries:
-ignored.packages: rstudioapi, devtools, usethis
+ignored.packages:
 snapshot.type: packrat
 use.cache: TRUE
 vcs.ignore.library: TRUE
