@@ -9,13 +9,6 @@
     ]
   },
   "Packages": {
-    "MASS": {
-      "Package": "MASS",
-      "Version": "7.3-51.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "1dad32ac9dbd8057167b2979fb932ff7"
-    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.2-18",
@@ -215,13 +208,6 @@
       "Repository": "CRAN",
       "Hash": "f43e0d5e85ccb0a4045670c0607ee504"
     },
-    "highlight": {
-      "Package": "highlight",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "88eee986f41177f688ffd11189cb3aec"
-    },
     "highr": {
       "Package": "highr",
       "Version": "0.8",
@@ -343,10 +329,15 @@
     },
     "pkgdown": {
       "Package": "pkgdown",
-      "Version": "1.5.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "df386e7004001a999d1494cb4538c9bc"
+      "Version": "1.5.1.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "pkgdown",
+      "RemoteRef": "master",
+      "RemoteSha": "caf7cc74e008e8d0d6e53eeda93cd3cad3545bf2",
+      "Hash": "eb8824b10c2f51ac0720c1708fe5c89a"
     },
     "pkgload": {
       "Package": "pkgload",
@@ -413,10 +404,15 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "202260e1b2c410edc086d5b8f1ed946e"
+      "Version": "2.3.2",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "rmarkdown",
+      "RemoteRef": "master",
+      "RemoteSha": "ff1b279e795b62b1ffeabcc9aa5bf7386a7ebb83",
+      "Hash": "563d18379e83e2c2da4f0e093ec66c05"
     },
     "roxygen2": {
       "Package": "roxygen2",
