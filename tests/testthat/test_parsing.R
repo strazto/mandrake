@@ -1,5 +1,6 @@
 help_test_matthews_col <- function(my_tag) {
   expect_equal(my_tag$tag, "col")
+  expect_equal(my_tag$val$name, "matthews_col")
   expect_equal(my_tag$val$direction, list("in"))
   expect_identical(my_tag$val$aliases, list("matts_col"))
   expect_match(my_tag$val$rd, ".*\\\\strong\\{Beautiful\\}.*")
