@@ -9,7 +9,8 @@ LazyData: true
 Suggests: 
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    pkgdown
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: 
