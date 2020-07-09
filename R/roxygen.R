@@ -73,7 +73,8 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     dplyr::mutate(
       body = body,
       rd = body_rd,
-      html = list(body_html)
+      html = list(body_html),
+      name = stringr::str_trim(name)
     )
 
   x$val <- matches
