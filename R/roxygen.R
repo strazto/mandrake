@@ -215,7 +215,9 @@ general_mandrake_column_format <- function(x, ...) {
 
   out <- glue::glue(
     "\\section{<title>:}{",
+    "\\describe{",
     "<general_list_format(x$value)>",
+    "}",
     "}",
     .open = "<", .close = ">", .sep = "\n"
   )
