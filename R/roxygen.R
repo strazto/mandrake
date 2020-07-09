@@ -26,9 +26,19 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     name_pat = "(?<name>\\w+)", # Match wordy character
     alias_pat  = "(?:(?<aliases>\\[[^[\\]]*?\\]))?" #Option match a yaml array style list in parentheses
   )
+  match_object <- gregexpr(front_pattern, x$raw, perl = TRUE)
 
-  matches <- x$raw %>% extract_named_captures(front_pattern)
-  body <- x$raw %>% stringr::str_remove(front_pattern)
+  if (match_object[[1]] < 0) {
+    roxygen2::roxy_tag_warning(x, "Unable to parse column header!")
+    x$val <- NULL
+    roxygen2::roxy_tag_warning(x, format_msg)
+    return(x)
+  }
+
+  header_length <- match_object[[1]] %>% {. + attr(., "match.length")}
+
+  matches <- x$raw %>% extract_named_captures(match_object)
+  body <- x$raw %>% stringr::str_sub(start = header_length)
 
   if (any(is.na(matches$name))) {
     roxygen2::roxy_tag_warning(x, "missing name argument")
@@ -56,13 +66,14 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
 
   if (explain_format) roxygen2::roxy_tag_warning(x, format_msg)
 
-  body %<>% roxygen2:::markdown_if_active(x)
-  body_html <- pkgdown::rd2html(body)
+  body_rd   <- body %>% roxygen2:::markdown_if_active(x)
+  body_html <- body_rd %>% pkgdown::rd2html(autolink = TRUE)
 
   matches %<>%
     dplyr::mutate(
-      rd = body,
-      html = body_html
+      body = body,
+      rd = body_rd,
+      html = list(body_html)
     )
 
   x$val <- matches
@@ -71,8 +82,7 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
 }
 
 #' Extract named captures from gregexpr
-extract_named_captures <- function(string, pattern) {
-  match_object <- gregexpr(pattern, string, perl = TRUE)
+extract_named_captures <- function(string, match_object) {
 
   out <- list()
 
