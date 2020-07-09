@@ -10,7 +10,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    pkgdown
+    pkgdown (>= 1.5.1.9000)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: 
@@ -18,5 +18,5 @@ Imports:
     visNetwork,
     magrittr,
     downlit (>= 0.0.0.9000)
-Remotes:  
+Remotes: 
     r-lib/downlit
