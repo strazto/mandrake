@@ -3,14 +3,30 @@ Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
 Version: 0.0.0.9002
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
 Description: This package aims to 
+URL: https://pages.github.sydney.edu.au/speed-extract/mandrake/, https://github.sydney.edu.au/speed-extract/mandrake/
 License: MIT
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: 
     drake (>= 7.7.0.9001),
-    visNetwork
+    visNetwork,
+    magrittr,
+    downlit (>= 0.0.0.9000),
+    dplyr (>= 1.0.0),
+    purrr (>= 0.3.4),
+    rlang (>= 0.4.6),
+    glue (>= 1.4.1),
+    pkgdown (>= 1.5.1.9000),
+    roxygen2 (>= 7.1.1),
+    stringr (>= 1.4.0),
+    tibble (>= 3.0.1),
+    tidyr (>= 1.1.0),
+    yaml (>= 2.2.1)
+Remotes: 
+    r-lib/downlit
