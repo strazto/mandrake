@@ -14,7 +14,8 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     "[direction] is optional yaml list that can take values [in, out].",
     "[yaml, list, of, aliases] is optional, and allows column to be referenced",
     "  by other strings",
-    .sep = "\n"
+    .sep = "\n",
+    .trim = FALSE
   )
 
   spc_pat <- "\\h"
@@ -112,4 +113,97 @@ extract_named_captures <- function(string, match_object) {
     tidyr::pivot_wider(id_cols = name, names_from = name, values_from = match)
 
   out
+}
+
+# Generate / Dispatch rd sections ==============
+
+#' @export
+#' @family roxygen
+roxy_tag_rd.roxy_tag_col <- function(x, base_path, env) {
+  dirs_in <- c("in", "i")
+  dirs_out <- c("out", "i")
+
+  is_in <- any(x$val$direction %in% dirs_in)
+  is_out <- any(x$val$direction %in% dirs_out)
+
+  if (is_in) {
+    out <- roxygen2::rd_section("mandrake_input_column", x$val)
+    return(out)
+  }
+
+  if (is_out) {
+    out <- roxygen2::rd_section("mandrake_output_column", x$val)
+    return(out)
+  }
+
+  out <- roxygen2::rd_section("mandrake_general_column", x$val)
+  return(out)
+}
+
+# Merge rd sections =========
+
+#' @export
+#' @family roxygen
+merge.rd_section_mandrake_input_column <- function(x, y, ...) {
+  rd_section("mandrake_input_column", dplyr::bind_rows(x$val, y$val))
+}
+
+#' @export
+#' @family roxygen
+merge.rd_section_mandrake_output_column <- function(x, y, ...) {
+  rd_section("mandrake_output_column", dplyr::bind_rows(x$val, y$val))
+}
+
+#' @export
+#' @family roxygen
+merge.rd_section_mandrake_general_column <- function(x, y, ...) {
+  rd_section("mandrake_general_column", dplyr::bind_rows(x$val, y$val))
+}
+
+# Format rd sections =================
+
+#' @export
+#' @family roxygen
+format.rd_section_mandrake_input_column <- function(x, ...) {
+  general_mandrake_column_format(x, title = "Input Columns")
+}
+
+#' @export
+#' @family roxygen
+format.rd_section_mandrake_output_column <- function(x, ...) {
+  general_mandrake_column_format(x, title = "Output Columns")
+}
+
+#' @export
+#' @family roxygen
+format.rd_section_mandrake_general_column <- function(x, ...) {
+  general_mandrake_column_format(x, title = "Other Columns")
+}
+
+# rd formatting helpers ==============
+
+general_list_format <- function(x, ...) {
+  out <- glue::glue(
+    "\\item{<nm>}{<rd>}",
+    .open = "<",
+    .close = ">",
+    nm = x[["name"]],
+    rd = x[["rd"]],
+    .sep = "\n"
+  )
+  out
+}
+
+general_mandrake_column_format <- function(x, ...) {
+  `%||%` <- rlang::`%||%`
+  dots <- rlang::list2(...)
+
+  title <- dots$title %||% "General Column"
+
+  glue::glue(
+    "\\section{<title>:}{",
+    "<general_list_format(x)>",
+    "}",
+    .open = "<", .close = ">", .sep = "\n"
+  )
 }
