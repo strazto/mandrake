@@ -9,14 +9,23 @@ LazyData: true
 Suggests: 
     knitr,
     rmarkdown,
-    testthat,
-    pkgdown (>= 1.5.1.9000)
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: 
     drake (>= 7.7.0.9001),
     visNetwork,
     magrittr,
-    downlit (>= 0.0.0.9000)
+    downlit (>= 0.0.0.9000),
+    dplyr (>= 1.0.0),
+    purrr (>= 0.3.4),
+    rlang (>= 0.4.6),
+    glue (>= 1.4.1),
+    pkgdown (>= 1.5.1.9000),
+    roxygen2 (>= 7.1.1),
+    stringr (>= 1.4.0),
+    tibble (>= 3.0.1),
+    tidyr (>= 1.1.0),
+    yaml (>= 2.2.1)
 Remotes: 
     r-lib/downlit
