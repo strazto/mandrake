@@ -4,7 +4,7 @@
 \alias{extract_named_captures}
 \title{Extract named captures from gregexpr}
 \usage{
-extract_named_captures(string, pattern)
+extract_named_captures(string, match_object)
 }
 \description{
 Extract named captures from gregexpr
