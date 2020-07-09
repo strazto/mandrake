@@ -8,9 +8,11 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: 
     drake (>= 7.7.0.9001),
-    visNetwork
+    visNetwork,
+    magrittr
