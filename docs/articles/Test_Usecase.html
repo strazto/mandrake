@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -89,45 +89,49 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mandrake</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">drake</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pages.github.sydney.edu.au/speed-extract/mandrake">mandrake</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://docs.ropensci.org/drake">drake</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://yihui.org/knitr">knitr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">magrittr</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"mtcars/R/functions.R"</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># This is where you set up your workflow plan,</span>
+<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"mtcars/R/functions.R"</span>)
+</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># This is where you set up your workflow plan,</span>
 <span class="co"># a data frame with the steps of your analysis.</span>
 
-<span class="no">my_plan</span> <span class="kw">&lt;-</span> <span class="kw pkg">drake</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(
-  <span class="kw">report</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in</a></span>(<span class="st">"mtcars/report.Rmd"</span>), <span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out</a></span>(<span class="st">"mtcars/report.md"</span>), <span class="kw">quiet</span> <span class="kw">=</span> <span class="fl">TRUE</span>),
-  <span class="kw">small</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">48</span>),
-  <span class="kw">large</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">64</span>),
-  <span class="kw">regression1</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu">reg1</span>(<span class="no">data</span>),
-    <span class="kw">transform</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">small</span>, <span class="no">large</span>), <span class="kw">.tag_out</span> <span class="kw">=</span> <span class="no">reg</span>, <span class="kw">.tag_in</span> <span class="kw">=</span> <span class="no">cluster_id</span>)
+<span class="kw">my_plan</span> <span class="op">&lt;-</span> <span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(
+  report = <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in</a></span>(<span class="st">"mtcars/report.Rmd"</span>), <span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out</a></span>(<span class="st">"mtcars/report.md"</span>), quiet = <span class="fl">TRUE</span>),
+  small = <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">48</span>),
+  large = <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">64</span>),
+  regression1 = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
+    <span class="fu">reg1</span>(<span class="kw">data</span>),
+    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(data = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">small</span>, <span class="kw">large</span>), .tag_out = <span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
   ),
-  <span class="kw">regression2</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu">reg2</span>(<span class="no">data</span>),
-    <span class="kw">transform</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="no">data</span>, <span class="kw">.tag_out</span> <span class="kw">=</span> <span class="no">reg</span>, <span class="kw">.tag_in</span> <span class="kw">=</span> <span class="no">cluster_id</span>)
+  regression2 = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
+    <span class="fu">reg2</span>(<span class="kw">data</span>),
+    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">data</span>, .tag_out = <span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
   ),
-  <span class="kw">summ</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">reg</span>$<span class="no">residuals</span>)),
-    <span class="kw">transform</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="no">reg</span>, <span class="kw">.tag_in</span> <span class="kw">=</span> <span class="no">cluster_id</span>)
+  summ = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">reg</span><span class="op">$</span><span class="kw">residuals</span>)),
+    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
   ),
-  <span class="kw">coef</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">reg</span>))$<span class="no">coefficients</span>,
-    <span class="kw">transform</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="no">reg</span>, <span class="kw">.tag_in</span> <span class="kw">=</span> <span class="no">cluster_id</span>)
+  coef = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">reg</span>))<span class="op">$</span><span class="kw">coefficients</span>,
+    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
   ),
-
-  <span class="kw">unrelated</span> <span class="kw">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="no">mtcars</span>
+  
+  unrelated = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
+    <span class="kw">mtcars</span>
   ),
-  <span class="kw">trace</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+  trace = <span class="fl">TRUE</span>
 )
 
-<span class="no">my_plan</span> <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"command"</span>, <span class="kw pkg">rlang</span><span class="kw ns">::</span><span class="no"><a href="https://rlang.r-lib.org/reference/as_label.html">as_label</a></span>)) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="st">"html"</span>)</pre></body></html></div>
+<span class="kw">my_plan</span> <span class="op">%&gt;%</span> 
+  <span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="st">"command"</span>, <span class="kw">rlang</span>::<span class="kw"><a href="https://rlang.r-lib.org/reference/as_label.html">as_label</a></span>)) <span class="op">%&gt;%</span>
+  <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="st">"html"</span>)
+</pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -625,53 +629,65 @@ NA
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">cache</span> <span class="kw">&lt;-</span> <span class="kw pkg">drake</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/get_cache.html">get_cache</a></span>()
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">cache</span> <span class="op">&lt;-</span> <span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/get_cache.html">get_cache</a></span>()
 <span class="co">#&gt; Warning: get_cache() is deprecated. Use drake_cache() instead.</span>
-<span class="no">my_config</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="no">my_plan</span>)
-<span class="kw pkg">drake</span><span class="kw ns">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="kw">config</span> <span class="kw">=</span> <span class="no">my_config</span>)
-<span class="co">#&gt; All targets are already up to date.</span></pre></body></html></div>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">plan_extracted</span> <span class="kw">&lt;-</span> <span class="no">my_plan</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/extract_column_names.html">extract_column_names</a></span>(<span class="no">cache</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="st">"cluster_id"</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
-    <span class="kw">target_column_list</span> <span class="kw">=</span> <span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(
-      <span class="no">target_column_list</span>,
-      ~ <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="no">.</span>, <span class="st">"html"</span>)))</pre></body></html></div>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">my_config</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="no">plan_extracted</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">embed_behaviour</span> <span class="kw">&lt;-</span> <span class="kw">function</span>() {
-  <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(
+<span class="kw">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="kw">my_plan</span>)
+<span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(config = <span class="kw">my_config</span>)
+<span class="co">#&gt; All targets are already up to date.</span>
+</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">plan_extracted</span> <span class="op">&lt;-</span> <span class="kw">my_plan</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/extract_column_names.html">extract_column_names</a></span>(<span class="kw">cache</span>, group = <span class="st">"cluster_id"</span>) <span class="op">%&gt;%</span>
+  <span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(
+    target_column_list = <span class="kw">purrr</span>::<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(
+      <span class="kw">target_column_list</span>, 
+      <span class="op">~</span> <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">.</span>, <span class="st">"html"</span>)))
+</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="kw">plan_extracted</span>)
+</pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">embed_behaviour</span> <span class="op">&lt;-</span> <span class="fu">function</span>() {
+  <span class="kw">glue</span>::<span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(
     <span class="st">"function(props) {"</span>,
       <span class="st">"container = this.body.container;"</span>,
       <span class="st">"legend = $(container).prev()[0];"</span>,
       <span class="st">"node = this.body.data.nodes.get(props.nodes[0]);"</span>,
       <span class="st">"legend.innerHTML = node.on_select_col;"</span>,
     <span class="st">"}"</span>,
-    <span class="kw">.sep</span> <span class="kw">=</span> <span class="st">"\n"</span>,
-    <span class="kw">.open</span> <span class="kw">=</span> <span class="st">"&lt;{"</span>,
-    <span class="kw">.close</span> <span class="kw">=</span> <span class="st">"}&gt;"</span>
-  ) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>()
-}</pre></body></html></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">graph_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_graph_info.html">drake_graph_info</a></span>(
-  <span class="no">my_config</span>,
-  <span class="kw">group</span> <span class="kw">=</span> <span class="st">"cluster_id"</span>,
-  <span class="kw">clusters</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summ"</span>, <span class="st">"coef"</span>),
-  <span class="kw">build_times</span> <span class="kw">=</span> <span class="st">"none"</span>,
-  <span class="kw">on_select_col</span> <span class="kw">=</span> <span class="st">"target_column_list"</span>)
+    .sep = <span class="st">"\n"</span>,
+    .open = <span class="st">"&lt;{"</span>,
+    .close = <span class="st">"}&gt;"</span>
+  ) <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>()
+}
+</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">graph_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_graph_info.html">drake_graph_info</a></span>(
+  <span class="kw">my_config</span>, 
+  group = <span class="st">"cluster_id"</span>, 
+  clusters = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summ"</span>, <span class="st">"coef"</span>), 
+  build_times = <span class="st">"none"</span>,
+  on_select_col = <span class="st">"target_column_list"</span>)
 
-<span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/render_drake_graph.html">render_drake_graph</a></span>(
-  <span class="no">graph_info</span>,
-  <span class="kw">on_select</span> <span class="kw">=</span> <span class="fu">embed_behaviour</span>(),
-  <span class="kw">ncol_legend</span> <span class="kw">=</span> <span class="fl">2</span>
-  ) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">visNetwork</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/visNetwork/man/visHierarchicalLayout.html">visHierarchicalLayout</a></span>(
-    <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"LR"</span>, <span class="kw">levelSeparation</span> <span class="kw">=</span> <span class="fl">250</span>
-    ) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">visNetwork</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/visNetwork/man/visEdges.html">visEdges</a></span>(
-    <span class="kw">smooth</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"cubicBezier"</span>, <span class="kw">forceDirection</span> <span class="kw">=</span> <span class="st">"horizontal"</span>)
-    )</pre></body></html></div>
+<span class="kw">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/render_drake_graph.html">render_drake_graph</a></span>(
+  <span class="kw">graph_info</span>, 
+  on_select = <span class="fu">embed_behaviour</span>(),
+  ncol_legend = <span class="fl">2</span>
+  ) <span class="op">%&gt;%</span>
+  <span class="kw">visNetwork</span>::<span class="fu"><a href="https://rdrr.io/pkg/visNetwork/man/visHierarchicalLayout.html">visHierarchicalLayout</a></span>(
+    direction = <span class="st">"LR"</span>, levelSeparation = <span class="fl">250</span>
+    ) <span class="op">%&gt;%</span>
+  <span class="kw">visNetwork</span>::<span class="fu"><a href="https://rdrr.io/pkg/visNetwork/man/visEdges.html">visEdges</a></span>(
+    smooth = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(type = <span class="st">"cubicBezier"</span>, forceDirection = <span class="st">"horizontal"</span>)
+    )
+</pre></div>
 <div id="graph" class="section level1">
 <h1 class="hasAnchor">
 <a href="#graph" class="anchor"></a>Graph</h1>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">graph</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">graph</span>
+</pre></div>
 <div id="htmlwidget-9b841de324d41155df19" style="width:700px;height:432.632880098888px;" class="visNetwork html-widget"></div>
 <script type="application/json" data-for="htmlwidget-9b841de324d41155df19">{"x":{"nodes":{"id":["random_rows","reg1","reg2","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","unrelated","simulate","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ","cluster_id: summ","cluster_id: coef"],"imported":[true,true,true,true,false,true,false,false,false,false,false,false,false,false,false,false],"label":["random_rows","reg1","reg2","file mtcars/report.Rmd","unrelated","simulate","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","file mtcars/report.md","cluster_id: summ","cluster_id: coef"],"cluster_id":["NULL","NULL","NULL","NULL",null,"NULL",null,null,"regression1","regression2","regression1","regression2",null,null,"summ","coef"],"status":["imported","imported","imported","imported","up to date","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","function","function","file","object","function","object","object","object","object","object","object","object","file","cluster","cluster"],"font.size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"color":["#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","triangle","triangle","square","dot","triangle","dot","dot","dot","dot","dot","dot","dot","square","diamond","diamond"],"level":[1,1,1,1,1,2,3,3,4,4,4,4,6,7,5,5],"title":["Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","summ_regression1_small, summ_regression2_small...","coef_regression1_small, coef_regression2_small..."],"x":[-1,-1,-1,-1,-1,-0.666666666666667,-0.333333333333333,-0.333333333333333,0,0,0,0,0.666666666666667,1,0.333333333333333,0.333333333333333],"y":[-0.857142857142857,-0.428571428571428,2.22044604925031e-16,0.428571428571429,0.857142857142857,2.22044604925031e-16,-0.428571428571428,0.428571428571429,-0.771428571428571,-0.257142857142857,0.257142857142858,0.771428571428572,2.22044604925031e-16,2.22044604925031e-16,-0.714285714285714,-1],"on_select_col":["NULL","NULL","NULL","NULL","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> mpg <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> cyl <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> disp <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> hp <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> drat <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> wt <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qsec <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> vs <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> am <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> gear <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> carb <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","<table>\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> x <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> Min. <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 1st Qu. <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Median <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Mean <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 3rd Qu. <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Max. <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<table>\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>"]},"edges":{"from":["random_rows","reg1","reg1","reg2","reg2","regression1_small","regression1_small","regression1_large","regression1_large","regression2_small","regression2_small","regression2_large","regression2_large","simulate","simulate","small","small","small","large","large","large","cluster_id: coef","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","report"],"to":["simulate","regression1_small","regression1_large","regression2_small","regression2_large","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","small","large","regression1_small","regression2_small","report","regression1_large","regression2_large","report","report","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"interaction":{"navigationButtons":true},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"levelSeparation":250,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Dependency graph","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":2,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File","Cluster"],"color":["#228B22","#1874CD","#888888","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square","diamond"],"font.color":["black","black","black","black","black","black"],"font.size":[20,20,20,20,20,20],"id":[1,5,7,8,9,10]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","igraphlayout":{"type":"square"},"events":{"selectNode":"function(props) {\ncontainer = this.body.container;\nlegend = $(container).prev()[0];\nnode = this.body.data.nodes.get(props.nodes[0]);\nlegend.innerHTML = node.on_select_col;\n}"}},"evals":["events.selectNode"],"jsHooks":[]}</script>
 </div>
@@ -692,7 +708,7 @@ NA
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
