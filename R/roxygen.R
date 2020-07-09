@@ -183,12 +183,25 @@ format.rd_section_mandrake_general_column <- function(x, ...) {
 # rd formatting helpers ==============
 
 general_list_format <- function(x, ...) {
+
+  aliases <- x$aliases %>%
+    purrr::map_chr(
+      ~glue::glue_collapse(
+        c(
+          "\\itemize{",
+          glue::glue("\\item {.}"),
+          "}"
+        )))
+
   out <- glue::glue(
-    "\\item{<nm>}{<rd>}",
+    "\\item{<nm>}{<rd>",
+    "<aliases>",
+    "}",
     .open = "<",
     .close = ">",
     nm = x[["name"]],
     rd = x[["rd"]],
+
     .sep = "\n"
   ) %>% glue::glue_collapse(sep = "\n")
   out
