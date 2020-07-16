@@ -1,7 +1,9 @@
+#' @export
 col_roclet <- function() {
-  roclet("col")
+  roxygen2::roclet("col")
 }
 
+#' @export
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
@@ -15,6 +17,7 @@ roclet_process.roclet_col <- function(
 
 get_block_data <- function(
   roc, block, env, base_path) {
+  `%||%` <- rlang::`%||%`
 
   topic <- block$object$topic
   pkg <- roxygen2::roxy_meta_get("current_package")
@@ -28,10 +31,18 @@ get_block_data <- function(
     dplyr::mutate(
       topic = topic,
       package = pkg,
-      html_ref = downlit::autolink(glue::glue("{package}::{topic}")),
       rd_ref   = glue::glue(
-        "\\code{\\link[<package>:<topic>]{<package>::<topic>}}",
-        .open = "<", .close = ">")
+        "\\code{\\link[<package><s><topic>]{<package><s><s><topic>}}",
+        .open = "<", .close = ">",
+        package = pkg %||% "",
+        s = dplyr::if_else(rlang::is_empty(pkg), "", ":")
+        ),
+      html_ref = pkgdown::rd2html(rd_ref, autolink = TRUE)
       )
   out
+}
+
+#' @export
+roclet_output.roclet_col <- function(roc, results, base_path, ...) {
+  invisible(NULL)
 }
