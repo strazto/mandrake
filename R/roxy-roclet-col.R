@@ -45,7 +45,32 @@ get_block_data <- function(
   out
 }
 
+default_column_map_output_path <- function(pkg_name) {
+  file.path("inst", "mandrake", glue::glue("{pkg_name}.yaml"))
+}
+
+
+
 #' @export
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
+  `%||%` <- rlang::`%||%`
+
+  pkg_name <- roxygen2::roxy_meta_get("current_package") %||% "package"
+
+  output_path <- roxygen2::roxy_meta_get(
+    "mandrake_output",
+    default_column_map_output_path(pkg_name))
+
+  output_path <- file.path(base_path, output_path)
+  output_dir <- dirname(output_path)
+
+  if (!dir.exists(output_dir)) {
+    warning(
+      "mandrake output path, ", output_dir, " does not exist, making it now!"
+      )
+    dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+  }
+
+
   invisible(NULL)
 }
