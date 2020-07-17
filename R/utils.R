@@ -41,8 +41,13 @@ restore_col_type <- function(x) {
     purrr::map_lgl(has_list_tag) %>%
     any()
 
-  if (is_list_col) x %<>% tag_list_col()
-  else x %<>% unlist()
+  if (is_list_col) {
+    x %<>%
+      tag_list_col() %>%
+      purrr::simplify_all()
+  } else {
+    x %<>% unlist()
+  }
 
   x
 }
