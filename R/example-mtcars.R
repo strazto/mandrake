@@ -1,4 +1,4 @@
-#' mtcars dataset
+#' mtcars Dataset
 #'
 #' These cars go vroom!
 #'
@@ -41,4 +41,5 @@
 #' Integer, Number of grams of carbohydrates contained in this car.
 #' Typically pretty low, as cars are not particularly nutritious.
 #' @md
+#' @name mtcars_dataset
 mtcars
