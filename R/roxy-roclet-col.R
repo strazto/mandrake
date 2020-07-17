@@ -71,6 +71,12 @@ roclet_output.roclet_col <- function(roc, results, base_path, ...) {
     dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
   }
 
+  out <- results %>%
+    serialize_df()
+
+  out <- c(roxygen2:::made_by("#"), out)
+
+  out %>% write(file = output_path)
 
   invisible(NULL)
 }
