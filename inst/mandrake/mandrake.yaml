@@ -20,7 +20,7 @@ mpg:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 cyl:
   direction: !<list> out
   name: cyl
@@ -38,7 +38,7 @@ cyl:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 disp:
   direction: !<list> out
   name: disp
@@ -56,7 +56,7 @@ disp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 hp:
   direction: !<list> out
   name: hp
@@ -77,7 +77,7 @@ hp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 drat:
   direction: !<list> out
   name: drat
@@ -98,7 +98,7 @@ drat:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 wt:
   direction: !<list> out
   name: wt
@@ -122,7 +122,7 @@ wt:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 qsec:
   direction: !<list> out
   name: qsec
@@ -140,7 +140,7 @@ qsec:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 vs:
   direction: !<list> out
   name: vs
@@ -153,7 +153,7 @@ vs:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 am:
   direction: !<list> out
   name: am
@@ -171,7 +171,7 @@ am:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 gear:
   direction: !<list> out
   name: gear
@@ -192,7 +192,7 @@ gear:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 carb:
   direction: !<list> out
   name: carb
@@ -210,5 +210,215 @@ carb:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code>mandrake::mtcars_dataset</code>
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+coefficients:
+  direction: !<list> out
+  name: coefficients
+  aliases: !<list> []
+  body: |2-
+
+    a named vector of coefficients
+  rd: a named vector of coefficients
+  html: !<list> a named vector of coefficients
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+residuals:
+  direction: !<list> out
+  name: residuals
+  aliases: !<list> []
+  body: |2-
+
+    The residuals, that is response minus fitted values.
+  rd: The residuals, that is response minus fitted values.
+  html: !<list> The residuals, that is response minus fitted values.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+fitted.:
+  direction: !<list> out
+  name: fitted.
+  aliases: !<list> []
+  body: |-
+    .values
+    The fitted mean values.
+  rd: |-
+    .values
+    The fitted mean values.
+  html: !<list>
+  - .values
+  - The fitted mean values.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+rank:
+  direction: !<list> out
+  name: rank
+  aliases: !<list> []
+  body: |2-
+
+    the numeric rank of the fitted linear model.
+  rd: the numeric rank of the fitted linear model.
+  html: !<list> the numeric rank of the fitted linear model.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+weights:
+  direction: !<list> out
+  name: weights
+  aliases: !<list> []
+  body: |2-
+
+    (only for weighted fits) the specified weights.
+  rd: (only for weighted fits) the specified weights.
+  html: !<list> (only for weighted fits) the specified weights.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+df.:
+  direction: !<list> out
+  name: df.
+  aliases: !<list> []
+  body: |-
+    .residual
+    the residual degrees of freedom.
+  rd: |-
+    .residual
+    the residual degrees of freedom.
+  html: !<list>
+  - .residual
+  - the residual degrees of freedom.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+call:
+  direction: !<list> out
+  name: call
+  aliases: !<list> []
+  body: |2-
+
+    the matched call.
+  rd: the matched call.
+  html: !<list> the matched call.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+terms:
+  direction: !<list> out
+  name: terms
+  aliases: !<list> []
+  body: |2-
+
+    the [stats::terms()] object used.
+  rd: the \code{\link[stats:terms]{stats::terms()}} object used.
+  html: !<list> the <code><a href='https://rdrr.io/r/stats/terms.html'>stats::terms()</a></code>
+    object used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+contrasts:
+  direction: !<list> out
+  name: contrasts
+  aliases: !<list> []
+  body: |2-
+
+    (only where relevant) the contrasts used.
+  rd: (only where relevant) the contrasts used.
+  html: !<list> (only where relevant) the contrasts used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+xlevels:
+  direction: !<list> out
+  name: xlevels
+  aliases: !<list> []
+  body: |2-
+
+    (only where relevant) a record of the levels of the factors used in fitting.
+  rd: (only where relevant) a record of the levels of the factors used in fitting.
+  html: !<list> (only where relevant) a record of the levels of the factors used in
+    fitting.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+offset:
+  direction: !<list> out
+  name: offset
+  aliases: !<list> []
+  body: |2-
+
+    the offset used (missing if none were used).
+  rd: the offset used (missing if none were used).
+  html: !<list> the offset used (missing if none were used).
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+'y':
+  direction: !<list> out
+  name: 'y'
+  aliases: !<list> []
+  body: |2-
+
+    if requested, the response used.
+  rd: if requested, the response used.
+  html: !<list> if requested, the response used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+x:
+  direction: !<list> out
+  name: x
+  aliases: !<list> []
+  body: |2-
+
+    if requested, the model matrix used.
+  rd: if requested, the model matrix used.
+  html: !<list> if requested, the model matrix used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+model:
+  direction: !<list> out
+  name: model
+  aliases: !<list> []
+  body: |2-
+
+    if requested (the default), the model frame used.
+  rd: if requested (the default), the model frame used.
+  html: !<list> if requested (the default), the model frame used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+na.:
+  direction: !<list> out
+  name: na.
+  aliases: !<list> []
+  body: |-
+    .action
+    (where relevant) information returned by [stats::model.frame()] on the special handling of NAs.
+  rd: |-
+    .action
+    (where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}} on the special handling of NAs.
+  html: !<list>
+  - .action
+  - (where relevant) information returned by <code><a href='https://rdrr.io/r/stats/model.frame.html'>stats::model.frame()</a></code>
+    on the special handling of NAs.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
 
