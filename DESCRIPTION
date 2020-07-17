@@ -31,3 +31,4 @@ Imports:
 Remotes: 
     r-lib/downlit,
     r-lib/pkgdown
+Roxygen: list(markdown = TRUE, roclets = list('rd', 'collate', 'namespace', 'mandrake::col_roclet'))
