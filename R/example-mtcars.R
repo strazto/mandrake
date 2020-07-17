@@ -42,4 +42,43 @@
 #' Typically pretty low, as cars are not particularly nutritious.
 #' @md
 #' @name mtcars_dataset
-mtcars
+NULL
+
+
+#' Linear Models
+#'
+#' See [stats::lm()] for more info :)
+#'
+#' @col [out] coefficients
+#' a named vector of coefficients
+#' @col [out] residuals
+#' The residuals, that is response minus fitted values.
+#' @col [out] fitted.values
+#' The fitted mean values.
+#' @col [out] rank
+#' the numeric rank of the fitted linear model.
+#' @col [out] weights
+#' (only for weighted fits) the specified weights.
+#' @col [out] df.residual
+#' the residual degrees of freedom.
+#' @col [out] call
+#' the matched call.
+#' @col [out] terms
+#' the [stats::terms()] object used.
+#' @col [out] contrasts
+#' (only where relevant) the contrasts used.
+#' @col [out] xlevels
+#' (only where relevant) a record of the levels of the factors used in fitting.
+#' @col [out] offset
+#' the offset used (missing if none were used).
+#' @col [out] y
+#' if requested, the response used.
+#' @col [out] x
+#' if requested, the model matrix used.
+#' @col [out] model
+#' if requested (the default), the model frame used.
+#' @col [out] na.action
+#' (where relevant) information returned by [stats::model.frame()] on the special handling of NAs.
+#' @name lm_object
+NULL
+
