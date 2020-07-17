@@ -1,7 +1,9 @@
+#' @export
 col_roclet <- function() {
-  roclet("col")
+  roxygen2::roclet("col")
 }
 
+#' @export
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
@@ -15,8 +17,12 @@ roclet_process.roclet_col <- function(
 
 get_block_data <- function(
   roc, block, env, base_path) {
+  `%||%` <- rlang::`%||%`
 
-  topic <- block$object$topic
+  # From:
+  # https://github.com/r-lib/roxygen2/blob/c73def498f29783044fe50865f22c2482f80942d/R/rd.R#L122
+  topic <- roxygen2::block_get_tag(block, "name")$val %||% block$object$topic
+
   pkg <- roxygen2::roxy_meta_get("current_package")
 
   out <- roxygen2::block_get_tags(block, "col")
@@ -28,10 +34,51 @@ get_block_data <- function(
     dplyr::mutate(
       topic = topic,
       package = pkg,
-      html_ref = downlit::autolink(glue::glue("{package}::{topic}")),
       rd_ref   = glue::glue(
-        "\\code{\\link[<package>:<topic>]{<package>::<topic>}}",
-        .open = "<", .close = ">")
+        "\\code{\\link[<package><s><topic>]{<package><s><s><topic>}}",
+        .open = "<", .close = ">",
+        package = pkg %||% "",
+        s = dplyr::if_else(rlang::is_empty(pkg), "", ":")
+        ),
+      html_ref = pkgdown::rd2html(rd_ref, autolink = TRUE)
       )
   out
+}
+
+default_column_map_output_path <- function(pkg_name) {
+  file.path("inst", "mandrake", glue::glue("{pkg_name}.yaml"))
+}
+
+
+
+#' @export
+roclet_output.roclet_col <- function(roc, results, base_path, ...) {
+  `%||%` <- rlang::`%||%`
+
+  pkg_name <- roxygen2::roxy_meta_get("current_package") %||% "package"
+
+  output_path <- roxygen2::roxy_meta_get(
+    "mandrake_output",
+    default_column_map_output_path(pkg_name))
+
+  cat(c("Writing", output_path))
+
+  output_path <- file.path(base_path, output_path)
+  output_dir <- dirname(output_path)
+
+  if (!dir.exists(output_dir)) {
+    warning(
+      "mandrake output path, ", output_dir, " does not exist, making it now!"
+      )
+    dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
+  }
+
+  out <- results %>%
+    serialize_df()
+
+  out <- c(roxygen2:::made_by("#"), out)
+
+  out %>% write(file = output_path)
+
+  invisible(NULL)
 }
