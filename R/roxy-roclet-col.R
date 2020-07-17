@@ -21,7 +21,7 @@ get_block_data <- function(
 
   # From:
   # https://github.com/r-lib/roxygen2/blob/c73def498f29783044fe50865f22c2482f80942d/R/rd.R#L122
-  topic <- block_get_tag(block, "name")$val %||% block$object$topic
+  topic <- roxygen2::block_get_tag(block, "name")$val %||% block$object$topic
 
   pkg <- roxygen2::roxy_meta_get("current_package")
 
