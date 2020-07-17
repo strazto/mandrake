@@ -61,6 +61,8 @@ roclet_output.roclet_col <- function(roc, results, base_path, ...) {
     "mandrake_output",
     default_column_map_output_path(pkg_name))
 
+  cat(c("Writing", output_path))
+
   output_path <- file.path(base_path, output_path)
   output_dir <- dirname(output_path)
 
