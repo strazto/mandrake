@@ -49,15 +49,18 @@ my_plan <- drake::drake_plan(
     transform = map(reg, .tag_in = cluster_id)
   ),
   
-  unrelated = target(
+  mtcars = target(
     mtcars
   ),
   trace = TRUE
 )
+```
 
+```{r, echo=FALSE}
 my_plan %>% 
   dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
-  knitr::kable("html")
+  knitr::kable("html") %>%
+  kableExtra::kable_styling(c("striped", "responsive", "condensed"))
 ```
 
 ```{r}
@@ -68,51 +71,20 @@ drake::make(config = my_config)
 ```
 
 ```{r}
+lookup_cache <- mandrake::load_package_colspec("mandrake")
+
 plan_extracted <- my_plan %>%
-  extract_column_names(cache, group = "cluster_id") %>%
+  extract_column_names(cache, group = "cluster_id") 
+```
+```{r}
+plan_extracted %<>%
   dplyr::mutate(
-    target_column_list = purrr::map_chr(
-      target_column_list, 
-      ~ knitr::kable(., "html")))
+    target_column_list = link_col2doc(target_column_list, lookup_cache = lookup_cache))
 ```
 
 ```{r}
 my_config <- drake_config(plan_extracted)
 ```
-
-```{r, include=FALSE}
-alert_behaviour <- function(){
-  js <- "
-  function(props) {
-    node = this.body.data.nodes.get(props.nodes[0]);
-    cr = '\\r\\n';
-    alert('selected ' +  node.label + ':' + cr +
-            '=======' + cr +
-            'COLNAMES:' + cr +
-           node.on_select_col + cr + 
-           '=============== '
-           );
-  }"
-}
-```
-
-```{r}
-embed_behaviour <- function() {
-  glue::glue(
-    "function(props) {",
-      "container = this.body.container;",
-      "legend = $(container).prev()[0];",
-      "node = this.body.data.nodes.get(props.nodes[0]);",
-      "legend.innerHTML = node.on_select_col;",
-    "}",
-    .sep = "\n",
-    .open = "<{",
-    .close = "}>"
-  ) %>% as.character()
-}
-
-```
-
 
 ```{r}
 graph_info <- drake_graph_info(
@@ -124,9 +96,12 @@ graph_info <- drake_graph_info(
 
 graph <- render_drake_graph(
   graph_info, 
-  on_select = embed_behaviour(),
-  ncol_legend = 2
-  ) %>%
+  on_select = mandrake::embed_event_handler(),
+  ncol_legend = 4
+  ) 
+```
+```{r, echo=FALSE}
+graph %<>%
   visNetwork::visHierarchicalLayout(
     direction = "LR", levelSeparation = 250
     ) %>%

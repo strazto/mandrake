@@ -1,8 +1,12 @@
+#' Roclet for processing the `@col` tag
+#'
+#' @family roxygen_roclet
 #' @export
 col_roclet <- function() {
   roxygen2::roclet("col")
 }
 
+#' @rdname col_roclet
 #' @export
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
@@ -45,12 +49,13 @@ get_block_data <- function(
   out
 }
 
-default_column_map_output_path <- function(pkg_name) {
-  file.path("inst", "mandrake", glue::glue("{pkg_name}.yaml"))
+default_column_map_output_path <- function() {
+  file.path("inst", "mandrake")
 }
 
 
 
+#' @rdname col_roclet
 #' @export
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
@@ -59,7 +64,9 @@ roclet_output.roclet_col <- function(roc, results, base_path, ...) {
 
   output_path <- roxygen2::roxy_meta_get(
     "mandrake_output",
-    default_column_map_output_path(pkg_name))
+    default_column_map_output_path())
+
+  output_path %<>% file.path(glue::glue("{pkg_name}.yaml"))
 
   cat(c("Writing", output_path))
 

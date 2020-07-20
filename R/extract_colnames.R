@@ -7,10 +7,14 @@ extract_target_column_names <- function(target, cache) {
 }
 
 
-#' Extract column names for targets in plan
+#' Extract Column Names for targets in Drake Plan
+#'
+#' Given a [drake::drake_plan()], extract the column names of each target, and store it
+#' in a new column.
 #'
 #' @inheritParams drake::drake_graph_info
 #' @param colname_out the name given to the list-column containing each target's columns
+#' @family graph_decoration
 #' @export
 extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
                                  colname_out = "target_column_list", ...) {
@@ -47,6 +51,78 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
   out %<>%
     dplyr::right_join(plan, by = tmp_col) %>%
     dplyr::select(-tmp_col)
+
+  out
+}
+
+missing_col_placeholder <- function(col_key) {
+  out <- tibble::tibble_row(
+    name = col_key, aliases = list(NULL),
+    html = list("<i>Column doc not found</i>"),
+    html_ref = ""
+  )
+}
+
+
+pull_out_coldocs <- function(columns, lookup_cache) {
+  if (rlang::is_empty(columns)) return(NULL)
+  out <- lookup_cache$mget(columns)
+
+  which_missing <- attr(out, "missing")
+
+  for (i in which_missing) {
+    out[[i]] <- missing_col_placeholder(columns[[i]])
+  }
+
+  out %<>%
+    dplyr::bind_rows()
+
+  out %<>%
+    dplyr::select(name, description = html, defined_at = html_ref) %>%
+    dplyr::mutate(
+      description = purrr::map_chr(description, ~paste0(., collapse = "<br>")),
+      description = glue::glue(
+        "{description}",
+        "{discuss_found} {defined_at}",
+        discuss_found = dplyr::if_else(
+          stringr::str_length(defined_at) > 0,
+          "Found at",
+          ""),
+        .sep = "<br>"
+      )) %>%
+    dplyr::select(-defined_at)
+  out
+}
+
+#' Link Column Names to their Documentation.
+#'
+#' Given a list-column containing column-names for targets (As part of a
+#' `drake::drake_plan()` having been processed by `extract_column_names()`),
+#' cross reference these columns with the `lookup_cache`, and produce html tables
+#' for each set of columns.
+#'
+#' @return a character vector, of the same length as the outer dimension of
+#'         the input list, each element being a html table describing each
+#'         column.
+#' @export
+#' @family graph_decoration
+#' @param target_column_list a list of character vectors specifying column names
+#' @param lookup_cache todo:doc me
+link_col2doc <- function(target_column_list, lookup_cache) {
+  if (!is(lookup_cache, "storr")) stop("Must pass a storr object to link_col2doc")
+
+  out <- target_column_list %>%
+    purrr::map(
+      pull_out_coldocs, lookup_cache = lookup_cache
+    )
+  out %<>%
+    purrr::map_chr(
+      ~knitr::kable(
+        .,
+        format = "html",
+        escape = FALSE) %>%
+        kableExtra::kable_styling(c("striped", "responsive", "condensed"))
+    )
 
   out
 }

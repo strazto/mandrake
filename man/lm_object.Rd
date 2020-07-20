@@ -6,6 +6,11 @@
 \description{
 See \code{\link[stats:lm]{stats::lm()}} for more info :)
 }
+\seealso{
+Other example_datasets: 
+\code{\link{mtcars_dataset}}
+}
+\concept{example_datasets}
 \section{Output Columns:}{
 \describe{
 \item{coefficients}{a named vector of coefficients
@@ -14,8 +19,7 @@ See \code{\link[stats:lm]{stats::lm()}} for more info :)
 \item{residuals}{The residuals, that is response minus fitted values.
 \itemize{}
 }
-\item{fitted.}{.values
-The fitted mean values.
+\item{fitted.values}{The fitted mean values.
 \itemize{}
 }
 \item{rank}{the numeric rank of the fitted linear model.
@@ -24,8 +28,7 @@ The fitted mean values.
 \item{weights}{(only for weighted fits) the specified weights.
 \itemize{}
 }
-\item{df.}{.residual
-the residual degrees of freedom.
+\item{df.residual}{the residual degrees of freedom.
 \itemize{}
 }
 \item{call}{the matched call.
@@ -52,8 +55,7 @@ the residual degrees of freedom.
 \item{model}{if requested (the default), the model frame used.
 \itemize{}
 }
-\item{na.}{.action
-(where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}} on the special handling of NAs.
+\item{na.action}{(where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}} on the special handling of NAs.
 \itemize{}
 }
 }

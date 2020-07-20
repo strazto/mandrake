@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_colnames.R
 \name{extract_column_names}
 \alias{extract_column_names}
-\title{Extract column names for targets in plan}
+\title{Extract Column Names for targets in Drake Plan}
 \usage{
 extract_column_names(
   plan,
@@ -27,5 +27,11 @@ that you specify in the \code{group} argument to \code{drake_graph_info()}.}
 \item{colname_out}{the name given to the list-column containing each target's columns}
 }
 \description{
-Extract column names for targets in plan
+Given a \code{\link[drake:drake_plan]{drake::drake_plan()}}, extract the column names of each target, and store it
+in a new column.
 }
+\seealso{
+Other graph_decoration: 
+\code{\link{link_col2doc}()}
+}
+\concept{graph_decoration}
