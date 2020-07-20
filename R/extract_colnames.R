@@ -54,7 +54,7 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
 missing_col_placeholder <- function(col_key) {
   out <- tibble::tibble_row(
     name = col_key, aliases = list(NULL),
-    html = list("<i> Column Doc not found </i>"),
+    html = list("<i>Column doc not found</i>"),
     html_ref = ""
   )
 }
@@ -93,7 +93,11 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     )
   out %<>%
     purrr::map_chr(
-      ~knitr::kable(., format = "html", escape = FALSE)
+      ~knitr::kable(
+        .,
+        format = "html",
+        escape = FALSE) %>%
+        kableExtra::kable_styling(c("striped", "responsive", "condensed"))
     )
 
   out
