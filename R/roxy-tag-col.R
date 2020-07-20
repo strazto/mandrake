@@ -24,7 +24,7 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     "{open_pat}{dir_pat}{spc_pat}*{name_pat}{spc_pat}*{alias_pat}",
     open_pat = glue::glue("^{spc_pat}*"), # Match 0 or more whitespace characters from start
     dir_pat  = "(?:(?<direction>\\[[^[\\]]*?\\]))?", # Optionally match a direction in square brackets [direction]
-    name_pat = "(?<name>\\w+)", # Match wordy character
+    name_pat = "(?<name>[\\w\\.]+)", # Match wordy character
     alias_pat  = "(?:(?<aliases>\\[[^[\\]]*?\\]))?" #Option match a yaml array style list in parentheses
   )
   match_object <- gregexpr(front_pattern, x$raw, perl = TRUE)
