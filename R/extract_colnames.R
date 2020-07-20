@@ -50,3 +50,48 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
 
   out
 }
+
+missing_col_placeholder <- function(col_key) {
+  out <- tibble::tibble_rowl(
+    name = col_key, aliases = list(),
+    html = "<i> Column Doc not found </i>",
+    html_ref = ""
+  )
+}
+
+
+
+pull_out_coldocs <- function(columns, lookup_cache) {
+  out <- lookup_cache$mget(columns)
+
+  which_missing <- attr(out, "missing")
+
+  for (i in which_missing) {
+    out[[i]]$name <- columns[[i]]
+  }
+
+  out %<>%
+    dplyr::bind_rows()
+
+  out %<>%
+    dplyr::select(name, description = html, defined_at = html_ref)
+  out
+}
+
+#' Link Column Names to their Documentation
+#' @export
+#' @param target_column_list a list of character vectors specifying column names
+#' @param lookup_cache todo:doc me
+link_col2doc <- function(target_column_list, lookup_cache) {
+  if (!is(lookup_cache, "storr")) stop("Must pass a storr object to link_col2doc")
+
+  out <- target_column_list %>%
+    purrr::map(
+      pull_out_coldocs, lookup_cache = lookup_cache
+    ) %>%
+    purrr::map_chr(
+      ~knitr::kable(., format = "html", escape = FALSE)
+    )
+
+  out
+}
