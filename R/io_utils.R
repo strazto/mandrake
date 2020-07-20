@@ -96,7 +96,12 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
     purrr::walk(function(path) {
       message("Including ", path, " in lookup cache")
       spec <- path %>% load_colspec_file()
-      st$import(spec)
+
+      spec %>%
+        dplyr::group_by(name) %>%
+        dplyr::group_walk(add_entry_to_cache, lookup_cache = st)
+
+      invisible(NULL)
     })
 
 
@@ -109,20 +114,22 @@ load_colspec_file <- function(path) {
   out <- path %>%
     readLines() %>%
     paste0(collapse = "\n") %>%
-    deserialize_df() %>%
-    dplyr::mutate(
-      key = purrr::map2(name, aliases, ~c(.x, .y))
-    ) %>%
-    tidyr::unnest(key) %>%
-    dplyr::group_by(key)
-
-  keys <- out %>%
-    dplyr::group_keys() %>%
-    dplyr::pull("key")
-  out %<>%
-    dplyr::group_split(.keep = FALSE) %>%
-    purrr::set_names(nm = keys)
+    deserialize_df()
 
   out
 }
 
+add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
+  if (rlang::is_empty(lookup_cache))
+    stop("Empty lookup cache given to add_entry_to_cache")
+
+  keys %<>% dplyr::pull()
+  aliases <- entry %>%
+    dplyr::pull(aliases) %>%
+    purrr::flatten_chr()
+
+  keys %<>% c(aliases)
+
+  lookup_cache$fill(keys, entry)
+  invisible(NULL)
+}
