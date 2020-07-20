@@ -52,9 +52,9 @@ extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
 }
 
 missing_col_placeholder <- function(col_key) {
-  out <- tibble::tibble_rowl(
-    name = col_key, aliases = list(),
-    html = "<i> Column Doc not found </i>",
+  out <- tibble::tibble_row(
+    name = col_key, aliases = list(NULL),
+    html = list("<i> Column Doc not found </i>"),
     html_ref = ""
   )
 }
@@ -62,19 +62,21 @@ missing_col_placeholder <- function(col_key) {
 
 
 pull_out_coldocs <- function(columns, lookup_cache) {
+  if (rlang::is_empty(columns)) return(NULL)
   out <- lookup_cache$mget(columns)
 
   which_missing <- attr(out, "missing")
 
   for (i in which_missing) {
-    out[[i]]$name <- columns[[i]]
+    out[[i]] <- missing_col_placeholder(columns[[i]])
   }
 
   out %<>%
     dplyr::bind_rows()
 
   out %<>%
-    dplyr::select(name, description = html, defined_at = html_ref)
+    dplyr::select(name, description = html, defined_at = html_ref) %>%
+    dplyr::mutate(description = purrr::map_chr(description, ~paste0(., collapse = "<br>")))
   out
 }
 
@@ -88,7 +90,8 @@ link_col2doc <- function(target_column_list, lookup_cache) {
   out <- target_column_list %>%
     purrr::map(
       pull_out_coldocs, lookup_cache = lookup_cache
-    ) %>%
+    )
+  out %<>%
     purrr::map_chr(
       ~knitr::kable(., format = "html", escape = FALSE)
     )
