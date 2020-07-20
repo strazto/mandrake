@@ -103,30 +103,6 @@ alert_behaviour <- function(){
 ```
 
 ```{r}
-embed_behaviour <- function() {
-  glue::glue(
-    "function(props) {",
-      "container = this.body.container;",
-      "legend = $(container).prev()[0];",
-      "node = this.body.data.nodes.get(props.nodes[0]);",
-      "$(legend).css({
-         'font-size': '10px', 
-         'width' : '30%', 
-         'overflow-y' : 'scroll'
-       });",
-      "$(container).css('width', '70%');",
-      "legend.innerHTML = node.on_select_col;",
-    "}",
-    .sep = "\n",
-    .open = "<{",
-    .close = "}>"
-  ) %>% as.character()
-}
-
-```
-
-
-```{r}
 graph_info <- drake_graph_info(
   my_config, 
   group = "cluster_id", 
@@ -136,7 +112,7 @@ graph_info <- drake_graph_info(
 
 graph <- render_drake_graph(
   graph_info, 
-  on_select = embed_behaviour(),
+  on_select = mandrake::embed_event_handler(),
   ncol_legend = 4
   ) 
 ```
