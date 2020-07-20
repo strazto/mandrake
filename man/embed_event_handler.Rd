@@ -15,4 +15,8 @@ with metadata about that node.
 Presently requires JQuery to operate, so may not work when launched from
 R session, but does work in pkgdown.
 }
+\seealso{
+Other js_handlers: 
+\code{\link{alert_event_handler}()}
+}
 \concept{js_handlers}

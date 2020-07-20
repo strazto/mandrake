@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_colnames.R
 \name{link_col2doc}
 \alias{link_col2doc}
-\title{Link Column Names to their Documentation}
+\title{Link Column Names to their Documentation.}
 \usage{
 link_col2doc(target_column_list, lookup_cache)
 }
@@ -11,6 +11,19 @@ link_col2doc(target_column_list, lookup_cache)
 
 \item{lookup_cache}{todo:doc me}
 }
-\description{
-Link Column Names to their Documentation
+\value{
+a character vector, of the same length as the outer dimension of
+the input list, each element being a html table describing each
+column.
 }
+\description{
+Given a list-column containing column-names for targets (As part of a
+\code{drake::drake_plan()} having been processed by \code{extract_column_names()}),
+cross reference these columns with the \code{lookup_cache}, and produce html tables
+for each set of columns.
+}
+\seealso{
+Other graph_decoration: 
+\code{\link{extract_column_names}()}
+}
+\concept{graph_decoration}

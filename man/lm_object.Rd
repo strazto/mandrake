@@ -6,6 +6,11 @@
 \description{
 See \code{\link[stats:lm]{stats::lm()}} for more info :)
 }
+\seealso{
+Other example_datasets: 
+\code{\link{mtcars_dataset}}
+}
+\concept{example_datasets}
 \section{Output Columns:}{
 \describe{
 \item{coefficients}{a named vector of coefficients

@@ -6,6 +6,11 @@
 \description{
 These cars go vroom!
 }
+\seealso{
+Other example_datasets: 
+\code{\link{lm_object}}
+}
+\concept{example_datasets}
 \section{Output Columns:}{
 \describe{
 \item{mpg}{Numeric.
