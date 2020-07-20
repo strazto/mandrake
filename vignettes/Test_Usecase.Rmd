@@ -106,6 +106,7 @@ embed_behaviour <- function() {
       "container = this.body.container;",
       "legend = $(container).prev()[0];",
       "node = this.body.data.nodes.get(props.nodes[0]);",
+      "$(legend).css('font-size', '8px');",
       "legend.innerHTML = node.on_select_col;",
     "}",
     .sep = "\n",
