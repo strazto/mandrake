@@ -55,7 +55,8 @@ test_that("parsing a block with 2 deffs of our tag works", {
   expect_equal(next_tag$val$name, "matthews_new_col")
   expect_equal(!!next_tag$val$aliases, list(c("newcol", "newest_col")))
 
+})
 
-
-
+test_that("May parse valid R columns, such as those with full-stops", {
+  fail("Test not implemented")
 })
