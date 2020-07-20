@@ -86,22 +86,6 @@ plan_extracted %<>%
 my_config <- drake_config(plan_extracted)
 ```
 
-```{r, include=FALSE}
-alert_behaviour <- function(){
-  js <- "
-  function(props) {
-    node = this.body.data.nodes.get(props.nodes[0]);
-    cr = '\\r\\n';
-    alert('selected ' +  node.label + ':' + cr +
-            '=======' + cr +
-            'COLNAMES:' + cr +
-           node.on_select_col + cr + 
-           '=============== '
-           );
-  }"
-}
-```
-
 ```{r}
 graph_info <- drake_graph_info(
   my_config, 

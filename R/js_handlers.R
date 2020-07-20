@@ -28,3 +28,24 @@ embed_event_handler <- function() {
     .close = "}>"
   ) %>% as.character()
 }
+
+#' Handler for displaying node data as popup
+#'
+#' Mainly useful for testing - Basically chucks the data for that particular node
+#' into a popup.
+#'
+#' @export
+#' @family js_handlers
+alert_event_handler <- function(){
+  js <- "
+  function(props) {
+    node = this.body.data.nodes.get(props.nodes[0]);
+    cr = '\\r\\n';
+    alert('selected ' +  node.label + ':' + cr +
+            '=======' + cr +
+            'COLNAMES:' + cr +
+           node.on_select_col + cr +
+           '=============== '
+           );
+  }"
+}
