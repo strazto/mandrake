@@ -70,6 +70,10 @@ deserialize_df <- function(x) {
   out
 }
 
+default_column_map_input_path <- function() {
+  "mandrake"
+}
+
 #' @export
 load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   # If no store is given, make one
@@ -82,7 +86,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   opts <- roxygen2::load_options(pkg_path)
 
   mandrake_path <- opts$mandrake_output %||%
-    default_column_map_output_path()
+    default_column_map_input_path()
 
   # The directory containing the mapppings
   mandrake_path <- file.path(pkg_path, mandrake_path)
