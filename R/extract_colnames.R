@@ -76,7 +76,18 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 
   out %<>%
     dplyr::select(name, description = html, defined_at = html_ref) %>%
-    dplyr::mutate(description = purrr::map_chr(description, ~paste0(., collapse = "<br>")))
+    dplyr::mutate(
+      description = purrr::map_chr(description, ~paste0(., collapse = "<br>")),
+      description = glue::glue(
+        "{description}",
+        "{discuss_found} {defined_at}",
+        discuss_found = dplyr::if_else(
+          stringr::str_length(defined_at) > 0,
+          "Found at",
+          ""),
+        .sep = "<br>"
+      )) %>%
+    dplyr::select(-defined_at)
   out
 }
 
