@@ -54,10 +54,13 @@ my_plan <- drake::drake_plan(
   ),
   trace = TRUE
 )
+```
 
+```{r, echo=FALSE}
 my_plan %>% 
   dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
-  knitr::kable("html")
+  knitr::kable("html") %>%
+  kableExtra::kable_styling(c("striped", "responsive", "condensed"))
 ```
 
 ```{r}
@@ -106,7 +109,11 @@ embed_behaviour <- function() {
       "container = this.body.container;",
       "legend = $(container).prev()[0];",
       "node = this.body.data.nodes.get(props.nodes[0]);",
-      "$(legend).css({'font-size': '10px', 'width' : '30%'});",
+      "$(legend).css({
+         'font-size': '10px', 
+         'width' : '30%', 
+         'overflow-y' : 'scroll'
+       });",
       "$(container).css('width', '70%');",
       "legend.innerHTML = node.on_select_col;",
     "}",
@@ -130,8 +137,11 @@ graph_info <- drake_graph_info(
 graph <- render_drake_graph(
   graph_info, 
   on_select = embed_behaviour(),
-  ncol_legend = 2
-  ) %>%
+  ncol_legend = 4
+  ) 
+```
+```{r, echo=FALSE}
+graph %<>%
   visNetwork::visHierarchicalLayout(
     direction = "LR", levelSeparation = 250
     ) %>%
