@@ -7,10 +7,14 @@ extract_target_column_names <- function(target, cache) {
 }
 
 
-#' Extract column names for targets in plan
+#' Extract Column Names for targets in Drake Plan
+#'
+#' Given a [drake::drake_plan()], extract the column names of each target, and store it
+#' in a new column.
 #'
 #' @inheritParams drake::drake_graph_info
 #' @param colname_out the name given to the list-column containing each target's columns
+#' @family graph_decoration
 #' @export
 extract_column_names <- function(plan, cache, group = NULL, clusters = NULL,
                                  colname_out = "target_column_list", ...) {
@@ -60,7 +64,6 @@ missing_col_placeholder <- function(col_key) {
 }
 
 
-
 pull_out_coldocs <- function(columns, lookup_cache) {
   if (rlang::is_empty(columns)) return(NULL)
   out <- lookup_cache$mget(columns)
@@ -91,8 +94,18 @@ pull_out_coldocs <- function(columns, lookup_cache) {
   out
 }
 
-#' Link Column Names to their Documentation
+#' Link Column Names to their Documentation.
+#'
+#' Given a list-column containing column-names for targets (As part of a
+#' `drake::drake_plan()` having been processed by `extract_column_names()`),
+#' cross reference these columns with the `lookup_cache`, and produce html tables
+#' for each set of columns.
+#'
+#' @return a character vector, of the same length as the outer dimension of
+#'         the input list, each element being a html table describing each
+#'         column.
 #' @export
+#' @family graph_decoration
 #' @param target_column_list a list of character vectors specifying column names
 #' @param lookup_cache todo:doc me
 link_col2doc <- function(target_column_list, lookup_cache) {

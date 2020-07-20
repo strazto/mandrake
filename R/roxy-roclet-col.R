@@ -1,8 +1,12 @@
+#' Roclet for processing the `@col` tag
+#'
+#' @family roxygen_roclet
 #' @export
 col_roclet <- function() {
   roxygen2::roclet("col")
 }
 
+#' @rdname col_roclet
 #' @export
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
@@ -51,6 +55,7 @@ default_column_map_output_path <- function() {
 
 
 
+#' @rdname col_roclet
 #' @export
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
