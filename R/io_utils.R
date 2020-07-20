@@ -90,7 +90,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   message("Adding cols from ", pkg_name, " to lookup cache")
 
   spec_paths <- mandrake_path %>%
-    list.file(pattern = "\\.ya?ml$")
+    list.files(pattern = "\\.ya?ml$")
 
   spec_paths %>%
     purrr::walk(function(path) {
