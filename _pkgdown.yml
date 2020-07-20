@@ -1,1 +1,35 @@
 url: https://pages.github.sydney.edu.au/speed-extract/mandrake/
+destination: docs
+reference:
+- title: Graph Decoration
+  desc: |
+   Functions responsible for the decoration of visNetwork graphs, including embedding
+   metadata about drake targets into them.
+  contents:
+  - has_concept("graph_decoration")
+- title: Javascript Event Handlers
+  desc: |
+   Definitions of event handlers for extending interaction with visNetwork
+   graphs.
+  contents:
+  - has_concept("js_handlers")
+- title: Example dataset documentation
+  desc: |
+   Documentation topics produced for the mtcars dataset, designed to support this package's
+   tutorial material.
+  contents:
+  - has_concept("example_datasets")
+- title: Roxygen Objects and functions
+  desc: |
+   Functions and objects designed to support the workflow of documenting columns across datasets
+   and packages.
+  contents:
+  - has_concept("roxygen_roclet")
+- title: All Functions
+  desc: All documented functions, that may or may not be categorized
+  contents:
+  - matches(".*")
+  - -has_concept("graph_decoration")
+  - -has_concept("js_handlers")
+  - -has_concept("example_datasets")
+  - -has_concept("roxygen_roclet")
