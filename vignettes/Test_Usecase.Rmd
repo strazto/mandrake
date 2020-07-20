@@ -68,12 +68,15 @@ drake::make(config = my_config)
 ```
 
 ```{r}
+lookup_cache <- mandrake::load_package_colspec("mandrake")
+
 plan_extracted <- my_plan %>%
-  extract_column_names(cache, group = "cluster_id") %>%
+  extract_column_names(cache, group = "cluster_id") 
+```
+```{r}
+plan_extracted %<>%
   dplyr::mutate(
-    target_column_list = purrr::map_chr(
-      target_column_list, 
-      ~ knitr::kable(., "html")))
+    target_column_list = link_col2doc(target_column_list, lookup_cache = lookup_cache))
 ```
 
 ```{r}
