@@ -41,6 +41,7 @@
 #' Integer, Number of grams of carbohydrates contained in this car.
 #' Typically pretty low, as cars are not particularly nutritious.
 #' @md
+#' @family example_datasets
 #' @name mtcars_dataset
 NULL
 
@@ -80,5 +81,6 @@ NULL
 #' @col [out] na.action
 #' (where relevant) information returned by [stats::model.frame()] on the special handling of NAs.
 #' @name lm_object
+#' @family example_datasets
 NULL
 
