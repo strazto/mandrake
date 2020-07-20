@@ -69,3 +69,60 @@ deserialize_df <- function(x) {
 
   out
 }
+
+#' @export
+load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
+  # If no store is given, make one
+  st <- lookup_cache
+  if (rlang::is_empty(st)) st <- storr::driver_environment()
+
+  `%||%` <- rlang::`%||%`
+  pkg_path <- system.file(package = pkg_name)
+
+  opts <- roxygen2::load_options(pkg_path)
+
+  mandrake_path <- opts$mandrake_output %||%
+    default_column_map_output_path()
+
+  # The directory containing the mapppings
+  mandrake_path <- file.path(pkg_path, mandrake_path)
+
+  message("Adding cols from ", pkg_name, " to lookup cache")
+
+  spec_paths <- mandrake_path %>%
+    list.file(pattern = "\\.ya?ml$")
+
+  spec_paths %>%
+    purrr::walk(function(path) {
+      message("Including ", path, " in lookup cache")
+      spec <- path %>% load_colspec_file()
+      st$import(spec)
+    })
+
+
+  return(st)
+}
+
+
+#' Load colspec from a single file, to be imported into storr cache
+load_colspec_file <- function(path) {
+  out <- path %>%
+    readLines() %>%
+    paste0(collapse = "\n") %>%
+    deserialize_df() %>%
+    dplyr::mutate(
+      key = purrr::map2(name, aliases, ~c(.x, .y))
+    ) %>%
+    tidyr::unnest(key) %>%
+    dplyr::group_by(key)
+
+  keys <- out %>%
+    dplyr::group_keys() %>%
+    dplyr::pull("key")
+  out %<>%
+    dplyr::group_split(.keep = FALSE) %>%
+    purrr::set_names(nm = keys)
+
+  out
+}
+
