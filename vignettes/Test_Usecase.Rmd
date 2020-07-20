@@ -49,7 +49,7 @@ my_plan <- drake::drake_plan(
     transform = map(reg, .tag_in = cluster_id)
   ),
   
-  unrelated = target(
+  mtcars = target(
     mtcars
   ),
   trace = TRUE
