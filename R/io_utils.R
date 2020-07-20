@@ -99,11 +99,11 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   spec_paths %>%
     purrr::walk(function(path) {
       message("Including ", path, " in lookup cache")
-      spec <- path %>% load_colspec_file()
+      spec <- file.path(mandrake_path, path) %>% load_colspec_file()
 
       spec %>%
         dplyr::group_by(name) %>%
-        dplyr::group_walk(add_entry_to_cache, lookup_cache = st)
+        dplyr::group_walk(add_entry_to_cache, lookup_cache = st, .keep = TRUE)
 
       invisible(NULL)
     })
