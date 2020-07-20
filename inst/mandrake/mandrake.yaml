@@ -237,19 +237,15 @@ residuals:
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
   html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
-fitted.:
+fitted.values:
   direction: !<list> out
-  name: fitted.
+  name: fitted.values
   aliases: !<list> []
-  body: |-
-    .values
+  body: |2-
+
     The fitted mean values.
-  rd: |-
-    .values
-    The fitted mean values.
-  html: !<list>
-  - .values
-  - The fitted mean values.
+  rd: The fitted mean values.
+  html: !<list> The fitted mean values.
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
@@ -280,19 +276,15 @@ weights:
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
   html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
-df.:
+df.residual:
   direction: !<list> out
-  name: df.
+  name: df.residual
   aliases: !<list> []
-  body: |-
-    .residual
+  body: |2-
+
     the residual degrees of freedom.
-  rd: |-
-    .residual
-    the residual degrees of freedom.
-  html: !<list>
-  - .residual
-  - the residual degrees of freedom.
+  rd: the residual degrees of freedom.
+  html: !<list> the residual degrees of freedom.
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
@@ -403,19 +395,16 @@ model:
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
   html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
-na.:
+na.action:
   direction: !<list> out
-  name: na.
+  name: na.action
   aliases: !<list> []
-  body: |-
-    .action
+  body: |2-
+
     (where relevant) information returned by [stats::model.frame()] on the special handling of NAs.
-  rd: |-
-    .action
-    (where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}} on the special handling of NAs.
-  html: !<list>
-  - .action
-  - (where relevant) information returned by <code><a href='https://rdrr.io/r/stats/model.frame.html'>stats::model.frame()</a></code>
+  rd: (where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}}
+    on the special handling of NAs.
+  html: !<list> (where relevant) information returned by <code><a href='https://rdrr.io/r/stats/model.frame.html'>stats::model.frame()</a></code>
     on the special handling of NAs.
   topic: lm_object
   package: mandrake
