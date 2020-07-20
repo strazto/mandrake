@@ -26,7 +26,7 @@ reference:
   contents:
   - has_concept("roxygen_roclet")
 - title: All Functions
-  desc: All documented functions, that may or may not be categorized
+  desc: All documented functions, that have not otherwise been categorized.
   contents:
   - matches(".*")
   - -has_concept("graph_decoration")
