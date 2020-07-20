@@ -4,8 +4,7 @@ mpg:
   direction: !<list> out
   name: mpg
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Numeric.
     `mpg` or "Miles Per Gallon" is how many miles you can drive on
     a gallon of fuel.
@@ -25,8 +24,7 @@ cyl:
   direction: !<list> out
   name: cyl
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Integer
     Number of cylinders
   rd: |-
@@ -43,8 +41,7 @@ disp:
   direction: !<list> out
   name: disp
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Integer.
     I literally don't know what this means
   rd: |-
@@ -61,8 +58,7 @@ hp:
   direction: !<list> out
   name: hp
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Integer
     Horsepower is a measure of the number of miniature horses this car
     can fit inside itself, which run on a treadmill that make it go fast.
@@ -82,8 +78,7 @@ drat:
   direction: !<list> out
   name: drat
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Numeric
     This is a word you say when something doesn't go the way you hoped.
     **Drat!**
@@ -103,8 +98,7 @@ wt:
   direction: !<list> out
   name: wt
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Numeric
     Stands for "What the..." - An exclamation of surprise!
 
@@ -127,8 +121,7 @@ qsec:
   direction: !<list> out
   name: qsec
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Numeric.
     Number of seconds you need to line up in a queue in order to buy this car.
   rd: |-
@@ -145,9 +138,7 @@ vs:
   direction: !<list> out
   name: vs
   aliases: !<list> []
-  body: |2-
-
-    Logical, Does the car ever compete?
+  body: Logical, Does the car ever compete?
   rd: Logical, Does the car ever compete?
   html: !<list> Logical, Does the car ever compete?
   topic: mtcars_dataset
@@ -158,8 +149,7 @@ am:
   direction: !<list> out
   name: am
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Logical, is this car okay to use in the morning, or should you save it for
     after midday?
   rd: |-
@@ -176,8 +166,7 @@ gear:
   direction: !<list> out
   name: gear
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Integer,
 
     How many different gears transmissions does this car have.
@@ -197,8 +186,7 @@ carb:
   direction: !<list> out
   name: carb
   aliases: !<list> []
-  body: |2-
-
+  body: |-
     Integer, Number of grams of carbohydrates contained in this car.
     Typically pretty low, as cars are not particularly nutritious.
   rd: |-
@@ -215,9 +203,7 @@ coefficients:
   direction: !<list> out
   name: coefficients
   aliases: !<list> []
-  body: |2-
-
-    a named vector of coefficients
+  body: a named vector of coefficients
   rd: a named vector of coefficients
   html: !<list> a named vector of coefficients
   topic: lm_object
@@ -228,9 +214,7 @@ residuals:
   direction: !<list> out
   name: residuals
   aliases: !<list> []
-  body: |2-
-
-    The residuals, that is response minus fitted values.
+  body: The residuals, that is response minus fitted values.
   rd: The residuals, that is response minus fitted values.
   html: !<list> The residuals, that is response minus fitted values.
   topic: lm_object
@@ -241,9 +225,7 @@ fitted.values:
   direction: !<list> out
   name: fitted.values
   aliases: !<list> []
-  body: |2-
-
-    The fitted mean values.
+  body: The fitted mean values.
   rd: The fitted mean values.
   html: !<list> The fitted mean values.
   topic: lm_object
@@ -254,9 +236,7 @@ rank:
   direction: !<list> out
   name: rank
   aliases: !<list> []
-  body: |2-
-
-    the numeric rank of the fitted linear model.
+  body: the numeric rank of the fitted linear model.
   rd: the numeric rank of the fitted linear model.
   html: !<list> the numeric rank of the fitted linear model.
   topic: lm_object
@@ -267,9 +247,7 @@ weights:
   direction: !<list> out
   name: weights
   aliases: !<list> []
-  body: |2-
-
-    (only for weighted fits) the specified weights.
+  body: (only for weighted fits) the specified weights.
   rd: (only for weighted fits) the specified weights.
   html: !<list> (only for weighted fits) the specified weights.
   topic: lm_object
@@ -280,9 +258,7 @@ df.residual:
   direction: !<list> out
   name: df.residual
   aliases: !<list> []
-  body: |2-
-
-    the residual degrees of freedom.
+  body: the residual degrees of freedom.
   rd: the residual degrees of freedom.
   html: !<list> the residual degrees of freedom.
   topic: lm_object
@@ -293,9 +269,7 @@ call:
   direction: !<list> out
   name: call
   aliases: !<list> []
-  body: |2-
-
-    the matched call.
+  body: the matched call.
   rd: the matched call.
   html: !<list> the matched call.
   topic: lm_object
@@ -306,9 +280,7 @@ terms:
   direction: !<list> out
   name: terms
   aliases: !<list> []
-  body: |2-
-
-    the [stats::terms()] object used.
+  body: the [stats::terms()] object used.
   rd: the \code{\link[stats:terms]{stats::terms()}} object used.
   html: !<list> the <code><a href='https://rdrr.io/r/stats/terms.html'>stats::terms()</a></code>
     object used.
@@ -320,9 +292,7 @@ contrasts:
   direction: !<list> out
   name: contrasts
   aliases: !<list> []
-  body: |2-
-
-    (only where relevant) the contrasts used.
+  body: (only where relevant) the contrasts used.
   rd: (only where relevant) the contrasts used.
   html: !<list> (only where relevant) the contrasts used.
   topic: lm_object
@@ -333,9 +303,7 @@ xlevels:
   direction: !<list> out
   name: xlevels
   aliases: !<list> []
-  body: |2-
-
-    (only where relevant) a record of the levels of the factors used in fitting.
+  body: (only where relevant) a record of the levels of the factors used in fitting.
   rd: (only where relevant) a record of the levels of the factors used in fitting.
   html: !<list> (only where relevant) a record of the levels of the factors used in
     fitting.
@@ -347,9 +315,7 @@ offset:
   direction: !<list> out
   name: offset
   aliases: !<list> []
-  body: |2-
-
-    the offset used (missing if none were used).
+  body: the offset used (missing if none were used).
   rd: the offset used (missing if none were used).
   html: !<list> the offset used (missing if none were used).
   topic: lm_object
@@ -360,9 +326,7 @@ offset:
   direction: !<list> out
   name: 'y'
   aliases: !<list> []
-  body: |2-
-
-    if requested, the response used.
+  body: if requested, the response used.
   rd: if requested, the response used.
   html: !<list> if requested, the response used.
   topic: lm_object
@@ -373,9 +337,7 @@ x:
   direction: !<list> out
   name: x
   aliases: !<list> []
-  body: |2-
-
-    if requested, the model matrix used.
+  body: if requested, the model matrix used.
   rd: if requested, the model matrix used.
   html: !<list> if requested, the model matrix used.
   topic: lm_object
@@ -386,9 +348,7 @@ model:
   direction: !<list> out
   name: model
   aliases: !<list> []
-  body: |2-
-
-    if requested (the default), the model frame used.
+  body: if requested (the default), the model frame used.
   rd: if requested (the default), the model frame used.
   html: !<list> if requested (the default), the model frame used.
   topic: lm_object
@@ -399,9 +359,8 @@ na.action:
   direction: !<list> out
   name: na.action
   aliases: !<list> []
-  body: |2-
-
-    (where relevant) information returned by [stats::model.frame()] on the special handling of NAs.
+  body: (where relevant) information returned by [stats::model.frame()] on the special
+    handling of NAs.
   rd: (where relevant) information returned by \code{\link[stats:model.frame]{stats::model.frame()}}
     on the special handling of NAs.
   html: !<list> (where relevant) information returned by <code><a href='https://rdrr.io/r/stats/model.frame.html'>stats::model.frame()</a></code>
