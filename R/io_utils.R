@@ -81,7 +81,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   if (rlang::is_empty(st)) st <- storr::storr_environment()
 
   `%||%` <- rlang::`%||%`
-  pkg_path <- system.file(package = pkg_name)
+  pkg_path <- system.file(package = pkg_name, lib.loc = .libPaths())
 
   opts <- roxygen2::load_options(pkg_path)
 
