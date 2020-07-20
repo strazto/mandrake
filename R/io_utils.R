@@ -78,7 +78,7 @@ default_column_map_input_path <- function() {
 load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   # If no store is given, make one
   st <- lookup_cache
-  if (rlang::is_empty(st)) st <- storr::driver_environment()
+  if (rlang::is_empty(st)) st <- storr::storr_environment()
 
   `%||%` <- rlang::`%||%`
   pkg_path <- system.file(package = pkg_name)
@@ -94,7 +94,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
   message("Adding cols from ", pkg_name, " to lookup cache")
 
   spec_paths <- mandrake_path %>%
-    list.files(pattern = "\\.ya?ml$")
+    list.files(pattern = ".*\\.ya?ml$")
 
   spec_paths %>%
     purrr::walk(function(path) {
