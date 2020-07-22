@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract Column Names for targets in Drake Plan — extract_column_names • mandrake</title>
+<title>Link Column Names to their Documentation. — link_col2doc • mandrake</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,11 @@
 
 
 
-<meta property="og:title" content="Extract Column Names for targets in Drake Plan — extract_column_names" />
-<meta property="og:description" content="Given a drake::drake_plan(), extract the column names of each target, and store it
-in a new column." />
+<meta property="og:title" content="Link Column Names to their Documentation. — link_col2doc" />
+<meta property="og:description" content="Given a list-column containing column-names for targets (As part of a
+drake::drake_plan() having been processed by extract_column_names()),
+cross reference these columns with the lookup_cache, and produce html tables
+for each set of columns." />
 
 
 
@@ -127,52 +129,42 @@ in a new column." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract Column Names for targets in Drake Plan</h1>
+    <h1>Link Column Names to their Documentation.</h1>
     <small class="dont-index">Source: <a href='https://github.sydney.edu.au/speed-extract/mandrake/blob/master/R/extract_colnames.R'><code>R/extract_colnames.R</code></a></small>
-    <div class="hidden name"><code>extract_column_names.Rd</code></div>
+    <div class="hidden name"><code>link_col2doc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Given a <code><a href='https://docs.ropensci.org/drake/reference/drake_plan.html'>drake::drake_plan()</a></code>, extract the column names of each target, and store it
-in a new column.</p>
+    <p>Given a list-column containing column-names for targets (As part of a
+<code><a href='https://docs.ropensci.org/drake/reference/drake_plan.html'>drake::drake_plan()</a></code> having been processed by <code>extract_column_names()</code>),
+cross reference these columns with the <code>lookup_cache</code>, and produce html tables
+for each set of columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_column_names</span>(
-  <span class='kw'>plan</span>,
-  <span class='kw'>cache</span>,
-  group = <span class='kw'>NULL</span>,
-  clusters = <span class='kw'>NULL</span>,
-  colname_out = <span class='st'>"target_column_list"</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>link_col2doc</span>(<span class='kw'>target_column_list</span>, <span class='kw'>lookup_cache</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>group</th>
-      <td><p>Optional character scalar, name of the column used to
-group nodes into columns. All the columns names of your original <code>drake</code>
-plan are choices. The other choices (such as <code>"status"</code>) are column names
-in the <code>nodes</code> . To group nodes into clusters in the graph,
-you must also supply the <code>clusters</code> argument.</p></td>
+      <th>target_column_list</th>
+      <td><p>a list of character vectors specifying column names</p></td>
     </tr>
     <tr>
-      <th>clusters</th>
-      <td><p>Optional character vector of values to cluster on.
-These values must be elements of the column of the <code>nodes</code> data frame
-that you specify in the <code>group</code> argument to <code>drake_graph_info()</code>.</p></td>
-    </tr>
-    <tr>
-      <th>colname_out</th>
-      <td><p>the name given to the list-column containing each target's columns</p></td>
+      <th>lookup_cache</th>
+      <td><p>todo:doc me</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a character vector, of the same length as the outer dimension of
+the input list, each element being a html table describing each
+column.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other graph_decoration: 
-<code>link_col2doc()</code></p></div>
+<code>extract_column_names()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
