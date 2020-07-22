@@ -27,7 +27,9 @@ Imports:
     stringr (>= 1.4.0),
     tibble (>= 3.0.1),
     tidyr (>= 1.1.0),
-    yaml (>= 2.2.1)
+    yaml (>= 2.2.1),
+    kableExtra,
+    kable
 Remotes: 
     r-lib/downlit,
     r-lib/pkgdown
