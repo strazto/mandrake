@@ -1,7 +1,9 @@
 ^renv$
 ^renv\.lock$
-^mondoc\.Rproj$
+^mandrake\.Rproj$
+\.drake$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+!pkgdown\.yml$
