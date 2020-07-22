@@ -1,4 +1,5 @@
 url: https://pages.github.sydney.edu.au/speed-extract/mandrake/
+write_meta_to_inst: true
 repo:
   url:
     home: https://pages.github.sydney.edu.au/speed-extract/mandrake/
