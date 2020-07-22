@@ -2,7 +2,7 @@ pandoc: '2.10'
 pkgdown: 1.5.1.9000
 pkgdown_sha: ~
 articles: []
-last_built: 2020-07-22T05:05Z
+last_built: 2020-07-22T09:26Z
 urls:
   reference: https://pages.github.sydney.edu.au/speed-extract/mandrake//reference
   article: https://pages.github.sydney.edu.au/speed-extract/mandrake//articles
