@@ -13,6 +13,9 @@
     <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/col_roclet.html</loc>
   </url>
   <url>
+    <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/decorate_plan.html</loc>
+  </url>
+  <url>
     <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/embed_event_handler.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/load_colspec_file.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/load_package_colspec.html</loc>
   </url>
   <url>
     <loc>https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/mtcars_dataset.html</loc>

@@ -50,7 +50,24 @@ my_plan <- drake::drake_plan(
   ),
   
   mtcars = target(
-    mtcars
+    mtcars,
+    desc = "
+**This dataframe describes a bunch of cars that go vroom!**
+
+I can't drive but one day I will learn
+"
+  ),
+  
+  mtcars_summary = target({
+      out <- mtcars %>%
+        dplyr::group_by(cyl) %>%
+        dplyr::summarise(dplyr::across(c(disp, hp, drat, wt, qsec), mean))
+      out    
+    },
+   desc = "
+**Average of attributes of cars according to number of cylinders** 
+This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
+"
   ),
   trace = TRUE
 )
@@ -58,8 +75,11 @@ my_plan <- drake::drake_plan(
 
 ```{r, echo=FALSE}
 my_plan %>% 
-  dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
-  knitr::kable("html") %>%
+  dplyr::mutate(
+    dplyr::across("command", rlang::as_label),
+    desc = glue::glue("<code>{desc}</code>", .sep = "\n")
+    ) %>% 
+  knitr::kable("html", escape = FALSE) %>%
   kableExtra::kable_styling(c("striped", "responsive", "condensed"))
 ```
 
@@ -72,14 +92,15 @@ drake::make(config = my_config)
 
 ```{r}
 lookup_cache <- mandrake::load_package_colspec("mandrake")
-
-plan_extracted <- my_plan %>%
-  extract_column_names(cache, group = "cluster_id") 
 ```
+
 ```{r}
-plan_extracted %<>%
-  dplyr::mutate(
-    target_column_list = link_col2doc(target_column_list, lookup_cache = lookup_cache))
+plan_extracted <- my_plan %>%
+  mandrake::decorate_plan(cache, group = "cluster_id", lookup_cache = lookup_cache)
+```
+
+```{r}
+plan_extracted
 ```
 
 ```{r}
@@ -92,7 +113,7 @@ graph_info <- drake_graph_info(
   group = "cluster_id", 
   clusters = c("summ", "coef"), 
   build_times = "none",
-  on_select_col = "target_column_list")
+  on_select_col = "desc")
 
 graph <- render_drake_graph(
   graph_info, 

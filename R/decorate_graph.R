@@ -1,3 +1,5 @@
+# Target Column Extraction and Decoration =====
+
 extract_target_column_names <- function(target, cache) {
   out <- target %>% drake::readd(character_only = TRUE, cache = cache)
 
@@ -107,7 +109,7 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 #' @export
 #' @family graph_decoration
 #' @param target_column_list a list of character vectors specifying column names
-#' @param lookup_cache todo:doc me
+#' @inheritParams load_package_colspec
 link_col2doc <- function(target_column_list, lookup_cache) {
   if (!is(lookup_cache, "storr")) stop("Must pass a storr object to link_col2doc")
 
@@ -125,4 +127,94 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     )
 
   out
+}
+
+# Embedded Docstring Parsing ====
+
+enrich_single_docstring <- function(x) {
+  x %<>%
+    stringr::str_trim() %>%
+    roxygen2:::markdown() %>%
+    pkgdown::rd2html() %>%
+    paste(sep = "<br>", collapse = "<br>")
+  x
+}
+
+enrich_docstrings <- function(docstrings) {
+  docstrings %<>% purrr::map_chr(enrich_single_docstring)
+  docstrings
+}
+
+
+# Command Highlighting ============
+
+highlight_single_command <- function(x) {
+  x %<>%
+    rlang::expr_deparse(width = Inf) %>%
+    paste(sep = "\n", collapse = "\n") %>%
+    downlit::highlight(pre_class = "pre-scrollable")
+  x
+}
+
+highlight_commands <- function(commands) {
+  commands %<>% purrr::map_chr(highlight_single_command)
+  commands
+}
+
+# Plan Decoration ==============
+
+#' Decorate Plan with a Rich html Description
+#'
+#' @inheritParams drake::drake_graph_info
+#' @inheritParams load_package_colspec
+#' @param desc_colname the name of the column that provides the markdown description
+#' @param colname_out the name of the column in which to store the enriched description
+#' @export
+#' @family graph_decoration
+decorate_plan <- function(
+  plan, cache, group = NULL, clusters = NULL,
+  desc_colname = "desc", colname_out = desc_colname,
+  lookup_cache = NULL,
+  ...) {
+  sym <- rlang::sym
+
+  plan %<>%
+    dplyr::mutate(
+      !!colname_out := enrich_docstrings(!!sym(desc_colname))
+    )
+
+  tmp_extracted_nm <- "cols_extracted_tmp__"
+
+  plan %<>%
+    extract_column_names(
+      cache,
+      group = group, clusters = clusters,
+      colname_out = tmp_extracted_nm) %>%
+    dplyr::mutate(
+      dplyr::across(
+        tmp_extracted_nm,
+        ~link_col2doc(
+          .,lookup_cache = lookup_cache)))
+
+  rendered_col <- plan %>%
+    glue::glue_data(
+    "<h3>{target}</h3>",
+    "{output_column}",
+    "<h4>Command</h4>",
+    "<details><summary>Command</summary>",
+    "{highlight_commands(command)}",
+    "</details>",
+    "<h4>Columns</h4>",
+    "{cols_extracted}",
+    output_column = .[[colname_out]],
+    cols_extracted = .[[tmp_extracted_nm]],
+    .sep = "\n"
+  )
+
+
+  plan %<>%
+    dplyr::mutate(!!colname_out := rendered_col) %>%
+    dplyr::select(-c(tmp_extracted_nm))
+
+  plan
 }
