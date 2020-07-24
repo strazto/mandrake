@@ -109,7 +109,7 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 #' @export
 #' @family graph_decoration
 #' @param target_column_list a list of character vectors specifying column names
-#' @inheriParams load_package_colspec
+#' @inheritParams load_package_colspec
 link_col2doc <- function(target_column_list, lookup_cache) {
   if (!is(lookup_cache, "storr")) stop("Must pass a storr object to link_col2doc")
 
