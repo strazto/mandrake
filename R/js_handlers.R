@@ -7,6 +7,10 @@
 #'
 #' Presently requires JQuery to operate, so may not work when launched from
 #' R session, but does work in pkgdown.
+#'
+#' It looks like this:
+#'
+#' `r embed_event_handler()`
 #' @export
 #' @family js_handlers
 embed_event_handler <- function() {
