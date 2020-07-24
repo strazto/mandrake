@@ -84,14 +84,15 @@ drake::make(config = my_config)
 
 ```{r}
 lookup_cache <- mandrake::load_package_colspec("mandrake")
-
-plan_extracted <- my_plan %>%
-  extract_column_names(cache, group = "cluster_id") 
 ```
+
 ```{r}
-plan_extracted %<>%
-  dplyr::mutate(
-    target_column_list = link_col2doc(target_column_list, lookup_cache = lookup_cache))
+plan_extracted <- my_plan %>%
+  mandrake::decorate_plan(cache, group = "cluster_id", lookup_cache = lookup_cache)
+```
+
+```{r}
+plan_extracted
 ```
 
 ```{r}
