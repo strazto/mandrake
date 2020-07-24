@@ -183,32 +183,38 @@ decorate_plan <- function(
       !!colname_out := enrich_docstrings(!!sym(desc_colname))
     )
 
-  cols_extracted <- plan %>%
+  tmp_extracted_nm <- "cols_extracted_tmp__"
+
+  plan %<>%
     extract_column_names(
       cache,
       group = group, clusters = clusters,
-      colname_out = "gimme") %>%
-    .$gimme %>%
-    link_col2doc(lookup_cache)
-
+      colname_out = tmp_extracted_nm) %>%
+    dplyr::mutate(
+      dplyr::across(
+        tmp_extracted_nm,
+        ~link_col2doc(
+          .,lookup_cache = lookup_cache)))
 
   rendered_col <- plan %>%
     glue::glue_data(
-    "<h1>{target}</h1>",
+    "<h3>{target}</h3>",
     "{output_column}",
-    "<h2>Command</h2>",
+    "<h4>Command</h4>",
     "<details><summary>Command</summary>",
     "{highlight_commands(command)}",
     "</details>",
-    "<h2>Columns></h2>",
+    "<h4>Columns</h4>",
     "{cols_extracted}",
     output_column = .[[colname_out]],
+    cols_extracted = .[[tmp_extracted_nm]],
     .sep = "\n"
   )
 
 
   plan %<>%
-    dplyr::mutate(!!colname_out := rendered_col)
+    dplyr::mutate(!!colname_out := rendered_col) %>%
+    dplyr::select(-c(tmp_extracted_nm))
 
   plan
 }
