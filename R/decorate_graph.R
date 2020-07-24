@@ -172,28 +172,35 @@ decorate_plan <- function(
 
   plan %<>%
     dplyr::mutate(
-      !!colname_out := enrich_docstrings(!!sym(desc_colname)),
-      !!colname_out := glue::glue(
-        "<h1>{target}</h1>",
-        "{output_column}",
-        "<h2>Command</h2>",
-        "<details><summary>Command</summary>",
-        "{highlight_commands(command)}",
-        "</details>",
-        "<h2>Columns></h2>",
-        "{cols_extracted}",
-        cols_extracted = {
-          .data %>%
-          extract_column_names(
-          cache,
-          group = group, clusters = clusters,
-          colname_out = "gimme") %>%
-          .$gimme %>% link_col2doc(lookup_cache)
-          },
-        output_column = !!sym(colname_out),
-        .sep = "\n"
-      )
+      !!colname_out := enrich_docstrings(!!sym(desc_colname))
     )
+
+  cols_extracted <- plan %>%
+    extract_column_names(
+      cache,
+      group = group, clusters = clusters,
+      colname_out = "gimme") %>%
+    .$gimme %>%
+    link_col2doc(lookup_cache)
+
+
+  rendered_col <- plan %>%
+    glue::glue_data(
+    "<h1>{target}</h1>",
+    "{output_column}",
+    "<h2>Command</h2>",
+    "<details><summary>Command</summary>",
+    "{highlight_commands(command)}",
+    "</details>",
+    "<h2>Columns></h2>",
+    "{cols_extracted}",
+    output_column = .[[colname_out]],
+    .sep = "\n"
+  )
+
+
+  plan %<>%
+    dplyr::mutate(!!colname_out := rendered_col)
 
   plan
 }
