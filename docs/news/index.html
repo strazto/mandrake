@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://pages.github.sydney.edu.au/speed-extract/mandrake/">
+  <a href="https://github.sydney.edu.au/speed-extract/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -129,6 +129,23 @@
       <small>Source: <a href='https://github.sydney.edu.au/speed-extract/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mandrake-0-1-0" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#mandrake-0-1-0" class="anchor"></a>Mandrake 0.1.0</h1>
+<ul>
+<li>Implement a top level <code><a href="https://rdrr.io/pkg/mandrake/man/decorate_plan.html">decorate_plan()</a></code> function. This function wraps the column extraction and linking process, and allows:
+<ul>
+<li>The user to specify a column containing markdown description, that will be rendered in the sidebar</li>
+<li>The <code>command</code> column of the plan is parsed, highlighted, and code referenced are automagically linked to their docs (thanks to downlit).
+<ul>
+<li>This is also rendered in a collapsible segment in the sidebar.</li>
+</ul>
+</li>
+<li>The table of columns -&gt; docs is still rendered in the sidebar, under the header “columns”.</li>
+</ul>
+</li>
+</ul>
+</div>
     <div id="mandrake-0-0-1" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.1">
 <a href="#mandrake-0-0-1" class="anchor"></a>Mandrake 0.0.1</h1>
