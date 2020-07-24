@@ -14,6 +14,21 @@ with metadata about that node.
 \details{
 Presently requires JQuery to operate, so may not work when launched from
 R session, but does work in pkgdown.
+
+It looks like this:
+
+function(props) {
+container = this.body.container;
+legend = $(container).parent().children("\link{id*='legendhtmlwidget'}")\link{0};
+node = this.body.data.nodes.get(props.nodes\link{0});
+$(legend).css({
+'font-size': '10px',
+'width' : '30\%',
+'overflow-y' : 'scroll'
+});
+$(container).css('width', '70\%');
+legend.innerHTML = node.on_select_col;
+}
 }
 \seealso{
 Other js_handlers: 
