@@ -157,7 +157,7 @@ highlight_single_command <- function(x) {
 }
 
 highlight_commands <- function(commands) {
-  commands %<>% purrr::map_chr(higlight_single_command)
+  commands %<>% purrr::map_chr(highlight_single_command)
   commands
 }
 
