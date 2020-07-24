@@ -52,6 +52,18 @@ my_plan <- drake::drake_plan(
   mtcars = target(
     mtcars
   ),
+  
+  mtcars_summary = target({
+      out <- mtcars %>%
+        dplyr::group_by(cyl) %>%
+        dplyr::summarise(dplyr::across(c(disp, hp, drat, wt, qsec), mean))
+      out    
+    },
+   desc = "
+## Average of attributes of cars according to number of cylinders 
+This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
+"
+  ),
   trace = TRUE
 )
 ```
