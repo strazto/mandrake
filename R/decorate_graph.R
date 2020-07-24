@@ -1,3 +1,5 @@
+# Target Column Extraction and Decoration =====
+
 extract_target_column_names <- function(target, cache) {
   out <- target %>% drake::readd(character_only = TRUE, cache = cache)
 
@@ -125,4 +127,71 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     )
 
   out
+}
+
+# Embedded Docstring Parsing ====
+
+enrich_single_docstring <- function(x) {
+  x %<>%
+    stringr::str_trim() %>%
+    roxygen2:::markdown() %>%
+    pkgdown::rd2html()
+  x
+}
+
+enrich_docstrings <- function(docstrings) {
+  docstrings %<>% purrr::map_chr(enrich_single_docstring)
+  docstrings
+}
+
+
+# Command Highlighting ============
+
+highlight_single_command <- function(x) {
+  x %<>%
+    rlang::expr_deparse(width = Inf) %>%
+    downlit::highlight(pre_class = "downlit")
+  x
+}
+
+highlight_commands <- function(commands) {
+  commands %<>% purrr::map_chr(higlight_single_command)
+  commands
+}
+
+# Plan Decoration ==============
+#' @export
+decorate_plan <- function(
+  plan, cache, group = NULL, clusters = NULL,
+  desc_colname = "desc", colname_out = desc_colname,
+  lookup_cache = NULL,
+  ...) {
+  sym <- rlang::sym
+
+  plan %<>%
+    dplyr::mutate(
+      !!colname_out := enrich_docstrings(!!sym(desc_colname)),
+      !!colname_out := glue::glue(
+        "<h1>{target}</h1>",
+        "{output_column}",
+        "<h2>Command</h2>",
+        "<details><summary>Command</summary>",
+        "{highlight_commands(command)}",
+        "</details>",
+        "<h2>Columns></h2>",
+        "{cols_extracted}",
+        cols_extracted = {
+          .data %>%
+          extract_column_names(
+          cache,
+          group = group, clusters = clusters,
+          colname_out = "gimme") %>%
+          .$gimme %>% link_col2doc(lookup_cache)
+          },
+        output_column = !!sym(colname_out),
+        .sep = "\n"
+      )
+    )
+
+  plan
 }
