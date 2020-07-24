@@ -1,3 +1,16 @@
+# Mandrake 0.1.0
+
+- Implement a top level `decorate_plan()` function. 
+  This function wraps the column extraction and linking process, and 
+  allows: 
+  - The user to specify a column containing markdown description, that 
+    will be rendered in the sidebar
+  - The `command` column of the plan is parsed, highlighted, and code
+    referenced are automagically linked to their docs (thanks to downlit).
+    - This is also rendered in a collapsible segment in the sidebar.
+  - The table of columns -> docs is still rendered in the sidebar, under the 
+    header "columns".
+
 # Mandrake 0.0.1
 
 Tentative First-Pass

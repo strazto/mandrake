@@ -1,6 +1,6 @@
 Package: mandrake
 Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
 Description: This package aims to 
 URL: https://pages.github.sydney.edu.au/speed-extract/mandrake/, https://github.sydney.edu.au/speed-extract/mandrake/
