@@ -109,7 +109,7 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 #' @export
 #' @family graph_decoration
 #' @param target_column_list a list of character vectors specifying column names
-#' @param lookup_cache todo:doc me
+#' @inheriParams load_package_colspec
 link_col2doc <- function(target_column_list, lookup_cache) {
   if (!is(lookup_cache, "storr")) stop("Must pass a storr object to link_col2doc")
 
@@ -162,7 +162,15 @@ highlight_commands <- function(commands) {
 }
 
 # Plan Decoration ==============
+
+#' Decorate Plan with a Rich html Description
+#'
+#' @inheritParams drake::drake_graph_info
+#' @inheritParams load_package_colspec
+#' @param desc_colname the name of the column that provides the markdown description
+#' @param colname_out the name of the column in which to store the enriched description
 #' @export
+#' @family graph_decoration
 decorate_plan <- function(
   plan, cache, group = NULL, clusters = NULL,
   desc_colname = "desc", colname_out = desc_colname,
