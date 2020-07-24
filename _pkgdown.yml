@@ -5,6 +5,7 @@ repo:
     home: https://pages.github.sydney.edu.au/speed-extract/mandrake/
     source: https://github.sydney.edu.au/speed-extract/mandrake/blob/master/
     issue: https://github.sydney.edu.au/speed-extract/mandrake/issues/
+    user: https://github.sydney.edu.au/
 destination: docs
 reference:
 - title: Graph Decoration
