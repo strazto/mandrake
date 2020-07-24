@@ -13,7 +13,7 @@ embed_event_handler <- function() {
   glue::glue(
     "function(props) {",
     "container = this.body.container;",
-    "legend = $(container).prev()[0];",
+    "legend = $(container).parent().children(<{selector}>)[0];",
     "node = this.body.data.nodes.get(props.nodes[0]);",
     "$(legend).css({
          'font-size': '10px',
@@ -23,6 +23,7 @@ embed_event_handler <- function() {
     "$(container).css('width', '70%');",
     "legend.innerHTML = node.on_select_col;",
     "}",
+    selector = "\"[id*='legendhtmlwidget']\"",
     .sep = "\n",
     .open = "<{",
     .close = "}>"
