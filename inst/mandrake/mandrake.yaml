@@ -4,7 +4,7 @@ mpg:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: mpg
   aliases: !<list> []
@@ -24,7 +24,7 @@ cyl:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: cyl
   aliases: !<list> []
@@ -41,7 +41,7 @@ disp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: disp
   aliases: !<list> []
@@ -58,7 +58,7 @@ hp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: hp
   aliases: !<list> []
@@ -78,7 +78,7 @@ drat:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: drat
   aliases: !<list> []
@@ -98,7 +98,7 @@ wt:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: wt
   aliases: !<list> []
@@ -121,7 +121,7 @@ qsec:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: qsec
   aliases: !<list> []
@@ -138,7 +138,7 @@ vs:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: vs
   aliases: !<list> []
@@ -149,7 +149,7 @@ am:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: am
   aliases: !<list> []
@@ -166,7 +166,7 @@ gear:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: gear
   aliases: !<list> []
@@ -186,7 +186,7 @@ carb:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
   direction: !<list> out
   name: carb
   aliases: !<list> []
@@ -203,7 +203,7 @@ coefficients:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: coefficients
   aliases: !<list> []
@@ -214,7 +214,7 @@ residuals:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: residuals
   aliases: !<list> []
@@ -225,7 +225,7 @@ fitted.values:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: fitted.values
   aliases: !<list> []
@@ -236,7 +236,7 @@ rank:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: rank
   aliases: !<list> []
@@ -247,7 +247,7 @@ weights:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: weights
   aliases: !<list> []
@@ -258,7 +258,7 @@ df.residual:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: df.residual
   aliases: !<list> []
@@ -269,7 +269,7 @@ call:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: call
   aliases: !<list> []
@@ -280,7 +280,7 @@ terms:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: terms
   aliases: !<list> []
@@ -292,7 +292,7 @@ contrasts:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: contrasts
   aliases: !<list> []
@@ -303,7 +303,7 @@ xlevels:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: xlevels
   aliases: !<list> []
@@ -315,7 +315,7 @@ offset:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: offset
   aliases: !<list> []
@@ -326,7 +326,7 @@ offset:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: 'y'
   aliases: !<list> []
@@ -337,7 +337,7 @@ x:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: x
   aliases: !<list> []
@@ -348,7 +348,7 @@ model:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: model
   aliases: !<list> []
@@ -359,7 +359,7 @@ na.action:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://rdrr.io/pkg/mandrake/man/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
   direction: !<list> out
   name: na.action
   aliases: !<list> []
