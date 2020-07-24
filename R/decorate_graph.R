@@ -135,7 +135,8 @@ enrich_single_docstring <- function(x) {
   x %<>%
     stringr::str_trim() %>%
     roxygen2:::markdown() %>%
-    pkgdown::rd2html()
+    pkgdown::rd2html() %>%
+    paste(sep = "\n", collapse = "\n")
   x
 }
 
