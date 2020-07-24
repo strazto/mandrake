@@ -1,3 +1,13 @@
+describe_event_handlers <- function(handler) {
+  out <- handler()
+
+  out <- c(
+    "\\preformatted{",
+    out,
+    "}"
+  )
+  out
+}
 
 #' Handler for embedding data into the legend
 #'
@@ -10,7 +20,9 @@
 #'
 #' It looks like this:
 #'
-#' `r embed_event_handler()`
+#' `r describe_event_handlers(mandrake::embed_event_handler)`
+#'
+#'
 #' @export
 #' @family js_handlers
 embed_event_handler <- function() {
