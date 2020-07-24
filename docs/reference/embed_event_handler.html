@@ -146,6 +146,22 @@ with metadata about that node.</p>
 
     <p>Presently requires JQuery to operate, so may not work when launched from
 R session, but does work in pkgdown.</p>
+<p>It looks like this:</p>
+<pre>
+function(props) {
+container = this.body.container;
+legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
+node = this.body.data.nodes.get(props.nodes[0]);
+$(legend).css({
+         'font-size': '10px',
+         'width' : '30&lt;!-- %', --&gt;
+         'overflow-y' : 'scroll'
+       });
+$(container).css('width', '70&lt;!-- %'); --&gt;
+legend.innerHTML = node.on_select_col;
+}
+</pre>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other js_handlers: 

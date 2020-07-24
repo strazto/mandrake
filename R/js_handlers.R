@@ -1,3 +1,13 @@
+describe_event_handlers <- function(handler) {
+  out <- handler()
+
+  out <- c(
+    "\\preformatted{",
+    out,
+    "}"
+  )
+  out
+}
 
 #' Handler for embedding data into the legend
 #'
@@ -7,6 +17,12 @@
 #'
 #' Presently requires JQuery to operate, so may not work when launched from
 #' R session, but does work in pkgdown.
+#'
+#' It looks like this:
+#'
+#' `r describe_event_handlers(mandrake::embed_event_handler)`
+#'
+#'
 #' @export
 #' @family js_handlers
 embed_event_handler <- function() {
