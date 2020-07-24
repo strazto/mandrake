@@ -107,7 +107,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.sydney.edu.au/speed-extract/mandrake/">
+  <a href="https://github.com/mstr3336/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -126,14 +126,14 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.sydney.edu.au/speed-extract/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/mstr3336/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="mandrake-0-1-0" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#mandrake-0-1-0" class="anchor"></a>Mandrake 0.1.0</h1>
 <ul>
-<li>Implement a top level <code><a href="https://rdrr.io/pkg/mandrake/man/decorate_plan.html">decorate_plan()</a></code> function. This function wraps the column extraction and linking process, and allows:
+<li>Implement a top level <code><a href="https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/decorate_plan.html">decorate_plan()</a></code> function. This function wraps the column extraction and linking process, and allows:
 <ul>
 <li>The user to specify a column containing markdown description, that will be rendered in the sidebar</li>
 <li>The <code>command</code> column of the plan is parsed, highlighted, and code referenced are automagically linked to their docs (thanks to downlit).
@@ -151,13 +151,13 @@
 <a href="#mandrake-0-0-1" class="anchor"></a>Mandrake 0.0.1</h1>
 <p>Tentative First-Pass</p>
 <ul>
-<li>Implement roxygen-based <code>@col</code> tag + column doc workflow <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/8"><a href='https://github.sydney.edu.au/speed-extract/mandrake/issues/8'>#8</a></a>.
+<li>Implement roxygen-based <code>@col</code> tag + column doc workflow <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/8"><a href='https://github.com/mstr3336/mandrake/issues/8'>#8</a></a>.
 <ul>
 <li>Implement serialization of column docs from docstrings to <code>yaml</code>.</li>
 <li>Implement deserialization of column docs, by specifying package owning the column specs.</li>
 </ul>
 </li>
-<li>Implement Column spec lookup, extraction and formatting / integration with workflow graphs <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/6"><a href='https://github.sydney.edu.au/speed-extract/mandrake/issues/6'>#6</a></a>.
+<li>Implement Column spec lookup, extraction and formatting / integration with workflow graphs <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/6"><a href='https://github.com/mstr3336/mandrake/issues/6'>#6</a></a>.
 <ul>
 <li>Incl. Extraction of metadata from plan.</li>
 </ul>
@@ -172,7 +172,7 @@
 <h2 class="hasAnchor">
 <a href="#implementations" class="anchor"></a>Implementations</h2>
 <ul>
-<li>Implement target-doc extraction function <code><a href="https://rdrr.io/pkg/mandrake/man/extract_column_names.html">extract_column_names()</a></code>
+<li>Implement target-doc extraction function <code><a href="https://pages.github.sydney.edu.au/speed-extract/mandrake//reference/extract_column_names.html">extract_column_names()</a></code>
 <ul>
 <li>This uses the plan and the cache to extract column names from each target,</li>
 <li>and returns the plan with a new list-col containing that target’s variable names.</li>
