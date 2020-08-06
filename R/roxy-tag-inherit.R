@@ -106,10 +106,18 @@ roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   ns_pkg <- paste0("package:", pkg)
   values <- st$mget(x$val$columns, namespace = ns_pkg)
 
-  print(xfun::tree(values))
-  #out <- values %>% purrr::map()
+  values %<>% dplyr::bind_rows()
 
+  values %<>%
+    dplyr::mutate(
+      rd = glue::glue(
+        "{rd}",
+        "Inherited from {rd_ref}",
+        .sep = "\n"
+      )
+    )
 
+  out <- roxygen2::rd_section("mandrake_input_column", values)
 
-  roxygen2::rd_section("mandrake_input_column", x$val)
+  out
 }
