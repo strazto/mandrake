@@ -89,7 +89,7 @@ cache_pkg_if_not <- function(package, lookup_cache) {
     load_package_colspec(package, lookup_cache)
   }
 
-  invisibile(lookup_cache)
+  invisible(lookup_cache)
 }
 
 #' @export
