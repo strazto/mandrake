@@ -3,6 +3,7 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
 
   explain_format = FALSE
   x$val <- NULL
+  `%||%` <- rlang::`%||%`
 
   format_msg <- glue::glue(
     "format is:",
@@ -42,14 +43,15 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
 
   matches <- x$raw %>% extract_named_captures(match_object)
 
-  current_package <- roxygen2::roxy_meta_get("current_package")
+  # If no source is given, use the current package
+  current_package <- roxygen2::roxy_meta_get("current_package") %||% ""
 
   matches %<>%
     dplyr::mutate(src = dplyr::if_else(is.na(src), current_package, src))
 
-  matches %<>% {
+  matches <- {
     withCallingHandlers({
-      . %>%
+      matches %>%
         dplyr::mutate(columns = parse_yaml_part(columns, "columns"))
     },
     parserError = function(e) {
@@ -67,8 +69,41 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
   x
 }
 
+get_inheritance_cache <- function(env) {
+  if (!rlang::env_has(env, ".mandrake")) env$.mandrake <- storr::storr_environment()
+
+  rlang::with_env(env, {
+    if (!inherits(.mandrake, "storr")) .mandrake <- storr::storr_environment()
+
+    return(.mandrake)
+  })
+}
+
+cache_pkg_if_not <- function(package, lookup_cache) {
+  ns_pkg <- paste0("package:", package)
+
+  if (!ns_pkg %in% lookup_cache$list_namespaces()) {
+    load_package_colspec(package, lookup_cache)
+  }
+
+  invisibile(lookup_cache)
+}
+
 #' @export
 roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
+  st <- get_inheritance_cache(env)
+
+  pkg <- x$val$src
+
+  cache_pkg_if_not(pkg, st)
+
+  ns_pkg <- paste0("package:", pkg)
+  values <- st$mget(x$columns, namespace = ns_pkg)
+
+  print(xfun::tree(values))
+  #out <- values %>% purrr::map()
+
+
 
   roxygen2::rd_section("mandrake_input_column", x$val)
 }
