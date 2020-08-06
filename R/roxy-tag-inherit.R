@@ -77,9 +77,9 @@ get_inheritance_cache <- function(env) {
 
   rlang::with_env(env, {
     if (!inherits(.mandrake, "storr")) .mandrake <- storr::storr_environment()
-
-    return(.mandrake)
   })
+
+  return(env$.mandrake)
 }
 
 cache_pkg_if_not <- function(package, lookup_cache) {
