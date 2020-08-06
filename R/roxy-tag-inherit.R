@@ -66,6 +66,9 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
     )
   }
 
+  matches %<>%
+    tidyr::unnest(columns)
+
   if (explain_format) roxygen2::roxy_tag_warning(x, format_msg)
   else x$val <- matches
 
