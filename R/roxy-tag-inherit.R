@@ -55,7 +55,7 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
   matches <- {
     withCallingHandlers({
       matches %>%
-        dplyr::mutate(columns = parse_yaml_part(columns, "columns"))
+        dplyr::mutate(columns = list(parse_yaml_part(columns, "columns")))
     },
     parserError = function(e) {
       roxygen2::roxy_tag_warning(x, e$message)
