@@ -104,7 +104,7 @@ roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   cache_pkg_if_not(pkg, st)
 
   ns_pkg <- paste0("package:", pkg)
-  values <- st$mget(x$columns, namespace = ns_pkg)
+  values <- st$mget(x$val$columns, namespace = ns_pkg)
 
   print(xfun::tree(values))
   #out <- values %>% purrr::map()
