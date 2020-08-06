@@ -44,10 +44,13 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
   matches <- x$raw %>% extract_named_captures(match_object)
 
   # If no source is given, use the current package
-  current_package <- roxygen2::roxy_meta_get("current_package") %||% ""
+  current_package <- roxygen2::roxy_meta_get("current_package") %||% "package"
 
   matches %<>%
-    dplyr::mutate(src = dplyr::if_else(is.na(src), current_package, src))
+    dplyr::mutate(
+      src = dplyr::if_else(is.na(src), current_package, src),
+      src = stringr::str_trim(src)
+      )
 
   matches <- {
     withCallingHandlers({
