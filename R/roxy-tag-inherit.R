@@ -66,9 +66,6 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
     )
   }
 
-  matches %<>%
-    tidyr::unnest(columns)
-
   if (explain_format) roxygen2::roxy_tag_warning(x, format_msg)
   else x$val <- matches
 
@@ -102,8 +99,10 @@ roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   pkg <- x$val$src
 
   cache_pkg_if_not(pkg, st)
-
   ns_pkg <- paste0("package:", pkg)
+
+  x$val %<>% tidyr::unnest(columns)
+
   values <- st$mget(x$val$columns, namespace = ns_pkg)
 
   values %<>% dplyr::bind_rows()
