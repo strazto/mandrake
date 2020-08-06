@@ -2,6 +2,8 @@
 roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
 
   explain_format = FALSE
+  x$val <- NULL
+
   format_msg <- glue::glue(
     "format is:",
     "  #' @inheritCol src [yaml, list, of, columns]",
@@ -34,13 +36,33 @@ roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
 
   if (match_object[[1]] < 0) {
     roxygen2::roxy_tag_warning(x, "Unable to parse column header!")
-    x$val <- NULL
     roxygen2::roxy_tag_warning(x, format_msg)
     return(x)
   }
 
   matches <- x$raw %>% extract_named_captures(match_object)
 
+  current_package <- roxygen2::roxy_meta_get("current_package")
+
+  matches %<>%
+    dplyr::mutate(src = dplyr::if_else(is.na(src), current_package, src))
+
+  matches %<>% {
+    withCallingHandlers({
+      . %>%
+        dplyr::mutate(columns = parse_yaml_part(columns, "columns"))
+    },
+    parserError = function(e) {
+      roxygen2::roxy_tag_warning(x, e$message)
+      p <- rlang::env_parent()
+      p$explain_format <- TRUE
+      return(NULL)
+    }
+    )
+  }
+
+  if (explain_format) roxygen2::roxy_tag_warning(x, format_msg)
+  else x$val <- matches
 
   x
 }
