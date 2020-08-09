@@ -1,4 +1,4 @@
-# Mandrake 0.1.0.9002
+# Mandrake 0.1.0.9003
 
 ## Additions
 
@@ -27,6 +27,9 @@
 - Now use `@importFrom roxygen2 roclet_process`, etc to import roxygen2 generics
 - Now export roxygen2 S3 methods as S3Methods.
    
+## Bugfixes
+
+- Fixed bug where if no column definitions were given to output, roclet would crash
 
 # Mandrake 0.1.0
 

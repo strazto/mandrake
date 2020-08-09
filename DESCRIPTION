@@ -1,6 +1,6 @@
 Package: mandrake
 Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
-Version: 0.1.0.9002
+Version: 0.1.0.9003
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
 Description: This package aims to 
 URL: https://mstr3336.github.io/mandrake/, https://github.com/mstr3336/mandrake
