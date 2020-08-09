@@ -29,6 +29,7 @@ $(legend).css({
        });
 $(container).css('width', '70%');
 legend.innerHTML = node.on_select_col;
+$(legend).find('pre').css('font-size', 'inherit');
 }
 }
 }
