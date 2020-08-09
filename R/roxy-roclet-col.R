@@ -18,9 +18,15 @@ roclet_process.roclet_col <- function(
   out
 }
 
-
 get_block_data <- function(
   roc, block, env, base_path) {
+  out <- roclet_col_process_col_tag(roc, block, env, base_path)
+
+
+  out
+}
+
+roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   `%||%` <- rlang::`%||%`
 
   # From:
@@ -43,9 +49,9 @@ get_block_data <- function(
         .open = "<", .close = ">",
         package = pkg %||% "",
         s = dplyr::if_else(rlang::is_empty(pkg), "", ":")
-        ),
+      ),
       html_ref = pkgdown::rd2html(rd_ref, autolink = TRUE)
-      )
+    )
   out
 }
 
