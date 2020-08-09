@@ -12,26 +12,25 @@ col_roclet <- function() {
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
-  out <- blocks %>%
-    purrr::map_dfr(
-      ~ get_block_data(roc, ., env, base_path))
-
-  out
-}
-
-get_block_data <- function(
-  roc, block, env, base_path) {
   out <- list()
-  out$cols <- roclet_col_process_col_tag(roc, block, env, base_path)
-  out$inherited <- roclet_col_process_inheritCol_tag(roc, block, env, base_path)
+  out$cols <- blocks %>%
+    purrr::map_dfr(
+      ~roclet_col_process_col_tag(roc, ., env, base_path)
+    )
+
+  out$inherited <- blocks %>%
+    purrr::map_dfr(
+      ~ roclet_col_process_inheritCol_tag(roc, ., env, base_path))
 
   out %<>% dplyr::bind_rows()
 
   out
 }
 
+
 roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   `%||%` <- rlang::`%||%`
+  st <- get_inheritance_cache(env)
 
   # From:
   # https://github.com/r-lib/roxygen2/blob/c73def498f29783044fe50865f22c2482f80942d/R/rd.R#L122
@@ -44,6 +43,10 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
 
   out %<>%
     purrr::map_dfr("val")
+
+  out %>%
+    dplyr::group_by(name) %>%
+    dplyr::group_walk(add_entry_to_cache, lookup_cache = st)
 
   out %<>%
     dplyr::mutate(
