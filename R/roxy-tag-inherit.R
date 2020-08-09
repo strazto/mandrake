@@ -92,8 +92,7 @@ cache_pkg_if_not <- function(package, lookup_cache) {
   invisible(lookup_cache)
 }
 
-#' @export
-roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
+roxy_tag_inheritCol_process <- function(x, base_path, env) {
   st <- get_inheritance_cache(env)
 
   pkg <- x$val$src
@@ -106,6 +105,12 @@ roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   values <- st$mget(x$val$columns, namespace = ns_pkg)
 
   values %<>% dplyr::bind_rows()
+  values
+}
+
+#' @export
+roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
+  values <- roxy_tag_inheritCol_process(x, base_path, env)
 
   values %<>%
     dplyr::mutate(
