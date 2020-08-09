@@ -46,10 +46,6 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   out %<>%
     purrr::map_dfr("val")
 
-  out %>%
-    dplyr::group_by(name) %>%
-    dplyr::group_walk(add_entry_to_cache, lookup_cache = st)
-
   out %<>%
     dplyr::mutate(
       topic = topic,
@@ -62,6 +58,11 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
       ),
       html_ref = pkgdown::rd2html(rd_ref, autolink = TRUE)
     )
+
+  out %>%
+    dplyr::group_by(name) %>%
+    dplyr::group_walk(add_entry_to_cache, lookup_cache = st, .keep = TRUE)
+
   out
 }
 
