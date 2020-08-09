@@ -112,7 +112,7 @@ write_package_results <- function(results, pkg_name, output_dir = NULL) {
 
   cat(c("|", output_path))
 
-  output_path <- output_dir %>% file.path()
+  output_path <- output_dir %>% file.path(output_path)
 
   out <- results %>%
     serialize_df()
