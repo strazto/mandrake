@@ -99,7 +99,11 @@ roclet_output.roclet_col <- function(roc, results, base_path, ...) {
 
   results %>%
     dplyr::group_by(package) %>%
-    dplyr::group_walk(write_package_results, output_dir = output_dir)
+    dplyr::group_walk(
+      write_package_results,
+      output_dir = output_dir,
+      .keep = TRUE
+      )
 
   invisible(NULL)
 }
