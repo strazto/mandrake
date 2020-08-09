@@ -82,18 +82,13 @@ default_column_map_output_path <- function() {
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
 
-  pkg_name <- roxygen2::roxy_meta_get("current_package") %||% "package"
-
-  output_path <- roxygen2::roxy_meta_get(
+  output_dir <- roxygen2::roxy_meta_get(
     "mandrake_output",
     default_column_map_output_path())
 
-  output_path %<>% file.path(glue::glue("{pkg_name}.yaml"))
+  cat(c("Writing", output_dir))
 
-  cat(c("Writing", output_path))
-
-  output_path <- file.path(base_path, output_path)
-  output_dir <- dirname(output_path)
+  output_dir <- file.path(base_path, output_dir)
 
   if (!dir.exists(output_dir)) {
     warning(
@@ -101,6 +96,23 @@ roclet_output.roclet_col <- function(roc, results, base_path, ...) {
       )
     dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
   }
+
+  results %>%
+    dplyr::group_by(package) %>%
+    dplyr::group_walk(write_package_results, output_dir = output_dir)
+
+  invisible(NULL)
+}
+
+write_package_results <- function(results, pkg_name, output_dir = NULL) {
+  if (rlang::is_empty(output_dir)) stop("Output dir needs to be given!")
+
+
+  output_path <- glue::glue("{pkg_name}.yaml")
+
+  cat(c("|", output_path))
+
+  output_path <- output_dir %>% file.path()
 
   out <- results %>%
     serialize_df()
