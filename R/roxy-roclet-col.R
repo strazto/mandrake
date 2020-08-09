@@ -20,8 +20,11 @@ roclet_process.roclet_col <- function(
 
 get_block_data <- function(
   roc, block, env, base_path) {
-  out <- roclet_col_process_col_tag(roc, block, env, base_path)
+  out <- list()
+  out$cols <- roclet_col_process_col_tag(roc, block, env, base_path)
+  out$inherited <- roclet_col_process_inheritCol_tag(roc, block, env, base_path)
 
+  out %<>% dplyr::bind_rows()
 
   out
 }
