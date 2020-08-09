@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -129,9 +129,65 @@
       <small>Source: <a href='https://github.com/mstr3336/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="mandrake-0-1-0-9001" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0.9001">
-<a href="#mandrake-0-1-0-9001" class="anchor"></a>Mandrake 0.1.0.9001</h1>
+    <div id="mandrake-0-1-0-9003" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0.9003">
+<a href="#mandrake-0-1-0-9003" class="anchor"></a>Mandrake 0.1.0.9003</h1>
+<div id="additions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additions" class="anchor"></a>Additions</h2>
+<ul>
+<li>Implement new tag, <code>inheritCol</code>. that allows columns to be inherited from other packages. Give a package name, and a list of columns.</li>
+</ul>
+</div>
+<div id="modifications" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modifications" class="anchor"></a>Modifications</h2>
+<ul>
+<li>When fetching package name in <code><a href="https://mstr3336.github.io/mandrake//reference/col_roclet.html">roclet_process.roclet_col()</a></code>,
+<ul>
+<li>if not found from <code><a href="https://roxygen2.r-lib.org/reference/load_options.html">roxygen2::roxy_meta_get("current_package")</a></code>, will attempt to use <code>env$.packageName</code>.</li>
+</ul>
+</li>
+<li>When processing output for <code>roclet_col()</code>,
+<ul>
+<li>Writes columns from separate packages to separate files.</li>
+</ul>
+</li>
+<li>When adding columns to lookup cache, caches columns to three namespaces:
+<ul>
+<li>All columns are added to
+<ul>
+<li>
+<code>"objects"</code> (or the default <code>storr</code> namespace), where column is referenced by
+<ul>
+<li>Its name</li>
+<li>Or any of its aliases</li>
+</ul>
+</li>
+<li>
+<code>"unique"</code>, where they are referenced by name only</li>
+</ul>
+</li>
+<li>Each column, whose definition is provided by package <code>srcpkg</code> is added to <code>"package:{srcpkg}"</code>, which contains only columns defined by <code>srcpkg</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="export-namespace-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#export-namespace-changes" class="anchor"></a>Export / NAMESPACE Changes</h2>
+<ul>
+<li>Now use <code>@importFrom roxygen2 roclet_process</code>, etc to import roxygen2 generics</li>
+<li>Now export roxygen2 S3 methods as S3Methods.</li>
+</ul>
+</div>
+<div id="bugfixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<ul>
+<li>Fixed bug where if no column definitions were given to output, roclet would crash</li>
+</ul>
+</div>
 </div>
     <div id="mandrake-0-1-0" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
