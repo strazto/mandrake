@@ -110,7 +110,7 @@ write_package_results <- function(results, pkg_name, output_dir = NULL) {
 
   output_path <- glue::glue("{pkg_name}.yaml")
 
-  cat(c("|", output_path))
+  cat(c("\n|", output_path))
 
   output_path <- output_dir %>% file.path(output_path)
 
