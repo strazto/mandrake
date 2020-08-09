@@ -115,6 +115,7 @@ write_package_results <- function(results, pkg_name, output_dir = NULL) {
   output_path <- output_dir %>% file.path(output_path)
 
   out <- results %>%
+    dplyr::distinct(name, body, .keep_all = TRUE) %>%
     serialize_df()
 
   out <- c(roxygen2:::made_by("#"), out)
