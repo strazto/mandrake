@@ -55,6 +55,18 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   out
 }
 
+roclet_col_process_inheritCol_tag <- function(roc, block, env, base_path) {
+  out <- roxygen2::block_get_tags(block, "inheritCol")
+  out %<>%
+    purrr::map_dfr(
+      list("val", roxy_tag_inheritCol_process),
+      base_path = base_path, env = env)
+
+
+  out
+}
+
+
 default_column_map_output_path <- function() {
   file.path("inst", "mandrake")
 }
