@@ -1,6 +1,6 @@
 
 
-#' @exportS3Method roxygen2::roxy_tag_parse
+#' @export
 roxy_tag_parse.roxy_tag_col <- function(x) {
   # \h is regex for horizontal whitespace (not linefeeds etc)
   # \h mightnt be defined in R's version of regex, will have to write a custom
@@ -134,7 +134,7 @@ parse_yaml_part <- function(yaml_text, part) {
 
 # Generate / Dispatch rd sections ==============
 
-#' @exportS3Method roxygen2::roxy_tag_rd
+#' @export
 #' @family roxygen
 roxy_tag_rd.roxy_tag_col <- function(x, base_path, env) {
   dirs_in <- c("in", "i")
@@ -159,40 +159,40 @@ roxy_tag_rd.roxy_tag_col <- function(x, base_path, env) {
 
 # Merge rd sections =========
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::merge
 merge.rd_section_mandrake_input_column <- function(x, y, ...) {
   roxygen2::rd_section("mandrake_input_column", dplyr::bind_rows(x$val, y$val))
 }
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::merge
 merge.rd_section_mandrake_output_column <- function(x, y, ...) {
   roxygen2::rd_section("mandrake_output_column", dplyr::bind_rows(x$val, y$val))
 }
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::merge
 merge.rd_section_mandrake_general_column <- function(x, y, ...) {
   roxygen2::rd_section("mandrake_general_column", dplyr::bind_rows(x$val, y$val))
 }
 
 # Format rd sections =================
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::format
 format.rd_section_mandrake_input_column <- function(x, ...) {
   general_mandrake_column_format(x, title = "Input Columns")
 }
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::format
 format.rd_section_mandrake_output_column <- function(x, ...) {
   general_mandrake_column_format(x, title = "Output Columns")
 }
 
+#' @export
 #' @family roxygen
-#' @exportS3Method base::format
 format.rd_section_mandrake_general_column <- function(x, ...) {
   general_mandrake_column_format(x, title = "Other Columns")
 }

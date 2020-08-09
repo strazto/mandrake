@@ -7,7 +7,7 @@ col_roclet <- function() {
 }
 
 #' @rdname col_roclet
-#' @exportS3Method roxygen2::roclet_process
+#' @export
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
@@ -78,7 +78,7 @@ default_column_map_output_path <- function() {
 
 
 #' @rdname col_roclet
-#' @exportS3Method roxygen2::roclet_output
+#' @export
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
 
