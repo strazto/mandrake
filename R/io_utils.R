@@ -148,22 +148,23 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
 
   keys %<>% c(aliases)
 
-  dest_namespaces <- c("unique", paste0("package:",entry$package))
-  src_namespaces <- rep(
-    lookup_cache$default_namespace,
-    length(dest_namespaces)
-    )
+  pkg_ns <- paste0("package:",entry$package)
+
+  dest_namespace <- "unique"
+  src_namespace <- lookup_cache$default_namespace
+
 
   # Make the value referencable by the formal name, or any of its
   # aliases
   lookup_cache$fill(keys, entry)
+  lookup_cache$fill(keys, entry, namespace = pkg_ns)
   # Add it to the 1:1 namespace that links formal name to values
   # (no alias linkage)
   lookup_cache$duplicate(
     main_key,
     main_key,
-    namespace_src = src_namespaces,
-    namespace_dest = dest_namespaces
+    namespace_src = src_namespace,
+    namespace_dest = dest_namespace
     )
   invisible(NULL)
 }
