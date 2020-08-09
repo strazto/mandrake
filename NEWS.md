@@ -1,4 +1,4 @@
-# Mandrake 0.1.0.9003
+# Mandrake 0.1.0.9004
 
 ## Additions
 
@@ -30,6 +30,12 @@
 ## Bugfixes
 
 - Fixed bug where if no column definitions were given to output, roclet would crash
+- Fixed (?) bug where if trying to self-inherit, would fail if docs for a col hadn't already been 
+  generated. 
+  - Because inheritance and column documentation were processed one-by-one (for each block, process col, then
+    inheritCol), this failure would cause things to consistently fail, as `@col` outputs never got written to file,
+    to be found by `@inheritCol`.
+    - Now, all `@col` are processed, and results cached, then all `@inheritCol` outputs are processed.
 
 # Mandrake 0.1.0
 
