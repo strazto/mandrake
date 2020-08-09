@@ -84,6 +84,11 @@ default_column_map_output_path <- function() {
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
 
+  if (rlang::is_empty(results) | !nrow(results)) {
+    cat("roclet_col found no @col or @inheritCol")
+    return(invisible(NULL))
+  }
+
   output_dir <- roxygen2::roxy_meta_get(
     "mandrake_output",
     default_column_map_output_path())
