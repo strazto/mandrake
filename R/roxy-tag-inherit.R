@@ -114,6 +114,18 @@ roxy_tag_inheritCol_process <- function(x, base_path, env) {
 roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   values <- roxy_tag_inheritCol_process(x, base_path, env)
 
+  if (rlang::is_empty(values) %||% !length(values)) {
+    roxygen2::roxy_tag_warning(
+      x, "for ", x$val$src, "->", x$val$columns)
+    roxygen2::roxy_tag_warning(
+      x,
+      "was unable to process inheritance. ",
+      "If spelling okay, and from same package, try rerunning ",
+      "documentation again."
+      )
+    return(roxygen2::rd_section("mandrake_input_column", NULL))
+  }
+
   values %<>%
     dplyr::mutate(
       rd = glue::glue(

@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -129,9 +129,9 @@
       <small>Source: <a href='https://github.com/mstr3336/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="mandrake-0-1-0-9003" class="section level1">
-<h1 class="page-header" data-toc-text="0.1.0.9003">
-<a href="#mandrake-0-1-0-9003" class="anchor"></a>Mandrake 0.1.0.9003</h1>
+    <div id="mandrake-0-2-0" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#mandrake-0-2-0" class="anchor"></a>Mandrake 0.2.0</h1>
 <div id="additions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#additions" class="anchor"></a>Additions</h2>
@@ -186,6 +186,15 @@
 <a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li>Fixed bug where if no column definitions were given to output, roclet would crash</li>
+<li>Fixed (?) bug where if trying to self-inherit, would fail if docs for a col hadn’t already been generated.
+<ul>
+<li>Because inheritance and column documentation were processed one-by-one (for each block, process col, then inheritCol), this failure would cause things to consistently fail, as <code>@col</code> outputs never got written to file, to be found by <code>@inheritCol</code>.
+<ul>
+<li>Now, all <code>@col</code> are processed, and results cached, then all <code>@inheritCol</code> outputs are processed.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
