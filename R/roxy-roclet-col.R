@@ -41,6 +41,8 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
 
   out <- roxygen2::block_get_tags(block, "col")
 
+  if (!length(out)) return(NULL)
+
   out %<>%
     purrr::map_dfr("val")
 
