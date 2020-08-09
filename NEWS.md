@@ -1,11 +1,11 @@
-# Mandrake 0.1.0.9001
+# Mandrake 0.1.0.9002
 
-# Additions
+## Additions
 
 - Implement new tag, `inheritCol`. that allows columns to be inherited from other packages.
   Give a package name, and a list of columns.
 
-# Modifications
+## Modifications
 
 - When fetching package name in `roclet_process.roclet_col()`, 
   - if not found from `roxygen2::roxy_meta_get("current_package")`, 
@@ -21,6 +21,11 @@
     - `"unique"`, where they are referenced by name only
    - Each column, whose definition is provided by package `srcpkg` is added to
      `"package:{srcpkg}"`, which contains only columns defined by `srcpkg`.
+     
+## Export / NAMESPACE Changes
+
+- Now use `@importFrom roxygen2 roclet_process`, etc to import roxygen2 generics
+- Now export roxygen2 S3 methods as S3Methods.
    
 
 # Mandrake 0.1.0
