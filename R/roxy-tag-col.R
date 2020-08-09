@@ -1,6 +1,7 @@
 
 
 #' @export
+#' @importFrom roxygen2 roxy_tag_parse
 roxy_tag_parse.roxy_tag_col <- function(x) {
   # \h is regex for horizontal whitespace (not linefeeds etc)
   # \h mightnt be defined in R's version of regex, will have to write a custom
@@ -136,6 +137,7 @@ parse_yaml_part <- function(yaml_text, part) {
 
 #' @export
 #' @family roxygen
+#' @importFrom roxygen2 roxy_tag_rd
 roxy_tag_rd.roxy_tag_col <- function(x, base_path, env) {
   dirs_in <- c("in", "i")
   dirs_out <- c("out", "o")
