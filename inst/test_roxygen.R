@@ -1,13 +1,20 @@
 input <- "
+  #' Matthews Function
+  #'
   #' @col [in] matthews_col [matts_col]
   #' I love matt's col. It is **Beautiful**.
   #' Check out [mandrake::extract_column_names()]
   #' @md
+  #' @export
   matthews_function <- function(df) df
   "
 
-block <- roxygen2::parse_text(input)
+#block <- roxygen2::parse_text(input)
 
+topic <- roxygen2::roc_proc_text(roxygen2::rd_roclet(), input)
+
+input_col_roclet_procd <- roxygen2::roc_proc_text(mandrake::col_roclet(), input)
+roxygen2::roclet_output(mandrake::col_roclet(), input_col_roclet_procd, ".")
 
 input2col <- "
 #' Ahoyhoy
@@ -56,9 +63,10 @@ input_inherit <- "
 matthews_function_inherit <- function(df) df
 "
 
-topic <- roxygen2::roc_proc_text(roxygen2::rd_roclet(), input_inherit)
+#topic <- roxygen2::roc_proc_text(roxygen2::rd_roclet(), input_inherit)
 
 inherit_col_roclet_procd <- roxygen2::roc_proc_text(mandrake::col_roclet(), input_inherit)
+roxygen2::roclet_output(mandrake::col_roclet(), inherit_col_roclet_procd, ".")
 
 block_inherit <- roxygen2::parse_text(input_inherit)
 

@@ -1,3 +1,5 @@
+context("May parse tags correctly")
+
 help_test_matthews_col <- function(my_tag) {
   expect_equal(my_tag$tag, "col")
   expect_equal(my_tag$val$name, "matthews_col")
@@ -59,4 +61,33 @@ test_that("parsing a block with 2 deffs of our tag works", {
 
 test_that("May parse valid R columns, such as those with full-stops", {
   fail("Test not implemented")
+})
+
+setup_input_inherit <- function() {
+"
+#' Hello
+#' @col [in] matthews_col [matts_col]
+#' I love matt's col. It is **Beautiful**.
+#' Check out [mandrake::extract_column_names()]  is_in <- any(x$val$direction %in% dirs_in)
+#'
+#' @inheritCol mandrake [mpg, cyl]
+#' @md
+matthews_function_inherit <- function(df) df
+"
+}
+
+inherit_parsed_expect <- function() {
+  tibble::tibble(src = "mandrake", columns = list(c("mpg", "cyl")))
+}
+
+test_that("May parse inheritCol correctly", {
+  input <- setup_input_inherit()
+  block <- roxygen2::parse_text(input)
+
+  block %<>% .[[1]]
+
+  tags <- roxygen2::block_get_tags(block, "inheritCol")
+  val <- tags[[1]]$val
+  expect_equal(val, inherit_parsed_expect())
+
 })

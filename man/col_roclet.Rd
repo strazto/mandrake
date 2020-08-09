@@ -8,9 +8,9 @@
 \usage{
 col_roclet()
 
-roclet_process.roclet_col(roc, blocks, env, base_path)
+\method{roclet_process}{roclet_col}(roc, blocks, env, base_path)
 
-roclet_output.roclet_col(roc, results, base_path, ...)
+\method{roclet_output}{roclet_col}(roc, results, base_path, ...)
 }
 \description{
 Roclet for processing the \verb{@col} tag

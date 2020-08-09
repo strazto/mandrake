@@ -8,6 +8,7 @@ col_roclet <- function() {
 
 #' @rdname col_roclet
 #' @export
+#' @importFrom roxygen2 roclet_process
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
@@ -79,8 +80,14 @@ default_column_map_output_path <- function() {
 
 #' @rdname col_roclet
 #' @export
+#' @importFrom roxygen2 roclet_output
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
+
+  if (rlang::is_empty(results) | !nrow(results)) {
+    cat("roclet_col found no @col or @inheritCol")
+    return(invisible(NULL))
+  }
 
   output_dir <- roxygen2::roxy_meta_get(
     "mandrake_output",
