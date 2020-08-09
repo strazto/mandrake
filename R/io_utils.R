@@ -139,12 +139,31 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
     stop("Empty lookup cache given to add_entry_to_cache")
 
   keys %<>% dplyr::pull()
+
+  main_key <- keys
+
   aliases <- entry %>%
     dplyr::pull(aliases) %>%
     purrr::flatten_chr()
 
   keys %<>% c(aliases)
 
+  dest_namespaces <- c("unique", paste0("package:",entry$package))
+  src_namespaces <- rep(
+    lookup_cache$default_namespace,
+    length(dest_namespaces)
+    )
+
+  # Make the value referencable by the formal name, or any of its
+  # aliases
   lookup_cache$fill(keys, entry)
+  # Add it to the 1:1 namespace that links formal name to values
+  # (no alias linkage)
+  lookup_cache$duplicate(
+    main_key,
+    main_key,
+    namespace_src = src_namespaces,
+    namespace_dest = dest_namespaces
+    )
   invisible(NULL)
 }

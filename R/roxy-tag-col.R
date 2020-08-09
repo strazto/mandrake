@@ -46,24 +46,26 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
     explain_format <- TRUE
   }
 
-  parse_yaml_part <- function(yaml_text, part) {
-    tryCatch(
-      yaml::yaml.load(yaml_text),
-      error = function(cond) {
-        roxygen2::roxy_tag_warning(x, "Error parsing ", part)
-        explain_format <- TRUE
-        return(NULL)
-      }
-      )
-  }
-
-  matches %<>%
-    dplyr::mutate(
-      dplyr::across(
-        c(direction, aliases),
-        ~list(parse_yaml_part(., curr_column()))
+  matches <- withCallingHandlers({
+    matches %<>%
+      dplyr::mutate(
+        dplyr::across(
+          c(direction, aliases),
+          ~list(parse_yaml_part(., dplyr::cur_column()))
         )
       )
+     matches
+    },
+    parserError = function(e) {
+      roxygen2::roxy_tag_warning(x, e$message)
+      p <- rlang::env_parent()
+      p$explain_format <- TRUE
+      p$x$val <- NULL
+      return(NULL)
+    }
+    )
+
+
 
   if (explain_format) roxygen2::roxy_tag_warning(x, format_msg)
 
@@ -113,6 +115,21 @@ extract_named_captures <- function(string, match_object) {
     tidyr::pivot_wider(id_cols = name, names_from = name, values_from = match)
 
   out
+}
+
+
+parse_yaml_part <- function(yaml_text, part) {
+  tryCatch({
+    yaml::yaml.load(
+      yaml_text,
+      error.label = paste0("Error parsing ", part))
+    },
+    error = function(cond) {
+      class(cond) <- c("parserError", "condition")
+      signalCondition(cond)
+      return(NULL)
+    }
+  )
 }
 
 # Generate / Dispatch rd sections ==============
