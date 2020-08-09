@@ -36,7 +36,8 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   # https://github.com/r-lib/roxygen2/blob/c73def498f29783044fe50865f22c2482f80942d/R/rd.R#L122
   topic <- roxygen2::block_get_tag(block, "name")$val %||% block$object$topic
 
-  pkg <- roxygen2::roxy_meta_get("current_package")
+  pkg <- roxygen2::roxy_meta_get("current_package") %||%
+    rlang::env_get(env, ".packageName", default = "")
 
   out <- roxygen2::block_get_tags(block, "col")
 
