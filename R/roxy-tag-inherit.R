@@ -1,4 +1,4 @@
-#' @export
+#' @exportS3Method roxygen2::roxy_tag_parse
 roxy_tag_parse.roxy_tag_inheritCol <- function(x) {
 
   explain_format = FALSE
@@ -108,7 +108,7 @@ roxy_tag_inheritCol_process <- function(x, base_path, env) {
   values
 }
 
-#' @export
+#' @exportS3Method roxygen2::roxy_tag_rd
 roxy_tag_rd.roxy_tag_inheritCol <- function(x, base_path, env) {
   values <- roxy_tag_inheritCol_process(x, base_path, env)
 
