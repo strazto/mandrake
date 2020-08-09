@@ -1,3 +1,28 @@
+# Mandrake 0.1.0.9001
+
+# Additions
+
+- Implement new tag, `inheritCol`. that allows columns to be inherited from other packages.
+  Give a package name, and a list of columns.
+
+# Modifications
+
+- When fetching package name in `roclet_process.roclet_col()`, 
+  - if not found from `roxygen2::roxy_meta_get("current_package")`, 
+    will attempt to use `env$.packageName`. 
+- When processing output for `roclet_col()`, 
+  - Writes columns from separate packages to separate files.
+- When adding columns to lookup cache, caches columns to three namespaces:
+  - All columns are added to
+    - `"objects"` (or the default `storr` namespace), 
+      where column is referenced by
+      - Its name
+      - Or any of its aliases
+    - `"unique"`, where they are referenced by name only
+   - Each column, whose definition is provided by package `srcpkg` is added to
+     `"package:{srcpkg}"`, which contains only columns defined by `srcpkg`.
+   
+
 # Mandrake 0.1.0
 
 - Implement a top level `decorate_plan()` function. 
