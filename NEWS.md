@@ -1,3 +1,9 @@
+# Mandrake 0.2.1
+
+## Fixes
+
+- Qualified a call to `rlang::\`%||%\``
+
 # Mandrake 0.2.0
 
 ## Additions
