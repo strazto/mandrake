@@ -1,8 +1,12 @@
-# Mandrake 0.2.1.9001
+# Mandrake 0.2.1.9002
 
 ## Fixes
 
 - Now gracefully handle when targets are not cached, or missing from cache
+
+## Additions
+
+- Implement `attach_dependencies()`, which attaches bootstrap and jquery deps to graphs
 
 # Mandrake 0.2.1
 
