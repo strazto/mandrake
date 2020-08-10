@@ -1,7 +1,8 @@
 # Target Column Extraction and Decoration =====
 
 extract_target_column_names <- function(target, cache) {
-  out <- target %>% drake::readd(character_only = TRUE, cache = cache)
+  if (cache$exists(target)) out <- cache$get(target)
+  else out <- list()
 
   out %<>% names()
 
