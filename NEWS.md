@@ -1,3 +1,9 @@
+# Mandrake 0.2.1.9001
+
+## Fixes
+
+- Now gracefully handle when targets are not cached, or missing from cache
+
 # Mandrake 0.2.1
 
 ## Fixes
