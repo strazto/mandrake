@@ -219,3 +219,22 @@ decorate_plan <- function(
 
   plan
 }
+
+#' @export
+attach_dependencies <- function(graph) {
+  jquery <- htmltools::htmlDependency(
+    "jquery", version = "3.4.1",
+    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
+    script = "jquery.min.js"
+    )
+
+  bootstrap <- htmltools::htmlDependency(
+    "bootstrap",
+    version = "3.4.1",
+    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
+    stylesheet = "bootstrap.min.css"
+  )
+
+  graph$dependencies %<>% c(list(jquery, bootstrap))
+  graph
+}
