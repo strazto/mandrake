@@ -138,6 +138,8 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
   if (rlang::is_empty(lookup_cache))
     stop("Empty lookup cache given to add_entry_to_cache")
 
+  grouping_cols <- names(keys)
+
   keys %<>% dplyr::pull()
 
   main_key <- keys
@@ -214,6 +216,9 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
     namespace_dest = dest_namespace
     )
 
+  # Drop these before return to ensure functionality
+  # with group_modify
+  entry %<>% dplyr::select(-c(grouping_cols))
 
   invisible(entry)
 }
