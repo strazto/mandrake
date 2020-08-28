@@ -172,7 +172,7 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
   dest_namespace <- "unique"
   src_namespace <- lookup_cache$default_namespace
 
-  handle_previous_defs <- function(keys, lookup_cache) {
+  handle_previous_defs <- function(keys, entry, lookup_cache) {
     already_defined <- lookup_cache$exists(keys)
 
     if (any(already_defined)) {
@@ -189,14 +189,17 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
         )
 
       warning(
-        "Keys already defined: ", jsonlite::toJSON(defd_keys))
+        "For entry @ ",
+        jsonlite::toJSON(entry$topic),
+        ". keys already defined: ",
+        jsonlite::toJSON(previous_defs))
 
       keys %<>% .[!already_defined]
     }
     keys
   }
 
-  keys %<>% handle_previous_defs(lookup_cache)
+  keys %<>% handle_previous_defs(entry, lookup_cache)
 
   # Make the value referencable by the formal name, or any of its
   # aliases
