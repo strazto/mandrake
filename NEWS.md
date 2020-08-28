@@ -1,4 +1,4 @@
-# Mandrake 0.2.2
+# Mandrake 0.2.3
 
 ## Fixes
 
@@ -8,6 +8,10 @@
 ## Additions
 
 - Implement `attach_dependencies()`, which attaches bootstrap and jquery deps to graphs
+
+# Mandrake 0.2.2
+
+*Version Skipped*
 
 # Mandrake 0.2.1
 
