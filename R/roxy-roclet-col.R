@@ -59,9 +59,10 @@ roclet_col_process_col_tag <- function(roc, block, env, base_path) {
       html_ref = pkgdown::rd2html(rd_ref, autolink = TRUE)
     )
 
-  out %>%
+  out %<>%
     dplyr::group_by(name) %>%
-    dplyr::group_walk(add_entry_to_cache, lookup_cache = st, .keep = TRUE)
+    dplyr::group_modify(add_entry_to_cache, lookup_cache = st, .keep = TRUE) %>%
+    dplyr::ungroup()
 
   out
 }

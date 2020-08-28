@@ -213,5 +213,7 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
     namespace_src = src_namespace,
     namespace_dest = dest_namespace
     )
-  invisible(NULL)
+
+
+  invisible(entry)
 }
