@@ -142,6 +142,25 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
 
   main_key <- keys
 
+
+  fix_entry_duplication <- function(entry, main_key) {
+    first_entry <- entry %>% dplyr::slice_head()
+
+    topics <- entry$topic %>% jsonlite::toJSON()
+    first_topic <- first_entry$topic %>% jsonlite::toJSON()
+
+    if (nrow(entry) > 1) {
+      warning(
+        "Multiple defintions for ", main_key, " given in ",
+        topics, " keeping only definition from ", first_topic
+        )
+    }
+
+    return(first_entry)
+  }
+
+  entry %<>% fix_entry_duplication(main_key)
+
   aliases <- entry %>%
     dplyr::pull(aliases) %>%
     purrr::flatten_chr()
@@ -153,6 +172,31 @@ add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
   dest_namespace <- "unique"
   src_namespace <- lookup_cache$default_namespace
 
+  handle_previous_defs <- function(keys, lookup_cache) {
+    already_defined <- lookup_cache$exists(keys)
+
+    if (any(already_defined)) {
+      defd_keys <- keys[already_defined]
+      previous_defs <- defd_keys %>%
+        lookup_cache$mget() %>%
+        purrr::map2_dfr(defd_keys, function(entry, key) {
+          entry %<>%
+            dplyr::mutate(key = key)
+          entry
+        }) %>%
+        glue::glue_data(
+          "{key}@{package}::{topic}"
+        )
+
+      warning(
+        "Keys already defined: ", jsonlite::toJSON(defd_keys))
+
+      keys %<>% .[!already_defined]
+    }
+    keys
+  }
+
+  keys %<>% handle_previous_defs(lookup_cache)
 
   # Make the value referencable by the formal name, or any of its
   # aliases
