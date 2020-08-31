@@ -1,9 +1,8 @@
 # Mandrake 0.2.3.9001
 
-## Additions
+## Fixes
 
-- Implement `link_dependencies()` which links bootstrap & jquery deps to graphs,
-  rather than embedding them
+- Fix bug related to `htmlwidgets::saveWidget` when `selfcontained = TRUE` breaking embedded stylesheets.
 
 # Mandrake 0.2.3
 
