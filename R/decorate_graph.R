@@ -222,6 +222,17 @@ decorate_plan <- function(
 
 #' Attach Html Dependencies
 #'
+#' This should be done for self-contained instances of visNetwork, when
+#' not being rendered as part of a larger document.
+#' It sets up some stylesheet + javascript dependencies.
+#'
+#' Use it like:
+#' ```
+#' graph <- visNetwork::visNetwork()
+#' graph %<>% attach_dependencies()
+#' graph %>% visNetwork::visSave()
+#' ```
+#'
 #' @family widget_dependencies
 #' @export
 attach_dependencies <- function(graph) {
