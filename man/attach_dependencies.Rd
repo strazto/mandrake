@@ -7,10 +7,14 @@
 attach_dependencies(graph)
 }
 \description{
-Attach Html Dependencies
+This should be done for self-contained instances of visNetwork, when
+not being rendered as part of a larger document.
+It sets up some stylesheet + javascript dependencies.
 }
-\seealso{
-Other widget_dependencies: 
-\code{\link{link_dependencies}()}
+\details{
+Use it like:\preformatted{graph <- visNetwork::visNetwork()
+graph \%<>\% attach_dependencies()
+graph \%>\% visNetwork::visSave()
+}
 }
 \concept{widget_dependencies}
