@@ -260,5 +260,15 @@ link_dependencies <- function(graph) {
     crossorigin="anonymous"
   )
 
+  chroma <- htmltools::htmlDependency(
+    "chroma",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    stylesheet = "chroma.css"
+  )
+
   graph %<>% htmlwidgets::prependContent(bootstrap, jquery)
+  graph %<>% htmltools::attachDependencies(chroma, append = TRUE)
+  graph
 }
