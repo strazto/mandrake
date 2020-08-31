@@ -225,12 +225,15 @@ decorate_plan <- function(
 #' @family widget_dependencies
 #' @export
 attach_dependencies <- function(graph) {
+  # Jquery is used for manipulating the dom, and dynamically
+  # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
     "jquery", version = "3.4.1",
     src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
     script = "jquery.min.js"
     )
 
+  # Bootstrap's beautiful css
   bootstrap <- htmltools::htmlDependency(
     "bootstrap",
     version = "3.4.1",
@@ -238,6 +241,7 @@ attach_dependencies <- function(graph) {
     stylesheet = "bootstrap.min.css"
   )
 
+  # Custom Syntax Highlighting Classes
   chroma <- htmltools::htmlDependency(
     "chroma",
     "0.0.0.9001",
@@ -246,6 +250,9 @@ attach_dependencies <- function(graph) {
     stylesheet = "chroma.css"
   )
 
+  # This script fixes a mangled "type" attribute set on some stylesheets
+  # by htmlwidgets saveWidget(selfcontained = TRUE)
+  # Restores the type to simply "text/css"
   fix_utf <- htmltools::htmlDependency(
     "fix_utf",
     "0.0.0.9001",
