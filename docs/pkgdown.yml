@@ -2,7 +2,7 @@ pandoc: 2.3.1
 pkgdown: 1.5.1.9000
 pkgdown_sha: ~
 articles: []
-last_built: 2020-08-09T17:02Z
+last_built: 2020-08-31T08:57Z
 urls:
   reference: https://mstr3336.github.io/mandrake//reference
   article: https://mstr3336.github.io/mandrake//articles
