@@ -220,6 +220,9 @@ decorate_plan <- function(
   plan
 }
 
+#' Attach Html Dependencies
+#'
+#' @family widget_dependencies
 #' @export
 attach_dependencies <- function(graph) {
   jquery <- htmltools::htmlDependency(
