@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mtcars Dataset — mtcars_dataset • mandrake</title>
+<title>Attach Html Dependencies — attach_dependencies • mandrake</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="mtcars Dataset — mtcars_dataset" />
-<meta property="og:description" content="These cars go vroom!" />
+<meta property="og:title" content="Attach Html Dependencies — attach_dependencies" />
+<meta property="og:description" content="This should be done for self-contained instances of visNetwork, when
+not being rendered as part of a larger document.
+It sets up some stylesheet + javascript dependencies." />
 
 
 
@@ -126,72 +128,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mtcars Dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mstr3336/mandrake/blob/master/R/example-mtcars.R'><code>R/example-mtcars.R</code></a></small>
-    <div class="hidden name"><code>mtcars_dataset.Rd</code></div>
+    <h1>Attach Html Dependencies</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mstr3336/mandrake/blob/master/R/decorate_graph.R'><code>R/decorate_graph.R</code></a></small>
+    <div class="hidden name"><code>attach_dependencies.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These cars go vroom!</p>
+    <p>This should be done for self-contained instances of visNetwork, when
+not being rendered as part of a larger document.
+It sets up some stylesheet + javascript dependencies.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>attach_dependencies</span>(<span class='kw'>graph</span>)</pre>
 
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>Other example_datasets: 
-<code>lm_object</code></p></div>
-    <h2 class="hasAnchor" id="output-columns-"><a class="anchor" href="#output-columns-"></a>Output Columns:</h2>
-
-    
-<dl>
-<dt>mpg</dt><dd><p>Numeric.
-<code>mpg</code> or "Miles Per Gallon" is how many miles you can drive on
-a gallon of fuel.
-<ul>
-</ul></p></dd>
-<dt>cyl</dt><dd><p>Integer
-Number of cylinders
-<ul>
-</ul></p></dd>
-<dt>disp</dt><dd><p>Integer.
-I literally don't know what this means
-<ul>
-</ul></p></dd>
-<dt>hp</dt><dd><p>Integer
-Horsepower is a measure of the number of miniature horses this car
-can fit inside itself, which run on a treadmill that make it go fast.
-<ul>
-</ul></p></dd>
-<dt>drat</dt><dd><p>Numeric
-This is a word you say when something doesn't go the way you hoped.
-<strong>Drat!</strong>
-<ul>
-</ul></p></dd>
-<dt>wt</dt><dd><p>Numeric
-Stands for "What the..." - An exclamation of surprise!Or <strong>weight</strong>, maybe.
-<ul>
-</ul></p></dd>
-<dt>qsec</dt><dd><p>Numeric.
-Number of seconds you need to line up in a queue in order to buy this car.
-<ul>
-</ul></p></dd>
-<dt>vs</dt><dd><p>Logical, Does the car ever compete?
-<ul>
-</ul></p></dd>
-<dt>am</dt><dd><p>Logical, is this car okay to use in the morning, or should you save it for
-after midday?
-<ul>
-</ul></p></dd>
-<dt>gear</dt><dd><p>Integer,How many different gears transmissions does this car have.
-<ul>
-</ul></p></dd>
-<dt>carb</dt><dd><p>Integer, Number of grams of carbohydrates contained in this car.
-Typically pretty low, as cars are not particularly nutritious.
-<ul>
-</ul></p></dd>
-
-</dl>
+    <p>Use it like:</p><pre><span class='kw'>graph</span> <span class='op'>&lt;-</span> <span class='kw'>visNetwork</span>::<span class='fu'><a href='https://rdrr.io/pkg/visNetwork/man/visNetwork.html'>visNetwork</a></span>()
+<span class='kw'>graph</span> <span class='op'>%&lt;&gt;%</span> <span class='fu'>attach_dependencies</span>()
+<span class='kw'>graph</span> <span class='op'>%&gt;%</span> <span class='kw'>visNetwork</span>::<span class='fu'><a href='https://rdrr.io/pkg/visNetwork/man/visSave.html'>visSave</a></span>()</pre>
 
 
   </div>
