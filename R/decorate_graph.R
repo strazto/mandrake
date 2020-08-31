@@ -241,3 +241,24 @@ attach_dependencies <- function(graph) {
   graph$dependencies %<>% c(list(jquery, bootstrap))
   graph
 }
+
+#' Link Html Dependencies
+#'
+#' @family widget_dependencies
+#' @export
+link_dependencies <- function(graph) {
+  bootstrap <- htmltools::tags$link(
+    rel = "stylesheet",
+    href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css",
+    integrity = "sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=",
+    crossorigin = "anonymous"
+    )
+
+  jquery <- htmltools::tags$script(
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js",
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=",
+    crossorigin="anonymous"
+  )
+
+  graph %<>% htmlwidgets::prependContent(bootstrap, jquery)
+}
