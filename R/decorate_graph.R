@@ -238,7 +238,24 @@ attach_dependencies <- function(graph) {
     stylesheet = "bootstrap.min.css"
   )
 
-  graph$dependencies %<>% c(list(jquery, bootstrap))
+  chroma <- htmltools::htmlDependency(
+    "chroma",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    stylesheet = "chroma.css"
+  )
+
+  fix_utf <- htmltools::htmlDependency(
+    "fix_utf",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    script = "fix_utf.js"
+  )
+
+  graph$dependencies %<>% c(list(jquery, bootstrap, chroma, fix_utf))
+
   graph
 }
 
@@ -269,6 +286,7 @@ link_dependencies <- function(graph) {
   )
 
   graph %<>% htmlwidgets::prependContent(bootstrap, jquery)
-  graph %<>% htmltools::attachDependencies(chroma, append = TRUE)
+  graph$dependencies %<>% c(list(chroma))
+
   graph
 }
