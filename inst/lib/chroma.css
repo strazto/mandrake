@@ -2,23 +2,23 @@
  * Copied from:
  * https://xyproto.github.io/splash/docs/github.html
  * */
-.chroma {
+.downlit {
 	background-color: #ffffff
 }
 
-.chroma .err {
+.downlit .err {
 	color: #a61717;
 	background-color: #e3d2d2
 }
 
-.chroma .lntd {
+.downlit .lntd {
 	vertical-align: top;
 	padding: 0;
 	margin: 0;
 	border: 0;
 }
 
-.chroma .lntable {
+.downlit .lntable {
 	border-spacing: 0;
 	padding: 0;
 	margin: 0;
@@ -28,307 +28,307 @@
 	display: block;
 }
 
-.chroma .hl {
+.downlit .hl {
 	display: block;
 	width: 100%;
 	background-color: #e5e5e5
 }
 
-.chroma .lnt {
+.downlit .lnt {
 	margin-right: 0.4em;
 	padding: 0 0.4em 0 0.4em;
 	color: #7f7f7f
 }
 
-.chroma .ln {
+.downlit .ln {
 	margin-right: 0.4em;
 	padding: 0 0.4em 0 0.4em;
 	color: #7f7f7f
 }
 
-.chroma .k {
+.downlit .k {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kc {
+.downlit .kc {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kd {
+.downlit .kd {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kn {
+.downlit .kn {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kp {
+.downlit .kp {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kr {
+.downlit .kr {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .kt {
+.downlit .kt {
 	color: #445588;
 	font-weight: bold
 }
 
-.chroma .na {
+.downlit .na {
 	color: #008080
 }
 
-.chroma .nb {
+.downlit .nb {
 	color: #0086b3
 }
 
-.chroma .bp {
+.downlit .bp {
 	color: #999999
 }
 
-.chroma .nc {
+.downlit .nc {
 	color: #445588;
 	font-weight: bold
 }
 
-.chroma .no {
+.downlit .no {
 	color: #008080
 }
 
-.chroma .nd {
+.downlit .nd {
 	color: #3c5d5d;
 	font-weight: bold
 }
 
-.chroma .ni {
+.downlit .ni {
 	color: #800080
 }
 
-.chroma .ne {
+.downlit .ne {
 	color: #990000;
 	font-weight: bold
 }
 
-.chroma .nf {
+.downlit .nf {
 	color: #990000;
 	font-weight: bold
 }
 
-.chroma .nl {
+.downlit .nl {
 	color: #990000;
 	font-weight: bold
 }
 
-.chroma .nn {
+.downlit .nn {
 	color: #555555
 }
 
-.chroma .nt {
+.downlit .nt {
 	color: #000080
 }
 
-.chroma .nv {
+.downlit .nv {
 	color: #008080
 }
 
-.chroma .vc {
+.downlit .vc {
 	color: #008080
 }
 
-.chroma .vg {
+.downlit .vg {
 	color: #008080
 }
 
-.chroma .vi {
+.downlit .vi {
 	color: #008080
 }
 
-.chroma .s {
+.downlit .s {
 	color: #dd1144
 }
 
-.chroma .sa {
+.downlit .sa {
 	color: #dd1144
 }
 
-.chroma .sb {
+.downlit .sb {
 	color: #dd1144
 }
 
-.chroma .sc {
+.downlit .sc {
 	color: #dd1144
 }
 
-.chroma .dl {
+.downlit .dl {
 	color: #dd1144
 }
 
-.chroma .sd {
+.downlit .sd {
 	color: #dd1144
 }
 
-.chroma .s2 {
+.downlit .s2 {
 	color: #dd1144
 }
 
-.chroma .se {
+.downlit .se {
 	color: #dd1144
 }
 
-.chroma .sh {
+.downlit .sh {
 	color: #dd1144
 }
 
-.chroma .si {
+.downlit .si {
 	color: #dd1144
 }
 
-.chroma .sx {
+.downlit .sx {
 	color: #dd1144
 }
 
-.chroma .sr {
+.downlit .sr {
 	color: #009926
 }
 
-.chroma .s1 {
+.downlit .s1 {
 	color: #dd1144
 }
 
-.chroma .ss {
+.downlit .ss {
 	color: #990073
 }
 
-.chroma .m {
+.downlit .m {
 	color: #009999
 }
 
-.chroma .mb {
+.downlit .mb {
 	color: #009999
 }
 
-.chroma .mf {
+.downlit .mf {
 	color: #009999
 }
 
-.chroma .mh {
+.downlit .mh {
 	color: #009999
 }
 
-.chroma .mi {
+.downlit .mi {
 	color: #009999
 }
 
-.chroma .il {
+.downlit .il {
 	color: #009999
 }
 
-.chroma .mo {
+.downlit .mo {
 	color: #009999
 }
 
-.chroma .o {
+.downlit .o {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .ow {
+.downlit .ow {
 	color: #000000;
 	font-weight: bold
 }
 
-.chroma .c {
+.downlit .c {
 	color: #999988;
 	font-style: italic
 }
 
-.chroma .ch {
+.downlit .ch {
 	color: #999988;
 	font-style: italic
 }
 
-.chroma .cm {
+.downlit .cm {
 	color: #999988;
 	font-style: italic
 }
 
-.chroma .c1 {
+.downlit .c1 {
 	color: #999988;
 	font-style: italic
 }
 
-.chroma .cs {
+.downlit .cs {
 	color: #999999;
 	font-weight: bold;
 	font-style: italic
 }
 
-.chroma .cp {
+.downlit .cp {
 	color: #999999;
 	font-weight: bold;
 	font-style: italic
 }
 
-.chroma .cpf {
+.downlit .cpf {
 	color: #999999;
 	font-weight: bold;
 	font-style: italic
 }
 
-.chroma .gd {
+.downlit .gd {
 	color: #000000;
 	background-color: #ffdddd
 }
 
-.chroma .ge {
+.downlit .ge {
 	color: #000000;
 	font-style: italic
 }
 
-.chroma .gr {
+.downlit .gr {
 	color: #aa0000
 }
 
-.chroma .gh {
+.downlit .gh {
 	color: #999999
 }
 
-.chroma .gi {
+.downlit .gi {
 	color: #000000;
 	background-color: #ddffdd
 }
 
-.chroma .go {
+.downlit .go {
 	color: #888888
 }
 
-.chroma .gp {
+.downlit .gp {
 	color: #555555
 }
 
-.chroma .gs {
+.downlit .gs {
 	font-weight: bold
 }
 
-.chroma .gu {
+.downlit .gu {
 	color: #aaaaaa
 }
 
-.chroma .gt {
+.downlit .gt {
 	color: #aa0000
 }
 
-.chroma .gl {
+.downlit .gl {
 	text-decoration: underline
 }
 
-.chroma .w {
+.downlit .w {
 	color: #bbbbbb
 }
