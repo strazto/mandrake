@@ -220,14 +220,31 @@ decorate_plan <- function(
   plan
 }
 
+#' Attach Html Dependencies
+#'
+#' This should be done for self-contained instances of visNetwork, when
+#' not being rendered as part of a larger document.
+#' It sets up some stylesheet + javascript dependencies.
+#'
+#' Use it like:
+#' ```
+#' graph <- visNetwork::visNetwork()
+#' graph %<>% attach_dependencies()
+#' graph %>% visNetwork::visSave()
+#' ```
+#'
+#' @family widget_dependencies
 #' @export
 attach_dependencies <- function(graph) {
+  # Jquery is used for manipulating the dom, and dynamically
+  # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
     "jquery", version = "3.4.1",
     src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
     script = "jquery.min.js"
     )
 
+  # Bootstrap's beautiful css
   bootstrap <- htmltools::htmlDependency(
     "bootstrap",
     version = "3.4.1",
@@ -235,6 +252,28 @@ attach_dependencies <- function(graph) {
     stylesheet = "bootstrap.min.css"
   )
 
-  graph$dependencies %<>% c(list(jquery, bootstrap))
+  # Custom Syntax Highlighting Classes
+  chroma <- htmltools::htmlDependency(
+    "chroma",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    stylesheet = "chroma.css"
+  )
+
+  # This script fixes a mangled "type" attribute set on some stylesheets
+  # by htmlwidgets saveWidget(selfcontained = TRUE)
+  # Restores the type to simply "text/css"
+  fix_utf <- htmltools::htmlDependency(
+    "fix_utf",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    script = "fix_utf.js"
+  )
+
+  graph$dependencies %<>% c(list(jquery, bootstrap, chroma, fix_utf))
+
   graph
 }
+

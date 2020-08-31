@@ -1,3 +1,9 @@
+# Mandrake 0.2.3.9001
+
+## Fixes
+
+- Fix bug related to `htmlwidgets::saveWidget` when `selfcontained = TRUE` breaking embedded stylesheets.
+
 # Mandrake 0.2.3
 
 ## Fixes
@@ -5,6 +11,7 @@
 - Now gracefully handle when targets are not cached, or missing from cache
 - Now gracefully handle duplication of column definitions across package
   - drops duplicate definitions, warns about dropping.
+
 ## Additions
 
 - Implement `attach_dependencies()`, which attaches bootstrap and jquery deps to graphs
