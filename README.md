@@ -11,6 +11,8 @@ your workflows at both a bird's eye view, & in intimate detail.
 your datasets in the same place that you create them, as well as the tools to inherit this dataset documentation around
 packages with minimal effort.
 
+## Demonstration
+
 <center>
 <a href="https://gfycat.com/ifr/RipePersonalBorzoi">
 <img src="https://thumbs.gfycat.com/RipePersonalBorzoi-size_restricted.gif" class="img-fluid" alt="GIF preview">
