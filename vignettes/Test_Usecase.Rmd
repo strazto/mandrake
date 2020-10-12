@@ -1,5 +1,5 @@
 ---
-title: "Test_Usecase"
+title: "Introduction to mandrake"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Test_Usecase}
