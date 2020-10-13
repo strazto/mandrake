@@ -3,7 +3,7 @@ Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
 Version: 0.2.4
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
 Description: This package aims to 
-URL: https://mstr3336.github.io/mandrake/, https://github.com/mstr3336/mandrake
+URL: https://mstrasiot.to/mandrake/, https://github.com/matthewstrasiotto/mandrake
 License: MIT
 Encoding: UTF-8
 LazyData: true
