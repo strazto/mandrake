@@ -4,10 +4,11 @@
 mandrake
 ========
 
-`{mandrake}` is an R package that aims to bridge the gap between: \* the
-**man**ual & the [`{**drake**}`](https://github.com/ropensci/drake)
-workflow, & \* your `code`’s ⌨️ documentation & your data’s 📈
-documentation.
+`{mandrake}` is an R package that aims to bridge the gap between:
+
+-   the **man**ual & the [`{drake}`](https://github.com/ropensci/drake)
+    workflow
+-   your `code`’s ⌨️ documentation & your data’s 📈 documentation.
 
 `{mandrake}` extends the communication tools provided by `{drake}` &
 supercharges to connect directly with your workflows at both an eage-eye
