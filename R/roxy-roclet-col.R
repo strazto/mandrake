@@ -79,6 +79,25 @@ roclet_col_process_inheritCol_tag <- function(roc, block, env, base_path) {
 }
 
 
+#' Output paths
+#'
+#' @description
+#' Mandrake can derive the output path for its column mappings
+#' from a few places:
+#'
+#' @section Output Paths Configuration:
+#'
+#' * **by default**, for a package `pkgname`, `mandrake` will store its output
+#' under `"pkgname.yaml"` at:
+#'   * `r file.path("pkgname", default_column_map_output_path())`
+#' * If you need to customize this, use:
+#'   * This can be done by setting the following in `DESCRIPTION`:
+#'     * `Roxygen: list(mandrake_output = "path/from/pkg/root")`
+#'   * See the documentation for [roxygen2::roxy_meta_get] for more information..
+#'
+#' @name output_paths
+NULL
+
 default_column_map_output_path <- function() {
   file.path("inst", "mandrake")
 }
