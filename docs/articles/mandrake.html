@@ -38,12 +38,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/mandrake.html">Get started</a>
 </li>
 <li>
@@ -67,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mstr3336/mandrake/">
+  <a href="https://github.com/matthewstrasiotto/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -89,7 +83,7 @@
       <h1 data-toc-skip>Introduction to mandrake</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mstr3336/mandrake/blob/master/vignettes/mandrake.Rmd"><code>vignettes/mandrake.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/matthewstrasiotto/mandrake/blob/master/vignettes/mandrake.Rmd"><code>vignettes/mandrake.Rmd</code></a></small>
       <div class="hidden name"><code>mandrake.Rmd</code></div>
 
     </div>
@@ -97,17 +91,16 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mstr3336.github.io/mandrake">mandrake</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://docs.ropensci.org/drake">drake</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://yihui.org/knitr">knitr</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">magrittr</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mstrasiot.to/mandrake/">mandrake</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/drake">drake</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">magrittr</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"mtcars/R/functions.R"</span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"mtcars/R/functions.R"</span><span class="op">)</span></pre></div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>This tutorial assumes that you have basic familiarity with <a href="https://github.com/ropensci/drake"><code>{drake}</code></a>, as most of the patterns shown here build off of <code>{drake}</code> workflow practices.</p>
+<p>This tutorial assumes that you have basic familiarity with <a href="https://github.com/ropensci/drake"><code>{drake}</code></a>, as most of the patterns shown here build off of <a href="https://docs.ropensci.org/drake">drake</a> workflow practices.</p>
 <div id="the-plan" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-plan" class="anchor"></a>The plan</h2>
@@ -117,57 +110,49 @@
 <span class="co"># This is where you set up your workflow plan,</span>
 <span class="co"># a data frame with the steps of your analysis.</span>
 
-<span class="kw">my_plan</span> <span class="op">&lt;-</span> <span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(
-  report = <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in</a></span>(<span class="st">"mtcars/report.Rmd"</span>), <span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out</a></span>(<span class="st">"mtcars/report.md"</span>), quiet = <span class="fl">TRUE</span>),
-  small = <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">48</span>),
-  large = <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span>(<span class="fl">64</span>),
-  regression1 = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu">reg1</span>(<span class="kw">data</span>),
-    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(data = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">small</span>, <span class="kw">large</span>), .tag_out = <span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
-  ),
-  regression2 = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu">reg2</span>(<span class="kw">data</span>),
-    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">data</span>, .tag_out = <span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
-  ),
-  summ = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">reg</span><span class="op">$</span><span class="kw">residuals</span>)),
-    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
-  ),
-  coef = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">reg</span>))<span class="op">$</span><span class="kw">coefficients</span>,
-    transform = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span>(<span class="kw">reg</span>, .tag_in = <span class="kw">cluster_id</span>)
-  ),
+<span class="va">my_plan</span> <span class="op">&lt;-</span> <span class="fu">drake</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span><span class="op">(</span>
+  report <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html">knit</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in</a></span><span class="op">(</span><span class="st">"mtcars/report.Rmd"</span><span class="op">)</span>, <span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out</a></span><span class="op">(</span><span class="st">"mtcars/report.md"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  small <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="fl">48</span><span class="op">)</span>,
+  large <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="fl">64</span><span class="op">)</span>,
+  regression1 <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span>
+    <span class="fu">reg1</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,
+    transform <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">small</span>, <span class="va">large</span><span class="op">)</span>, .tag_out <span class="op">=</span> <span class="va">reg</span>, .tag_in <span class="op">=</span> <span class="va">cluster_id</span><span class="op">)</span>
+  <span class="op">)</span>,
+  regression2 <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span>
+    <span class="fu">reg2</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,
+    transform <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span><span class="op">(</span><span class="va">data</span>, .tag_out <span class="op">=</span> <span class="va">reg</span>, .tag_in <span class="op">=</span> <span class="va">cluster_id</span><span class="op">)</span>
+  <span class="op">)</span>,
+  summ <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">reg</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span>,
+    transform <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span><span class="op">(</span><span class="va">reg</span>, .tag_in <span class="op">=</span> <span class="va">cluster_id</span><span class="op">)</span>
+  <span class="op">)</span>,
+  coef <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">reg</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span>,
+    transform <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/transformations.html">map</a></span><span class="op">(</span><span class="va">reg</span>, .tag_in <span class="op">=</span> <span class="va">cluster_id</span><span class="op">)</span>
+  <span class="op">)</span>,
   
-  mtcars = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>(
-    <span class="kw">mtcars</span>,
-    desc = <span class="st">"
+  mtcars <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span>
+    <span class="va">mtcars</span>,
+    desc <span class="op">=</span> <span class="st">"
 **This dataframe describes a bunch of cars that go vroom!**
 
 I can't drive but one day I will learn
-"</span>   desc = "
-**This dataframe describes a bunch of cars that go vroom!**
-
-I can't drive but one day I will learn
-"
-  ),
+"</span>
+  <span class="op">)</span>,
   
-  mtcars_summary = <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span>({
-      <span class="kw">out</span> <span class="op">&lt;-</span> <span class="kw">mtcars</span> <span class="op">%&gt;%</span>
-        <span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(<span class="kw">cyl</span>) <span class="op">%&gt;%</span>
-        <span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">disp</span>, <span class="kw">hp</span>, <span class="kw">drat</span>, <span class="kw">wt</span>, <span class="kw">qsec</span>), <span class="kw">mean</span>))
-      <span class="kw">out</span>    
-    },
-   desc = <span class="st">"
+  mtcars_summary <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/target.html">target</a></span><span class="op">(</span><span class="op">{</span>
+      <span class="va">out</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">%&gt;%</span>
+        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">%&gt;%</span>
+        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">hp</span>, <span class="va">drat</span>, <span class="va">wt</span>, <span class="va">qsec</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span>
+      <span class="va">out</span>    
+    <span class="op">}</span>,
+   desc <span class="op">=</span> <span class="st">"
 **Average of attributes of cars according to number of cylinders** 
 This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
-"</span>  desc = "
-**Average of attributes of cars according to number of cylinders** 
-This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
-"
-  ),
-  trace = <span class="fl">TRUE</span>
-)
-</pre></div>
+"</span>
+  <span class="op">)</span>,
+  trace <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></pre></div>
 <p>Let’s examine our plan as a dataframe:</p>
 <table class="table table table-striped table-responsive table-condensed">
 <thead><tr>
@@ -752,73 +737,613 @@ NA
 </table>
 <p>Now, let’s build it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">cache</span> <span class="op">&lt;-</span> <span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/get_cache.html">get_cache</a></span>()
+<span class="va">cache</span> <span class="op">&lt;-</span> <span class="fu">drake</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/get_cache.html">get_cache</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Warning: get_cache() is deprecated. Use drake_cache() instead.</span>
-<span class="kw">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="kw">my_plan</span>)
-<span class="kw">drake</span>::<span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(config = <span class="kw">my_config</span>)
-<span class="co">#&gt; All targets are already up to date.</span>
-</pre></div>
-<p>Usually, this is where <code>{drake}</code>’s job is done, but <code>{mandrake}</code> extends this a little, &amp; lets us access documentation for this dataset directly from the workflow graph.</p>
+<span class="va">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span><span class="op">(</span><span class="va">my_plan</span><span class="op">)</span>
+<span class="fu">drake</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span><span class="op">(</span>config <span class="op">=</span> <span class="va">my_config</span><span class="op">)</span>
+<span class="co">#&gt; All targets are already up to date.</span></pre></div>
+</div>
+</div>
+<div id="taking-it-further" class="section level1">
+<h1 class="hasAnchor">
+<a href="#taking-it-further" class="anchor"></a>Taking it further</h1>
+<p>Usually, this is where <a href="https://docs.ropensci.org/drake">drake</a>’s job is done, but <a href="https://mstrasiot.to/mandrake/">mandrake</a> extends this a little, &amp; lets us access documentation for this dataset directly from the workflow graph.</p>
+<p>We load the column specification for mandrake.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">lookup_cache</span> <span class="op">&lt;-</span> <span class="kw">mandrake</span>::<span class="fu"><a href="../reference/load_package_colspec.html">load_package_colspec</a></span>(<span class="st">"mandrake"</span>)
+<span class="va">lookup_cache</span> <span class="op">&lt;-</span> <span class="fu">mandrake</span><span class="fu">::</span><span class="fu"><a href="../reference/load_package_colspec.html">load_package_colspec</a></span><span class="op">(</span><span class="st">"mandrake"</span><span class="op">)</span>
 <span class="co">#&gt; Adding cols from mandrake to lookup cache</span>
-<span class="co">#&gt; Including mandrake.yaml in lookup cache</span>
-</pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">plan_extracted</span> <span class="op">&lt;-</span> <span class="kw">my_plan</span> <span class="op">%&gt;%</span>
-  <span class="kw">mandrake</span>::<span class="fu"><a href="../reference/decorate_plan.html">decorate_plan</a></span>(<span class="kw">cache</span>, group = <span class="st">"cluster_id"</span>, lookup_cache = <span class="kw">lookup_cache</span>)
-</pre></div>
+<span class="co">#&gt; Including mandrake.yaml in lookup cache</span></pre></div>
+<p>By default, this is found at <code>{pkgname}/inst/{pkgname}.yaml</code>, and generated using the * <code>#' @col</code> &amp; * <code>#' @inheritCol</code> <code>roxygen2</code> tags.</p>
+<p>Examining this yields:</p>
+<pre><code>am:
+  name: am
+  direction: out
+  aliases: []
+  body: |-
+    Logical, is this car okay to use in the morning, or should you save it for
+    after midday?
+  rd: |-
+    Logical, is this car okay to use in the morning, or should you save it for
+    after midday?
+  html:
+  - Logical, is this car okay to use in the morning, or should you save it for
+  - after midday?
+  topic: mtcars_dataset
+  package: mandrake
+  rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
+  html_ref: &lt;code&gt;&lt;a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'&gt;mandrake::mtcars_dataset&lt;/a&gt;&lt;/code&gt;
+'...': '...more column specs...'
+'y':
+  name: 'y'
+  direction: out
+  aliases: []
+  body: if requested, the response used.
+  rd: if requested, the response used.
+  html: if requested, the response used.
+  topic: lm_object
+  package: mandrake
+  rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
+  html_ref: &lt;code&gt;&lt;a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'&gt;mandrake::lm_object&lt;/a&gt;&lt;/code&gt;</code></pre>
+<div id="attach-the-column-documentation-to-our-plan-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#attach-the-column-documentation-to-our-plan-" class="anchor"></a>Attach the column documentation to our plan.</h2>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">plan_extracted</span>
-<span class="co">#&gt; # A tibble: 17 x 10</span>
-<span class="co">#&gt;    target command desc  data  regression1 cluster_id reg   regression2 summ </span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;named&gt; &lt;glu&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;</span>
-<span class="co">#&gt;  1 coef_… &lt;langu… "&lt;h3… small regression… coef       regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  2 coef_… &lt;langu… "&lt;h3… large regression… coef       regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  3 coef_… &lt;langu… "&lt;h3… small regression… coef       regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  4 coef_… &lt;langu… "&lt;h3… large regression… coef       regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  5 large  &lt;langu… "&lt;h3… &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  6 mtcars &lt;sym&gt;   "&lt;h3… &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  7 mtcar… &lt;langu… "&lt;h3… &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  8 regre… &lt;langu… "&lt;h3… small regression… regressio… regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt;  9 regre… &lt;langu… "&lt;h3… large regression… regressio… regr… &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt; 10 regre… &lt;langu… "&lt;h3… small regression… regressio… regr… regression… &lt;NA&gt; </span>
-<span class="co">#&gt; 11 regre… &lt;langu… "&lt;h3… large regression… regressio… regr… regression… &lt;NA&gt; </span>
-<span class="co">#&gt; 12 report &lt;langu… "&lt;h3… &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt; 13 small  &lt;langu… "&lt;h3… &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt; </span>
-<span class="co">#&gt; 14 summ_… &lt;langu… "&lt;h3… small regression… summ       regr… &lt;NA&gt;        summ…</span>
-<span class="co">#&gt; 15 summ_… &lt;langu… "&lt;h3… large regression… summ       regr… &lt;NA&gt;        summ…</span>
-<span class="co">#&gt; 16 summ_… &lt;langu… "&lt;h3… small regression… summ       regr… &lt;NA&gt;        summ…</span>
-<span class="co">#&gt; 17 summ_… &lt;langu… "&lt;h3… large regression… summ       regr… &lt;NA&gt;        summ…</span>
-<span class="co">#&gt; # … with 1 more variable: coef &lt;chr&gt;</span>
-</pre></div>
+<span class="va">plan_extracted</span> <span class="op">&lt;-</span> <span class="va">my_plan</span> <span class="op">%&gt;%</span>
+  <span class="fu">mandrake</span><span class="fu">::</span><span class="fu"><a href="../reference/decorate_plan.html">decorate_plan</a></span><span class="op">(</span><span class="va">cache</span>, group <span class="op">=</span> <span class="st">"cluster_id"</span>, lookup_cache <span class="op">=</span> <span class="va">lookup_cache</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span>(<span class="kw">plan_extracted</span>)
-</pre></div>
+<span class="va">plan_extracted</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="st">"command"</span>, <span class="fu">rlang</span><span class="fu">::</span><span class="va"><a href="https://rlang.r-lib.org/reference/as_label.html">as_label</a></span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="st">"html"</span>, escape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"striped"</span>, <span class="st">"responsive"</span>, <span class="st">"condensed"</span><span class="op">)</span><span class="op">)</span></pre></div>
+<table class="table table table-striped table-responsive table-condensed">
+<thead><tr>
+<th style="text-align:left;">
+target
+</th>
+<th style="text-align:left;">
+command
+</th>
+<th style="text-align:left;">
+desc
+</th>
+<th style="text-align:left;">
+data
+</th>
+<th style="text-align:left;">
+regression1
+</th>
+<th style="text-align:left;">
+cluster_id
+</th>
+<th style="text-align:left;">
+reg
+</th>
+<th style="text-align:left;">
+regression2
+</th>
+<th style="text-align:left;">
+summ
+</th>
+<th style="text-align:left;">
+coef
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+coef_regression1_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+<p>&lt;h3&gt;coef_regression1_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression1_small&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;$&lt;/span&gt;&lt;span class=‘nv’&gt;coefficients&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;tbody&gt; &lt;tr&gt;</p>
+&lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+small
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+coef
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+coef_regression1_small
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coef_regression1_large
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+<p>&lt;h3&gt;coef_regression1_large&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression1_large&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;$&lt;/span&gt;&lt;span class=‘nv’&gt;coefficients&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;tbody&gt; &lt;tr&gt;</p>
+&lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+coef
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+coef_regression1_large
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coef_regression2_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+<p>&lt;h3&gt;coef_regression2_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression2_small&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;$&lt;/span&gt;&lt;span class=‘nv’&gt;coefficients&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;tbody&gt; &lt;tr&gt;</p>
+&lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+small
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+coef
+</td>
+<td style="text-align:left;">
+regression2_small
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+coef_regression2_small
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coef_regression2_large
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+<p>&lt;h3&gt;coef_regression2_large&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression2_large&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;$&lt;/span&gt;&lt;span class=‘nv’&gt;coefficients&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;tbody&gt; &lt;tr&gt;</p>
+&lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+coef
+</td>
+<td style="text-align:left;">
+regression2_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+coef_regression2_large
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;large&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/stats/simulate.html'%3Esimulate%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/stats/simulate.html'&gt;simulate&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘m’&gt;64&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; x &lt;/td&gt; &lt;td style=“text-align:left;”&gt; if requested, the model matrix used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; y &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested, the response used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mtcars
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;mtcars&lt;/h3&gt; &lt;strong&gt;This dataframe describes a bunch of cars that go vroom!&lt;/strong&gt;&lt;br&gt;&lt;br&gt;I can’t drive but one day I will learn &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nv’&gt;mtcars&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; mpg &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Numeric.&lt;br&gt;&lt;code&gt;mpg&lt;/code&gt; or “Miles Per Gallon” is how many miles you can drive on&lt;br&gt;a gallon of fuel.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; cyl &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Integer&lt;br&gt;Number of cylinders&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; disp &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Integer.&lt;br&gt;I literally don’t know what this means&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; hp &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Integer&lt;br&gt;Horsepower is a measure of the number of miniature horses this car&lt;br&gt;can fit inside itself, which run on a treadmill that make it go fast.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; drat &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Numeric&lt;br&gt;This is a word you say when something doesn’t go the way you hoped.&lt;br&gt;&lt;strong&gt;Drat!&lt;/strong&gt;&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; wt &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Numeric&lt;br&gt;Stands for”What the…" - An exclamation of surprise!&lt;br&gt;&lt;br&gt;Or &lt;strong&gt;weight&lt;/strong&gt;, maybe.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; qsec &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Numeric.&lt;br&gt;Number of seconds you need to line up in a queue in order to buy this car.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; vs &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Logical, Does the car ever compete?&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; am &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Logical, is this car okay to use in the morning, or should you save it for&lt;br&gt;after midday?&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; gear &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Integer,&lt;br&gt;&lt;br&gt;How many different gears transmissions does this car have.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; carb &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Integer, Number of grams of carbohydrates contained in this car.&lt;br&gt;Typically pretty low, as cars are not particularly nutritious.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mtcars_summary
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;mtcars_summary&lt;/h3&gt; &lt;strong&gt;Average of attributes of cars according to number of cylinders&lt;/strong&gt;&lt;br&gt;This dataframe relates &lt;code&gt;cyl&lt;/code&gt; (number of cylinders) to a few properties of mtcars &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘o’&gt;{&lt;/span&gt; &lt;span class=‘nv’&gt;out&lt;/span&gt; &lt;span class=‘o’&gt;&amp;lt;-&lt;/span&gt; &lt;span class=‘nv’&gt;mtcars&lt;/span&gt; &lt;span class=‘o’&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=‘nf’&gt;dplyr&lt;/span&gt;&lt;span class=‘nf’&gt;::&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://dplyr.tidyverse.org/reference/group_by.html'%3Egroup_by%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://dplyr.tidyverse.org/reference/group_by.html'&gt;group_by&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;cyl&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt; &lt;span class=‘o’&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=‘nf’&gt;dplyr&lt;/span&gt;&lt;span class=‘nf’&gt;::&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://dplyr.tidyverse.org/reference/summarise.html'%3Esummarise%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://dplyr.tidyverse.org/reference/summarise.html'&gt;summarise&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;dplyr&lt;/span&gt;&lt;span class=‘nf’&gt;::&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://dplyr.tidyverse.org/reference/across.html'%3Eacross%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://dplyr.tidyverse.org/reference/across.html'&gt;across&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/c.html'%3Ec%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/c.html'&gt;c&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;disp&lt;/span&gt;, &lt;span class=‘nv’&gt;hp&lt;/span&gt;, &lt;span class=‘nv’&gt;drat&lt;/span&gt;, &lt;span class=‘nv’&gt;wt&lt;/span&gt;, &lt;span class=‘nv’&gt;qsec&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;, &lt;span class=‘nv’&gt;mean&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt; &lt;span class=‘nv’&gt;out&lt;/span&gt; &lt;span class=‘o’&gt;}&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; cyl &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Integer&lt;br&gt;Number of cylinders&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; disp &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Integer.&lt;br&gt;I literally don’t know what this means&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; hp &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Integer&lt;br&gt;Horsepower is a measure of the number of miniature horses this car&lt;br&gt;can fit inside itself, which run on a treadmill that make it go fast.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; drat &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Numeric&lt;br&gt;This is a word you say when something doesn’t go the way you hoped.&lt;br&gt;&lt;strong&gt;Drat!&lt;/strong&gt;&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; wt &lt;/td&gt; &lt;td style=“text-align:left;”&gt; Numeric&lt;br&gt;Stands for “What the…” - An exclamation of surprise!&lt;br&gt;&lt;br&gt;Or &lt;strong&gt;weight&lt;/strong&gt;, maybe.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; qsec &lt;/td&gt; &lt;td style=”text-align:left;“&gt; Numeric.&lt;br&gt;Number of seconds you need to line up in a queue in order to buy this car.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html"&gt;mandrake</a>::mtcars_dataset&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;regression1_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;reg1&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;small&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; coefficients &lt;/td&gt; &lt;td style=“text-align:left;”&gt; a named vector of coefficients&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; residuals &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The residuals, that is response minus fitted values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; effects &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; rank &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the numeric rank of the fitted linear model.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; fitted.values &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The fitted mean values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; assign &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; qr &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; df.residual &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the residual degrees of freedom.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; xlevels &lt;/td&gt; &lt;td style=”text-align:left;“&gt; (only where relevant) a record of the levels of the factors used in fitting.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; call &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the matched call.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; terms &lt;/td&gt; &lt;td style=”text-align:left;“&gt; the &lt;code&gt;&lt;a href=”<a href="https://rdrr.io/r/stats/terms.html%22%3Estats" class="uri">https://rdrr.io/r/stats/terms.html"&gt;stats</a>::terms()&lt;/a&gt;&lt;/code&gt; object used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; model &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested (the default), the model frame used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+small
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+regression1
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;regression1_large&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;reg1&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;large&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; coefficients &lt;/td&gt; &lt;td style=“text-align:left;”&gt; a named vector of coefficients&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; residuals &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The residuals, that is response minus fitted values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; effects &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; rank &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the numeric rank of the fitted linear model.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; fitted.values &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The fitted mean values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; assign &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; qr &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; df.residual &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the residual degrees of freedom.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; xlevels &lt;/td&gt; &lt;td style=”text-align:left;“&gt; (only where relevant) a record of the levels of the factors used in fitting.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; call &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the matched call.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; terms &lt;/td&gt; &lt;td style=”text-align:left;“&gt; the &lt;code&gt;&lt;a href=”<a href="https://rdrr.io/r/stats/terms.html%22%3Estats" class="uri">https://rdrr.io/r/stats/terms.html"&gt;stats</a>::terms()&lt;/a&gt;&lt;/code&gt; object used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; model &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested (the default), the model frame used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+regression1
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression2_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;regression2_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;reg2&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;small&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; coefficients &lt;/td&gt; &lt;td style=“text-align:left;”&gt; a named vector of coefficients&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; residuals &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The residuals, that is response minus fitted values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; effects &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; rank &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the numeric rank of the fitted linear model.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; fitted.values &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The fitted mean values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; assign &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; qr &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; df.residual &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the residual degrees of freedom.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; xlevels &lt;/td&gt; &lt;td style=”text-align:left;“&gt; (only where relevant) a record of the levels of the factors used in fitting.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; call &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the matched call.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; terms &lt;/td&gt; &lt;td style=”text-align:left;“&gt; the &lt;code&gt;&lt;a href=”<a href="https://rdrr.io/r/stats/terms.html%22%3Estats" class="uri">https://rdrr.io/r/stats/terms.html"&gt;stats</a>::terms()&lt;/a&gt;&lt;/code&gt; object used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; model &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested (the default), the model frame used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+small
+</td>
+<td style="text-align:left;">
+regression1_small
+</td>
+<td style="text-align:left;">
+regression2
+</td>
+<td style="text-align:left;">
+regression2_small
+</td>
+<td style="text-align:left;">
+regression2_small
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+regression2_large
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;regression2_large&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;reg2&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;large&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; coefficients &lt;/td&gt; &lt;td style=“text-align:left;”&gt; a named vector of coefficients&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; residuals &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The residuals, that is response minus fitted values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; effects &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; rank &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the numeric rank of the fitted linear model.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; fitted.values &lt;/td&gt; &lt;td style=”text-align:left;“&gt; The fitted mean values.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; assign &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; qr &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; df.residual &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the residual degrees of freedom.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; xlevels &lt;/td&gt; &lt;td style=”text-align:left;“&gt; (only where relevant) a record of the levels of the factors used in fitting.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; call &lt;/td&gt; &lt;td style=“text-align:left;”&gt; the matched call.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; terms &lt;/td&gt; &lt;td style=”text-align:left;“&gt; the &lt;code&gt;&lt;a href=”<a href="https://rdrr.io/r/stats/terms.html%22%3Estats" class="uri">https://rdrr.io/r/stats/terms.html"&gt;stats</a>::terms()&lt;/a&gt;&lt;/code&gt; object used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; model &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested (the default), the model frame used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+regression2
+</td>
+<td style="text-align:left;">
+regression2_large
+</td>
+<td style="text-align:left;">
+regression2_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+report
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+<p>&lt;h3&gt;report&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;knit&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;knitr_in&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘s’&gt;“mtcars/report.Rmd”&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;, &lt;span class=‘nf’&gt;file_out&lt;/span&gt;&lt;span class=‘o’&gt;(&lt;/span&gt;&lt;span class=‘s’&gt;“mtcars/report.md”&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;, quiet &lt;span class=‘o’&gt;=&lt;/span&gt; &lt;span class=‘kc’&gt;TRUE&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;tbody&gt; &lt;tr&gt;</p>
+&lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/stats/simulate.html'%3Esimulate%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/stats/simulate.html'&gt;simulate&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘m’&gt;48&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; x &lt;/td&gt; &lt;td style=“text-align:left;”&gt; if requested, the model matrix used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=“<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=”text-align:left;“&gt; y &lt;/td&gt; &lt;td style=”text-align:left;“&gt; if requested, the response used.&lt;br&gt;Found at &lt;code&gt;&lt;a href=”<a href="https://mstr3336.github.io/mandrake//reference/lm_object.html%22%3Emandrake" class="uri">https://mstr3336.github.io/mandrake//reference/lm_object.html"&gt;mandrake</a>::lm_object&lt;/a&gt;&lt;/code&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+summ_regression1_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;summ_regression1_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression1_small&lt;/span&gt;&lt;span class=‘o’&gt;<span class="math inline">\(&amp;lt;/span&amp;gt;&amp;lt;span class='nv'&amp;gt;residuals&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;)&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;)&amp;lt;/span&amp;gt;&amp;lt;/pre&amp;gt; &amp;lt;/details&amp;gt; &amp;lt;h4&amp;gt;Columns&amp;lt;/h4&amp;gt; &amp;lt;table class=&amp;quot;table table-striped table-responsive table-condensed&amp;quot; style=&amp;quot;margin-left: auto; margin-right: auto;&amp;quot;&amp;gt;  &amp;lt;thead&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;th style=&amp;quot;text-align:left;&amp;quot;&amp;gt; name &amp;lt;/th&amp;gt;  &amp;lt;th style=&amp;quot;text-align:left;&amp;quot;&amp;gt; description &amp;lt;/th&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;/thead&amp;gt; &amp;lt;tbody&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Min. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; 1st Qu. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Median &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Mean &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; 3rd Qu. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Max. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt; &amp;lt;/tbody&amp;gt; &amp;lt;/table&amp;gt; &lt;/td&gt;  &lt;td style="text-align:left;"&gt; small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; regression1_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; summ &lt;/td&gt;  &lt;td style="text-align:left;"&gt; regression1_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;  &lt;td style="text-align:left;"&gt; summ_regression1_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;  &lt;/tr&gt;  &lt;tr&gt;  &lt;td style="text-align:left;"&gt; summ_regression1_large &lt;/td&gt;  &lt;td style="text-align:left;"&gt; &amp;lt;list&amp;gt; &lt;/td&gt;  &lt;td style="text-align:left;"&gt; &amp;lt;h3&amp;gt;summ_regression1_large&amp;lt;/h3&amp;gt; NA &amp;lt;h4&amp;gt;Command&amp;lt;/h4&amp;gt; &amp;lt;details&amp;gt;&amp;lt;summary&amp;gt;Command&amp;lt;/summary&amp;gt; &amp;lt;pre class='downlit'&amp;gt; &amp;lt;span class='nf'&amp;gt;&amp;lt;a href='https://rdrr.io/r/base/warning.html'&amp;gt;suppressWarnings&amp;lt;/a&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;(&amp;lt;/span&amp;gt;&amp;lt;span class='nf'&amp;gt;&amp;lt;a href='https://rdrr.io/r/base/summary.html'&amp;gt;summary&amp;lt;/a&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;(&amp;lt;/span&amp;gt;&amp;lt;span class='nv'&amp;gt;regression1_large&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;\)</span>&lt;/span&gt;&lt;span class=‘nv’&gt;residuals&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Min. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; 1st Qu. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Median &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Mean &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; 3rd Qu. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Max. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+summ
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+summ_regression1_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+summ_regression2_small
+</td>
+<td style="text-align:left;">
+&lt;list&gt;
+</td>
+<td style="text-align:left;">
+&lt;h3&gt;summ_regression2_small&lt;/h3&gt; NA &lt;h4&gt;Command&lt;/h4&gt; &lt;details&gt;&lt;summary&gt;Command&lt;/summary&gt; &lt;pre class=‘downlit’&gt; &lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/warning.html'%3EsuppressWarnings%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/warning.html'&gt;suppressWarnings&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nf’&gt;&lt;a href=‘<a href="https://rdrr.io/r/base/summary.html'%3Esummary%3C/a%3E%3C/span%3E%3Cspan" class="uri">https://rdrr.io/r/base/summary.html'&gt;summary&lt;/a&gt;&lt;/span&gt;&lt;span</a> class=’o’&gt;(&lt;/span&gt;&lt;span class=‘nv’&gt;regression2_small&lt;/span&gt;&lt;span class=‘o’&gt;<span class="math inline">\(&amp;lt;/span&amp;gt;&amp;lt;span class='nv'&amp;gt;residuals&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;)&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;)&amp;lt;/span&amp;gt;&amp;lt;/pre&amp;gt; &amp;lt;/details&amp;gt; &amp;lt;h4&amp;gt;Columns&amp;lt;/h4&amp;gt; &amp;lt;table class=&amp;quot;table table-striped table-responsive table-condensed&amp;quot; style=&amp;quot;margin-left: auto; margin-right: auto;&amp;quot;&amp;gt;  &amp;lt;thead&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;th style=&amp;quot;text-align:left;&amp;quot;&amp;gt; name &amp;lt;/th&amp;gt;  &amp;lt;th style=&amp;quot;text-align:left;&amp;quot;&amp;gt; description &amp;lt;/th&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;/thead&amp;gt; &amp;lt;tbody&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Min. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; 1st Qu. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Median &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Mean &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; 3rd Qu. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt;  &amp;lt;tr&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; Max. &amp;lt;/td&amp;gt;  &amp;lt;td style=&amp;quot;text-align:left;&amp;quot;&amp;gt; &amp;lt;i&amp;gt;Column doc not found&amp;lt;/i&amp;gt;&amp;lt;br&amp;gt; &amp;lt;/td&amp;gt;  &amp;lt;/tr&amp;gt; &amp;lt;/tbody&amp;gt; &amp;lt;/table&amp;gt; &lt;/td&gt;  &lt;td style="text-align:left;"&gt; small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; regression1_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; summ &lt;/td&gt;  &lt;td style="text-align:left;"&gt; regression2_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;  &lt;td style="text-align:left;"&gt; summ_regression2_small &lt;/td&gt;  &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;  &lt;/tr&gt;  &lt;tr&gt;  &lt;td style="text-align:left;"&gt; summ_regression2_large &lt;/td&gt;  &lt;td style="text-align:left;"&gt; &amp;lt;list&amp;gt; &lt;/td&gt;  &lt;td style="text-align:left;"&gt; &amp;lt;h3&amp;gt;summ_regression2_large&amp;lt;/h3&amp;gt; NA &amp;lt;h4&amp;gt;Command&amp;lt;/h4&amp;gt; &amp;lt;details&amp;gt;&amp;lt;summary&amp;gt;Command&amp;lt;/summary&amp;gt; &amp;lt;pre class='downlit'&amp;gt; &amp;lt;span class='nf'&amp;gt;&amp;lt;a href='https://rdrr.io/r/base/warning.html'&amp;gt;suppressWarnings&amp;lt;/a&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;(&amp;lt;/span&amp;gt;&amp;lt;span class='nf'&amp;gt;&amp;lt;a href='https://rdrr.io/r/base/summary.html'&amp;gt;summary&amp;lt;/a&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;(&amp;lt;/span&amp;gt;&amp;lt;span class='nv'&amp;gt;regression2_large&amp;lt;/span&amp;gt;&amp;lt;span class='o'&amp;gt;\)</span>&lt;/span&gt;&lt;span class=‘nv’&gt;residuals&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;span class=‘o’&gt;)&lt;/span&gt;&lt;/pre&gt; &lt;/details&gt; &lt;h4&gt;Columns&lt;/h4&gt; &lt;table class=“table table-striped table-responsive table-condensed” style=“margin-left: auto; margin-right: auto;”&gt; &lt;thead&gt; &lt;tr&gt; &lt;th style=“text-align:left;”&gt; name &lt;/th&gt; &lt;th style=“text-align:left;”&gt; description &lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Min. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; 1st Qu. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Median &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Mean &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; 3rd Qu. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=“text-align:left;”&gt; Max. &lt;/td&gt; &lt;td style=“text-align:left;”&gt; &lt;i&gt;Column doc not found&lt;/i&gt;&lt;br&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+</td>
+<td style="text-align:left;">
+large
+</td>
+<td style="text-align:left;">
+regression1_large
+</td>
+<td style="text-align:left;">
+summ
+</td>
+<td style="text-align:left;">
+regression2_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+summ_regression2_large
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">graph_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_graph_info.html">drake_graph_info</a></span>(
-  <span class="kw">my_config</span>, 
-  group = <span class="st">"cluster_id"</span>, 
-  clusters = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"summ"</span>, <span class="st">"coef"</span>), 
-  build_times = <span class="st">"none"</span>,
-  on_select_col = <span class="st">"desc"</span>)
+<span class="va">my_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_config.html">drake_config</a></span><span class="op">(</span><span class="va">plan_extracted</span><span class="op">)</span></pre></div>
+</div>
+<div id="build-the-graph" class="section level2">
+<h2 class="hasAnchor">
+<a href="#build-the-graph" class="anchor"></a>Build the graph</h2>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="va">graph_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_graph_info.html">drake_graph_info</a></span><span class="op">(</span>
+  <span class="va">my_config</span>, 
+  group <span class="op">=</span> <span class="st">"cluster_id"</span>, 
+  clusters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"summ"</span>, <span class="st">"coef"</span><span class="op">)</span>, 
+  build_times <span class="op">=</span> <span class="st">"none"</span>,
+  on_select_col <span class="op">=</span> <span class="st">"desc"</span><span class="op">)</span>
 
-<span class="kw">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/render_drake_graph.html">render_drake_graph</a></span>(
-  <span class="kw">graph_info</span>, 
-  on_select = <span class="kw">mandrake</span>::<span class="fu"><a href="../reference/embed_event_handler.html">embed_event_handler</a></span>(),
-  ncol_legend = <span class="fl">4</span>
-  ) 
-</pre></div>
+<span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/render_drake_graph.html">render_drake_graph</a></span><span class="op">(</span>
+  <span class="va">graph_info</span>, 
+  on_select <span class="op">=</span> <span class="fu">mandrake</span><span class="fu">::</span><span class="fu"><a href="../reference/embed_event_handler.html">embed_event_handler</a></span><span class="op">(</span><span class="op">)</span>,
+  ncol_legend <span class="op">=</span> <span class="fl">4</span>
+  <span class="op">)</span> </pre></div>
 </div>
 </div>
 <div id="graph" class="section level1">
 <h1 class="hasAnchor">
 <a href="#graph" class="anchor"></a>Graph</h1>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">graph</span>
-</pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="va">graph</span></pre></div>
 <div id="htmlwidget-9b841de324d41155df19" style="width:700px;height:432.632880098888px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9b841de324d41155df19">{"x":{"nodes":{"id":["random_rows","reg1","reg2","mtcars","n-MRYGY6LSHI5GCY3SN5ZXG","n-MRYGY6LSHI5HG5LNNVQXE2LTMU","n-MRYGY6LSHI5GO4TPOVYF6YTZ","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","simulate","mtcars_summary","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ","cluster_id: summ","cluster_id: coef"],"imported":[true,true,true,false,true,true,true,true,true,false,false,false,false,false,false,false,false,false,false,false],"label":["random_rows","reg1","reg2","mtcars","dplyr::across","dplyr::summarise","dplyr::group_by","file mtcars/report.Rmd","simulate","mtcars_summary","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","file mtcars/report.md","cluster_id: summ","cluster_id: coef"],"cluster_id":["NULL","NULL","NULL",null,"NULL","NULL","NULL","NULL","NULL",null,null,null,"regression1","regression2","regression1","regression2",null,null,"summ","coef"],"status":["imported","imported","imported","up to date","imported","imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","function","function","object","function","function","function","file","function","object","object","object","object","object","object","object","object","file","cluster","cluster"],"font.size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"color":["#1874CD","#1874CD","#1874CD","#228B22","#1874CD","#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","triangle","triangle","dot","triangle","triangle","triangle","square","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square","diamond","diamond"],"level":[1,1,1,1,1,1,1,1,2,2,3,3,4,4,4,4,6,7,5,5],"title":["Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","summ_regression1_small, summ_regression2_small...","coef_regression1_small, coef_regression2_small..."],"x":[-1,-1,-1,-1,-1,-1,-1,-1,-0.666666666666667,-0.666666666666667,-0.333333333333333,-0.333333333333333,0,0,0,0,0.666666666666667,1,0.333333333333333,0.333333333333333],"y":[-1,-0.714285714285714,-0.428571428571428,-0.142857142857143,0.142857142857143,0.428571428571429,0.714285714285714,1,-0.428571428571428,0.428571428571429,-0.428571428571428,0.428571428571429,-0.771428571428571,-0.257142857142857,0.257142857142858,0.771428571428572,2.22044604925031e-16,2.22044604925031e-16,-0.714285714285714,-1],"on_select_col":["NULL","NULL","NULL","<h3>mtcars<\/h3>\n<strong>This dataframe describes a bunch of cars that go vroom!<\/strong><br><br>I can't drive but one day I will learn\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='k'>mtcars<\/span>\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> mpg <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br><code>mpg<\/code> or \"Miles Per Gallon\" is how many miles you can drive on<br>a gallon of fuel.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> cyl <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Number of cylinders<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> disp <\/td>\n   <td style=\"text-align:left;\"> Integer.<br>I literally don't know what this means<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> hp <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Horsepower is a measure of the number of miniature horses this car<br>can fit inside itself, which run on a treadmill that make it go fast.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> drat <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>This is a word you say when something doesn't go the way you hoped.<br><strong>Drat!<\/strong><br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> wt <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>Stands for \"What the...\" - An exclamation of surprise!<br><br>Or <strong>weight<\/strong>, maybe.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qsec <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br>Number of seconds you need to line up in a queue in order to buy this car.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> vs <\/td>\n   <td style=\"text-align:left;\"> Logical, Does the car ever compete?<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> am <\/td>\n   <td style=\"text-align:left;\"> Logical, is this car okay to use in the morning, or should you save it for<br>after midday?<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> gear <\/td>\n   <td style=\"text-align:left;\"> Integer,<br><br>How many different gears transmissions does this car have.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> carb <\/td>\n   <td style=\"text-align:left;\"> Integer, Number of grams of carbohydrates contained in this car.<br>Typically pretty low, as cars are not particularly nutritious.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","NULL","NULL","NULL","NULL","<h3>mtcars_summary<\/h3>\n<strong>Average of attributes of cars according to number of cylinders<\/strong><br>This dataframe relates <code>cyl<\/code> (number of cylinders) to a few properties of mtcars\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n{\n  <span class='k'>out<\/span> <span class='o'>&lt;-<\/span> <span class='k'>mtcars<\/span> <span class='o'>%&gt;%<\/span> <span class='k'>dplyr<\/span>::<span class='nf'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by<\/a><\/span>(<span class='k'>cyl<\/span>) <span class='o'>%&gt;%<\/span> <span class='k'>dplyr<\/span>::<span class='nf'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise<\/a><\/span>(<span class='k'>dplyr<\/span>::<span class='nf'><a href='https://dplyr.tidyverse.org/reference/across.html'>across<\/a><\/span>(<span class='nf'><a href='https://rdrr.io/r/base/c.html'>c<\/a><\/span>(<span class='k'>disp<\/span>, <span class='k'>hp<\/span>, <span class='k'>drat<\/span>, <span class='k'>wt<\/span>, <span class='k'>qsec<\/span>), <span class='k'>mean<\/span>))\n  <span class='k'>out<\/span>\n}\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> cyl <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Number of cylinders<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> disp <\/td>\n   <td style=\"text-align:left;\"> Integer.<br>I literally don't know what this means<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> hp <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Horsepower is a measure of the number of miniature horses this car<br>can fit inside itself, which run on a treadmill that make it go fast.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> drat <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>This is a word you say when something doesn't go the way you hoped.<br><strong>Drat!<\/strong><br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> wt <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>Stands for \"What the...\" - An exclamation of surprise!<br><br>Or <strong>weight<\/strong>, maybe.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qsec <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br>Number of seconds you need to line up in a queue in order to buy this car.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/stats/simulate.html'>simulate<\/a><\/span>(<span class='m'>48<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n   <td style=\"text-align:left;\"> if requested, the model matrix used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n   <td style=\"text-align:left;\"> if requested, the response used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/stats/simulate.html'>simulate<\/a><\/span>(<span class='m'>64<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n   <td style=\"text-align:left;\"> if requested, the model matrix used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n   <td style=\"text-align:left;\"> if requested, the response used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg1<\/span>(<span class='k'>small<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression2_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg2<\/span>(<span class='k'>small<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression1_large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg1<\/span>(<span class='k'>large<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression2_large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg2<\/span>(<span class='k'>large<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>report<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>knit<\/span>(<span class='nf'>knitr_in<\/span>(<span class='s'>\"mtcars/report.Rmd\"<\/span>), <span class='nf'>file_out<\/span>(<span class='s'>\"mtcars/report.md\"<\/span>), quiet = <span class='kc'>TRUE<\/span>)\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","<h3>summ_regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings<\/a><\/span>(<span class='nf'><a href='https://rdrr.io/r/base/summary.html'>summary<\/a><\/span>(<span class='k'>regression1_small<\/span><span class='o'>$<\/span><span class='k'>residuals<\/span>))\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> Min. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 1st Qu. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Median <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Mean <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 3rd Qu. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Max. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>coef_regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings<\/a><\/span>(<span class='nf'><a href='https://rdrr.io/r/base/summary.html'>summary<\/a><\/span>(<span class='k'>regression1_small<\/span>))<span class='o'>$<\/span><span class='k'>coefficients<\/span>\n<\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>"]},"edges":{"from":["random_rows","reg1","reg1","reg2","reg2","regression1_small","regression1_small","regression1_large","regression1_large","regression2_small","regression2_small","regression2_large","regression2_large","simulate","simulate","mtcars","n-MRYGY6LSHI5GCY3SN5ZXG","n-MRYGY6LSHI5HG5LNNVQXE2LTMU","n-MRYGY6LSHI5GO4TPOVYF6YTZ","small","small","small","large","large","large","cluster_id: coef","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","report"],"to":["simulate","regression1_small","regression1_large","regression2_small","regression2_large","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","small","large","mtcars_summary","mtcars_summary","mtcars_summary","mtcars_summary","regression1_small","regression2_small","report","regression1_large","regression2_large","report","report","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"interaction":{"navigationButtons":true},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"levelSeparation":250,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Dependency graph","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":4,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File","Cluster"],"color":["#228B22","#1874CD","#888888","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square","diamond"],"font.color":["black","black","black","black","black","black"],"font.size":[20,20,20,20,20,20],"id":[1,5,7,8,9,10]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","igraphlayout":{"type":"square"},"events":{"selectNode":"function(props) {\ncontainer = this.body.container;\nlegend = $(container).parent().children(\"[id*='legendhtmlwidget']\")[0];\nnode = this.body.data.nodes.get(props.nodes[0]);\n$(legend).css({\n         'font-size': '10px',\n         'width' : '30%',\n         'overflow-y' : 'scroll'\n       });\n$(container).css('width', '70%');\nlegend.innerHTML = node.on_select_col;\n$(legend).find('pre').css('font-size', 'inherit');\n}"}},"evals":["events.selectNode"],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9b841de324d41155df19">{"x":{"nodes":{"id":["random_rows","reg1","reg2","mtcars","n-MRYGY6LSHI5GCY3SN5ZXG","n-MRYGY6LSHI5HG5LNNVQXE2LTMU","n-MRYGY6LSHI5GO4TPOVYF6YTZ","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","simulate","mtcars_summary","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ","cluster_id: summ","cluster_id: coef"],"imported":[true,true,true,false,true,true,true,true,true,false,false,false,false,false,false,false,false,false,false,false],"label":["random_rows","reg1","reg2","mtcars","dplyr::across","dplyr::summarise","dplyr::group_by","file mtcars/report.Rmd","simulate","mtcars_summary","small","large","regression1_small","regression2_small","regression1_large","regression2_large","report","file mtcars/report.md","cluster_id: summ","cluster_id: coef"],"cluster_id":["NULL","NULL","NULL",null,"NULL","NULL","NULL","NULL","NULL",null,null,null,"regression1","regression2","regression1","regression2",null,null,"summ","coef"],"status":["imported","imported","imported","up to date","imported","imported","imported","imported","imported","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["function","function","function","object","function","function","function","file","function","object","object","object","object","object","object","object","object","file","cluster","cluster"],"font.size":[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20],"color":["#1874CD","#1874CD","#1874CD","#228B22","#1874CD","#1874CD","#1874CD","#1874CD","#1874CD","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["triangle","triangle","triangle","dot","triangle","triangle","triangle","square","triangle","dot","dot","dot","dot","dot","dot","dot","dot","square","diamond","diamond"],"level":[1,1,1,1,1,1,1,1,2,2,3,3,4,4,4,4,6,7,5,5],"title":["Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","Call drake_graph_info(hover = TRUE) for informative text.","summ_regression1_small, summ_regression2_small...","coef_regression1_small, coef_regression2_small..."],"x":[-1,-1,-1,-1,-1,-1,-1,-1,-0.666666666666667,-0.666666666666667,-0.333333333333333,-0.333333333333333,0,0,0,0,0.666666666666667,1,0.333333333333333,0.333333333333333],"y":[-1,-0.714285714285714,-0.428571428571428,-0.142857142857143,0.142857142857143,0.428571428571429,0.714285714285714,1,-0.428571428571428,0.428571428571429,-0.428571428571428,0.428571428571429,-0.771428571428571,-0.257142857142857,0.257142857142858,0.771428571428572,2.22044604925031e-16,2.22044604925031e-16,-0.714285714285714,-1],"on_select_col":["NULL","NULL","NULL","<h3>mtcars<\/h3>\n<strong>This dataframe describes a bunch of cars that go vroom!<\/strong><br><br>I can't drive but one day I will learn\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nv'>mtcars<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> mpg <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br><code>mpg<\/code> or \"Miles Per Gallon\" is how many miles you can drive on<br>a gallon of fuel.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> cyl <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Number of cylinders<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> disp <\/td>\n   <td style=\"text-align:left;\"> Integer.<br>I literally don't know what this means<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> hp <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Horsepower is a measure of the number of miniature horses this car<br>can fit inside itself, which run on a treadmill that make it go fast.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> drat <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>This is a word you say when something doesn't go the way you hoped.<br><strong>Drat!<\/strong><br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> wt <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>Stands for \"What the...\" - An exclamation of surprise!<br><br>Or <strong>weight<\/strong>, maybe.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qsec <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br>Number of seconds you need to line up in a queue in order to buy this car.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> vs <\/td>\n   <td style=\"text-align:left;\"> Logical, Does the car ever compete?<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> am <\/td>\n   <td style=\"text-align:left;\"> Logical, is this car okay to use in the morning, or should you save it for<br>after midday?<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> gear <\/td>\n   <td style=\"text-align:left;\"> Integer,<br><br>How many different gears transmissions does this car have.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> carb <\/td>\n   <td style=\"text-align:left;\"> Integer, Number of grams of carbohydrates contained in this car.<br>Typically pretty low, as cars are not particularly nutritious.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","NULL","NULL","NULL","NULL","<h3>mtcars_summary<\/h3>\n<strong>Average of attributes of cars according to number of cylinders<\/strong><br>This dataframe relates <code>cyl<\/code> (number of cylinders) to a few properties of mtcars\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='o'>{<\/span>\n  <span class='nv'>out<\/span> <span class='o'>&lt;-<\/span> <span class='nv'>mtcars<\/span> <span class='o'>%&gt;%<\/span> <span class='nf'>dplyr<\/span><span class='nf'>::<\/span><span class='nf'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by<\/a><\/span><span class='o'>(<\/span><span class='nv'>cyl<\/span><span class='o'>)<\/span> <span class='o'>%&gt;%<\/span> <span class='nf'>dplyr<\/span><span class='nf'>::<\/span><span class='nf'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise<\/a><\/span><span class='o'>(<\/span><span class='nf'>dplyr<\/span><span class='nf'>::<\/span><span class='nf'><a href='https://dplyr.tidyverse.org/reference/across.html'>across<\/a><\/span><span class='o'>(<\/span><span class='nf'><a href='https://rdrr.io/r/base/c.html'>c<\/a><\/span><span class='o'>(<\/span><span class='nv'>disp<\/span>, <span class='nv'>hp<\/span>, <span class='nv'>drat<\/span>, <span class='nv'>wt<\/span>, <span class='nv'>qsec<\/span><span class='o'>)<\/span>, <span class='nv'>mean<\/span><span class='o'>)<\/span><span class='o'>)<\/span>\n  <span class='nv'>out<\/span>\n<span class='o'>}<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> cyl <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Number of cylinders<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> disp <\/td>\n   <td style=\"text-align:left;\"> Integer.<br>I literally don't know what this means<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> hp <\/td>\n   <td style=\"text-align:left;\"> Integer<br>Horsepower is a measure of the number of miniature horses this car<br>can fit inside itself, which run on a treadmill that make it go fast.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> drat <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>This is a word you say when something doesn't go the way you hoped.<br><strong>Drat!<\/strong><br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> wt <\/td>\n   <td style=\"text-align:left;\"> Numeric<br>Stands for \"What the...\" - An exclamation of surprise!<br><br>Or <strong>weight<\/strong>, maybe.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qsec <\/td>\n   <td style=\"text-align:left;\"> Numeric.<br>Number of seconds you need to line up in a queue in order to buy this car.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html\">mandrake::mtcars_dataset<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/stats/simulate.html'>simulate<\/a><\/span><span class='o'>(<\/span><span class='m'>48<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n   <td style=\"text-align:left;\"> if requested, the model matrix used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n   <td style=\"text-align:left;\"> if requested, the response used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/stats/simulate.html'>simulate<\/a><\/span><span class='o'>(<\/span><span class='m'>64<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> x <\/td>\n   <td style=\"text-align:left;\"> if requested, the model matrix used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> y <\/td>\n   <td style=\"text-align:left;\"> if requested, the response used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg1<\/span><span class='o'>(<\/span><span class='nv'>small<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression2_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg2<\/span><span class='o'>(<\/span><span class='nv'>small<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression1_large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg1<\/span><span class='o'>(<\/span><span class='nv'>large<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>regression2_large<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>reg2<\/span><span class='o'>(<\/span><span class='nv'>large<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> coefficients <\/td>\n   <td style=\"text-align:left;\"> a named vector of coefficients<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> residuals <\/td>\n   <td style=\"text-align:left;\"> The residuals, that is response minus fitted values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> effects <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> rank <\/td>\n   <td style=\"text-align:left;\"> the numeric rank of the fitted linear model.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> fitted.values <\/td>\n   <td style=\"text-align:left;\"> The fitted mean values.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> assign <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> qr <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> df.residual <\/td>\n   <td style=\"text-align:left;\"> the residual degrees of freedom.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> xlevels <\/td>\n   <td style=\"text-align:left;\"> (only where relevant) a record of the levels of the factors used in fitting.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> call <\/td>\n   <td style=\"text-align:left;\"> the matched call.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> terms <\/td>\n   <td style=\"text-align:left;\"> the <code><a href=\"https://rdrr.io/r/stats/terms.html\">stats::terms()<\/a><\/code> object used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> model <\/td>\n   <td style=\"text-align:left;\"> if requested (the default), the model frame used.<br>Found at <code><a href=\"https://mstr3336.github.io/mandrake//reference/lm_object.html\">mandrake::lm_object<\/a><\/code> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>report<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'>knit<\/span><span class='o'>(<\/span><span class='nf'>knitr_in<\/span><span class='o'>(<\/span><span class='s'>\"mtcars/report.Rmd\"<\/span><span class='o'>)<\/span>, <span class='nf'>file_out<\/span><span class='o'>(<\/span><span class='s'>\"mtcars/report.md\"<\/span><span class='o'>)<\/span>, quiet <span class='o'>=<\/span> <span class='kc'>TRUE<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>","NULL","<h3>summ_regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings<\/a><\/span><span class='o'>(<\/span><span class='nf'><a href='https://rdrr.io/r/base/summary.html'>summary<\/a><\/span><span class='o'>(<\/span><span class='nv'>regression1_small<\/span><span class='o'>$<\/span><span class='nv'>residuals<\/span><span class='o'>)<\/span><span class='o'>)<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> name <\/th>\n   <th style=\"text-align:left;\"> description <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> Min. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 1st Qu. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Median <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Mean <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> 3rd Qu. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Max. <\/td>\n   <td style=\"text-align:left;\"> <i>Column doc not found<\/i><br> <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>","<h3>coef_regression1_small<\/h3>\nNA\n<h4>Command<\/h4>\n<details><summary>Command<\/summary>\n<pre class='downlit'>\n<span class='nf'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings<\/a><\/span><span class='o'>(<\/span><span class='nf'><a href='https://rdrr.io/r/base/summary.html'>summary<\/a><\/span><span class='o'>(<\/span><span class='nv'>regression1_small<\/span><span class='o'>)<\/span><span class='o'>)<\/span><span class='o'>$<\/span><span class='nv'>coefficients<\/span><\/pre>\n<\/details>\n<h4>Columns<\/h4>\n<table class=\"table table-striped table-responsive table-condensed\" style=\"margin-left: auto; margin-right: auto;\">\n<tbody>\n  <tr>\n\n  <\/tr>\n<\/tbody>\n<\/table>"]},"edges":{"from":["random_rows","reg1","reg1","reg2","reg2","regression1_small","regression1_small","regression1_large","regression1_large","regression2_small","regression2_small","regression2_large","regression2_large","simulate","simulate","mtcars","n-MRYGY6LSHI5GCY3SN5ZXG","n-MRYGY6LSHI5HG5LNNVQXE2LTMU","n-MRYGY6LSHI5GO4TPOVYF6YTZ","small","small","small","large","large","large","cluster_id: coef","p-NV2GGYLSOMXXEZLQN5ZHILSSNVSA","report"],"to":["simulate","regression1_small","regression1_large","regression2_small","regression2_large","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","cluster_id: coef","cluster_id: summ","small","large","mtcars_summary","mtcars_summary","mtcars_summary","mtcars_summary","regression1_small","regression2_small","report","regression1_large","regression2_large","report","report","report","p-NV2GGYLSOMXXEZLQN5ZHILTNMQ"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"interaction":{"navigationButtons":true},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"layout":{"hierarchical":{"enabled":true,"levelSeparation":250,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Dependency graph","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":4,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Imported","Object","Function","File","Cluster"],"color":["#228B22","#1874CD","#888888","#888888","#888888","#888888"],"shape":["dot","dot","dot","triangle","square","diamond"],"font.color":["black","black","black","black","black","black"],"font.size":[20,20,20,20,20,20],"id":[1,5,7,8,9,10]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);","igraphlayout":{"type":"square"},"events":{"selectNode":"function(props) {\ncontainer = this.body.container;\nlegend = $(container).parent().children(\"[id*='legendhtmlwidget']\")[0];\nnode = this.body.data.nodes.get(props.nodes[0]);\n$(legend).css({\n         'font-size': '10px',\n         'width' : '30%',\n         'overflow-y' : 'scroll'\n       });\n$(container).css('width', '70%');\nlegend.innerHTML = node.on_select_col;\n$(legend).find('pre').css('font-size', 'inherit');\n}"}},"evals":["events.selectNode"],"jsHooks":[]}</script>
 </div>
   </div>
 
@@ -837,7 +1362,7 @@ NA
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

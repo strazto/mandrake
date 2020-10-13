@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assignment Pipe operator — %&lt;&gt;% • mandrake</title>
+<title>Output paths — output_paths • mandrake</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Assignment Pipe operator — %&lt;&gt;%" />
-<meta property="og:description" content="See magrittr::[\%&amp;gt;\%][magrittr::\%&amp;gt;\%] for details." />
+<meta property="og:title" content="Output paths — output_paths" />
+<meta property="og:description" content="Mandrake can derive the output path for its column mappings
+from a few places:" />
 
 
 
@@ -120,17 +121,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assignment Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/R/utils-pipe.R'><code>R/utils-pipe.R</code></a></small>
-    <div class="hidden name"><code>backpipe.Rd</code></div>
+    <h1>Output paths</h1>
+    <small class="dont-index">Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/R/roxy-roclet-col.R'><code>R/roxy-roclet-col.R</code></a></small>
+    <div class="hidden name"><code>output_paths.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::[\%&gt;\%][magrittr::\%&gt;\%]</code> for details.</p>
+    <p>Mandrake can derive the output path for its column mappings
+from a few places:</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&lt;&gt;%</span> <span class='va'>rhs</span></pre>
 
+
+    <h2 class="hasAnchor" id="output-paths-configuration"><a class="anchor" href="#output-paths-configuration"></a>Output Paths Configuration</h2>
+
+    
+
+<ul>
+<li><p><strong>by default</strong>, for a package <code>pkgname</code>, <code>mandrake</code> will store its output
+under <code>"pkgname.yaml"</code> at:</p><ul>
+<li><p>pkgname/inst/mandrake</p></li>
+</ul></li>
+<li><p>If you need to customize this, use:</p><ul>
+<li><p>This can be done by setting the following in <code>DESCRIPTION</code>:</p><ul>
+<li><p><code>Roxygen: list(mandrake_output = "path/from/pkg/root")</code></p></li>
+</ul></li>
+<li><p>See the documentation for <a href='https://roxygen2.r-lib.org/reference/load_options.html'>roxygen2::roxy_meta_get</a> for more information..</p></li>
+</ul></li>
+</ul>
 
 
   </div>

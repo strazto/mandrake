@@ -2,7 +2,7 @@
 title: "Introduction to mandrake"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Test_Usecase}
+  %\VignetteIndexEntry{Introduction to mandrake}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -104,12 +104,34 @@ drake::make(config = my_config)
 
 ```
 
+
+# Taking it further
+
 Usually, this is where `{drake}`'s job is done, but `{mandrake}` extends this a little, 
 & lets us access documentation for this dataset directly from the workflow graph.
+
+We load the column specification for mandrake.
 
 ```{r}
 lookup_cache <- mandrake::load_package_colspec("mandrake")
 ```
+
+By default, this is found at `{pkgname}/inst/{pkgname}.yaml`, and generated using the 
+* `#' @col` & 
+* `#' @inheritCol`
+`roxygen2` tags.
+
+Examining this yields:
+
+```{r yaml_examine, echo=FALSE, comment=""}
+system.file("mandrake", "mandrake.yaml", package = "mandrake") %>% 
+  yaml::read_yaml() %>%
+  {list(am = .$am, '...'='...more column specs...' ,y = .$y)} %>%
+  yaml::as.yaml() %>%
+  writeLines()
+```
+
+## Attach the column documentation to our plan.
 
 ```{r}
 plan_extracted <- my_plan %>%
@@ -117,12 +139,17 @@ plan_extracted <- my_plan %>%
 ```
 
 ```{r}
-plan_extracted
+plan_extracted %>%
+  dplyr::mutate(dplyr::across("command", rlang::as_label)) %>%
+  knitr::kable("html", escape = TRUE) %>%
+  kableExtra::kable_styling(c("striped", "responsive", "condensed"))
 ```
 
 ```{r}
 my_config <- drake_config(plan_extracted)
 ```
+
+## Build the graph
 
 ```{r}
 graph_info <- drake_graph_info(

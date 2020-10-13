@@ -1,10 +1,11 @@
-url: https://mstr3336.github.io/mandrake/
-write_meta_to_inst: true
+url: https://mstrasiot.to/mandrake/
+deploy:
+ install_metadata: true
 repo:
   url:
-    home: https://github.com/mstr3336/mandrake/
-    source: https://github.com/mstr3336/mandrake/blob/master/
-    issue: https://github.com/mstr3336/mandrake/issues/
+    home: https://github.com/matthewstrasiotto/mandrake/
+    source: https://github.com/matthewstrasiotto/mandrake/blob/master/
+    issue: https://github.com/matthewstrasiotto/mandrake/issues/
     user: https://github.com/
 destination: docs
 reference:

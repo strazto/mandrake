@@ -1,9 +1,11 @@
 pandoc: '2.11'
-pkgdown: 1.5.1.9000
+pkgdown: 1.6.1.9000
 pkgdown_sha: ~
-articles: []
-last_built: 2020-10-13T00:38Z
+articles:
+  mandrake: mandrake.html
+  mtcars/report: report.html
+last_built: 2020-10-13T02:55Z
 urls:
-  reference: https://mstr3336.github.io/mandrake//reference
-  article: https://mstr3336.github.io/mandrake//articles
+  reference: https://mstrasiot.to/mandrake//reference
+  article: https://mstrasiot.to/mandrake//articles
 

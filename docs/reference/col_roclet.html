@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Roclet for processing the <code>@col</code> tag — col_roclet • mandrake</title>
+<title>Roclet for processing the @col tag — col_roclet • mandrake</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Roclet for processing the <code>@col</code> tag — col_roclet" />
+<meta property="og:title" content="Roclet for processing the @col tag — col_roclet" />
 <meta property="og:description" content="Roclet for processing the @col tag" />
 
 
@@ -79,12 +79,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/mandrake.html">Get started</a>
 </li>
 <li>
@@ -108,7 +102,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/mstr3336/mandrake/">
+  <a href="https://github.com/matthewstrasiotto/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -127,7 +121,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Roclet for processing the <code>@col</code> tag</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mstr3336/mandrake/blob/master/R/roxy-roclet-col.R'><code>R/roxy-roclet-col.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/R/roxy-roclet-col.R'><code>R/roxy-roclet-col.R</code></a></small>
     <div class="hidden name"><code>col_roclet.Rd</code></div>
     </div>
 
@@ -135,14 +129,31 @@
     <p>Roclet for processing the <code>@col</code> tag</p>
     </div>
 
-    <pre class="usage"><span class='fu'>col_roclet</span>()
+    <pre class="usage"><span class='fu'>col_roclet</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># S3 method for roclet_col</span>
-<span class='fu'>roclet_process</span>(<span class='kw'>roc</span>, <span class='kw'>blocks</span>, <span class='kw'>env</span>, <span class='kw'>base_path</span>)
+<span class='fu'>roclet_process</span><span class='op'>(</span><span class='va'>roc</span>, <span class='va'>blocks</span>, <span class='va'>env</span>, <span class='va'>base_path</span><span class='op'>)</span>
 
 <span class='co'># S3 method for roclet_col</span>
-<span class='fu'>roclet_output</span>(<span class='kw'>roc</span>, <span class='kw'>results</span>, <span class='kw'>base_path</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>roclet_output</span><span class='op'>(</span><span class='va'>roc</span>, <span class='va'>results</span>, <span class='va'>base_path</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
+
+    <h2 class="hasAnchor" id="output-paths-configuration"><a class="anchor" href="#output-paths-configuration"></a>Output Paths Configuration</h2>
+
+    
+
+<ul>
+<li><p><strong>by default</strong>, for a package <code>pkgname</code>, <code>mandrake</code> will store its output
+under <code>"pkgname.yaml"</code> at:</p><ul>
+<li><p>pkgname/inst/mandrake</p></li>
+</ul></li>
+<li><p>If you need to customize this, use:</p><ul>
+<li><p>This can be done by setting the following in <code>DESCRIPTION</code>:</p><ul>
+<li><p><code>Roxygen: list(mandrake_output = "path/from/pkg/root")</code></p></li>
+</ul></li>
+<li><p>See the documentation for <a href='https://roxygen2.r-lib.org/reference/load_options.html'>roxygen2::roxy_meta_get</a> for more information..</p></li>
+</ul></li>
+</ul>
 
 
   </div>
@@ -160,7 +171,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
