@@ -106,6 +106,7 @@ default_column_map_output_path <- function() {
 
 #' @rdname col_roclet
 #' @export
+#' @inheritSection output_paths Output Paths Configuration
 #' @importFrom roxygen2 roclet_output
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
