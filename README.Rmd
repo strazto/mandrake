@@ -1,3 +1,7 @@
+---
+output: github_document
+---
+
 # mandrake
 
 `{mandrake}` is an R package that aims to bridge the gap between:
