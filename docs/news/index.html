@@ -78,12 +78,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/mandrake.html">Get started</a>
 </li>
 <li>
@@ -107,7 +101,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/mstr3336/mandrake/">
+  <a href="https://github.com/matthewstrasiotto/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -126,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/mstr3336/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="mandrake-0239001" class="section level1">
@@ -159,7 +153,7 @@
 <h2 class="hasAnchor">
 <a href="#additions" class="anchor"></a>Additions</h2>
 <ul>
-<li>Implement <code><a href="https://rdrr.io/pkg/mandrake/man/attach_dependencies.html">attach_dependencies()</a></code>, which attaches bootstrap and jquery deps to graphs</li>
+<li>Implement <code><a href="../reference/attach_dependencies.html">attach_dependencies()</a></code>, which attaches bootstrap and jquery deps to graphs</li>
 </ul>
 </div>
 </div>
@@ -193,7 +187,7 @@
 <h2 class="hasAnchor">
 <a href="#modifications" class="anchor"></a>Modifications</h2>
 <ul>
-<li>When fetching package name in <code><a href="https://rdrr.io/pkg/mandrake/man/col_roclet.html">roclet_process.roclet_col()</a></code>,
+<li>When fetching package name in <code><a href="../reference/col_roclet.html">roclet_process.roclet_col()</a></code>,
 <ul>
 <li>if not found from <code><a href="https://roxygen2.r-lib.org/reference/load_options.html">roxygen2::roxy_meta_get("current_package")</a></code>, will attempt to use <code>env$.packageName</code>.</li>
 </ul>
@@ -252,7 +246,7 @@
 <h1 class="page-header" data-toc-text="0.1.0">
 <a href="#mandrake-010" class="anchor"></a>Mandrake 0.1.0</h1>
 <ul>
-<li>Implement a top level <code><a href="https://rdrr.io/pkg/mandrake/man/decorate_plan.html">decorate_plan()</a></code> function. This function wraps the column extraction and linking process, and allows:
+<li>Implement a top level <code><a href="../reference/decorate_plan.html">decorate_plan()</a></code> function. This function wraps the column extraction and linking process, and allows:
 <ul>
 <li>The user to specify a column containing markdown description, that will be rendered in the sidebar</li>
 <li>The <code>command</code> column of the plan is parsed, highlighted, and code referenced are automagically linked to their docs (thanks to downlit).
@@ -270,13 +264,13 @@
 <a href="#mandrake-001" class="anchor"></a>Mandrake 0.0.1</h1>
 <p>Tentative First-Pass</p>
 <ul>
-<li>Implement roxygen-based <code>@col</code> tag + column doc workflow <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/8"><a href='https://github.com/mstr3336/mandrake/issues/8'>#8</a></a>.
+<li>Implement roxygen-based <code>@col</code> tag + column doc workflow <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/8"><a href='https://github.com/matthewstrasiotto/mandrake/issues/8'>#8</a></a>.
 <ul>
 <li>Implement serialization of column docs from docstrings to <code>yaml</code>.</li>
 <li>Implement deserialization of column docs, by specifying package owning the column specs.</li>
 </ul>
 </li>
-<li>Implement Column spec lookup, extraction and formatting / integration with workflow graphs <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/6"><a href='https://github.com/mstr3336/mandrake/issues/6'>#6</a></a>.
+<li>Implement Column spec lookup, extraction and formatting / integration with workflow graphs <a href="https://github.sydney.edu.au/speed-extract/mandrake/issues/6"><a href='https://github.com/matthewstrasiotto/mandrake/issues/6'>#6</a></a>.
 <ul>
 <li>Incl. Extraction of metadata from plan.</li>
 </ul>
@@ -291,7 +285,7 @@
 <h2 class="hasAnchor">
 <a href="#implementations" class="anchor"></a>Implementations</h2>
 <ul>
-<li>Implement target-doc extraction function <code><a href="https://rdrr.io/pkg/mandrake/man/extract_column_names.html">extract_column_names()</a></code>
+<li>Implement target-doc extraction function <code><a href="../reference/extract_column_names.html">extract_column_names()</a></code>
 <ul>
 <li>This uses the plan and the cache to extract column names from each target,</li>
 <li>and returns the plan with a new list-col containing that target’s variable names.</li>
@@ -324,7 +318,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

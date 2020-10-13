@@ -38,12 +38,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../../articles/mandrake.html">Get started</a>
 </li>
 <li>
@@ -67,7 +61,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mstr3336/mandrake/">
+  <a href="https://github.com/matthewstrasiotto/mandrake/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -89,7 +83,7 @@
                         <h4 class="author">You</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mstr3336/mandrake/blob/master/vignettes/mtcars/report.Rmd"><code>vignettes/mtcars/report.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/matthewstrasiotto/mandrake/blob/master/vignettes/mtcars/report.Rmd"><code>vignettes/mtcars/report.Rmd</code></a></small>
       <div class="hidden name"><code>report.Rmd</code></div>
 
     </div>
@@ -97,27 +91,23 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">knitr</span>::<span class="kw"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span>(eval = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>eval <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <div id="the-weight-and-fuel-efficiency-of-cars" class="section level1">
 <h1 class="hasAnchor">
 <a href="#the-weight-and-fuel-efficiency-of-cars" class="anchor"></a>The weight and fuel efficiency of cars</h1>
 <p>Is there an association between the weight and the fuel efficiency of cars? To find out, we use the <code>mtcars</code> dataset from the <code>datasets</code> package. The <code>mtcars</code> data originally came from the 1974 Motor Trend US magazine, and it contains design and performance data on 32 models of automobile.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="co"># ?mtcars # more info</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">mtcars</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></pre></div>
 <p>Here, <code>wt</code> is weight in tons, and <code>mpg</code> is fuel efficiency in miles per gallon. We want to figure out if there is an association between <code>wt</code> and <code>mpg</code>. The <code>mtcars</code> dataset itself only has 32 rows, so we generated two larger bootstrapped datasets. We called them <code>small</code> and <code>large</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://docs.ropensci.org/drake">drake</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(<span class="kw">small</span>)) <span class="co"># 48 rows</span>
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">loadd</a></span>(<span class="kw">large</span>)       <span class="co"># 64 rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">large</span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/drake">drake</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span><span class="op">(</span><span class="va">small</span><span class="op">)</span><span class="op">)</span> <span class="co"># 48 rows</span>
+<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">loadd</a></span><span class="op">(</span><span class="va">large</span><span class="op">)</span>       <span class="co"># 64 rows</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">large</span><span class="op">)</span></pre></div>
 <p>Then, we fit a couple regression models to the <code>small</code> and <code>large</code> to try to detect an association between <code>wt</code> and <code>mpg</code>. Here are the coefficients and p-values from one of the model fits.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(<span class="kw">coef_regression2_small</span>)
-</pre></div>
+<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span><span class="op">(</span><span class="va">coef_regression2_small</span><span class="op">)</span></pre></div>
 <p>Since the p-value on <code>x2</code> is so small, there may be an association between weight and fuel efficiency after all.</p>
 </div>
 <div id="a-note-on-knitr-reports-in-drake-projects-" class="section level1">
@@ -142,7 +132,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
