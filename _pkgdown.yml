@@ -1,5 +1,6 @@
 url: https://mstrasiot.to/mandrake/
-write_meta_to_inst: true
+deploy:
+ install_metadata: true
 repo:
   url:
     home: https://github.com/matthewstrasiotto/mandrake/
