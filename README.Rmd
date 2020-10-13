@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+<!-- README.md is generated from README.Rmd. Edit that file & knit to generate README -->
+
 # mandrake
 
 `{mandrake}` is an R package that aims to bridge the gap between:
