@@ -1,5 +1,5 @@
 ---
-title: "Test_Usecase"
+title: "Introduction to mandrake"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Test_Usecase}
@@ -23,6 +23,16 @@ library(magrittr)
 source("mtcars/R/functions.R")
 ```
 
+# Introduction
+
+This tutorial assumes that you have basic familiarity with [`{drake}`](https://github.com/ropensci/drake),
+as most of the patterns shown here build off of `{drake}` workflow practices.
+
+## The plan
+
+We start by building our plan. Imagine that we have the `mtcars` dataset, & we want to run some models on it.
+
+Take note of the `desc` argument provided the `mtcars` target. This allows us to write a markdown description for a target.
 
 ```{r plan}
 # This is where you set up your workflow plan,
@@ -73,6 +83,8 @@ This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
 )
 ```
 
+Let's examine our plan as a dataframe:
+
 ```{r, echo=FALSE}
 my_plan %>% 
   dplyr::mutate(
@@ -83,12 +95,17 @@ my_plan %>%
   kableExtra::kable_styling(c("striped", "responsive", "condensed"))
 ```
 
+Now, let's build it.
+
 ```{r}
 cache <- drake::get_cache()
 my_config <- drake_config(my_plan)
 drake::make(config = my_config)
 
 ```
+
+Usually, this is where `{drake}`'s job is done, but `{mandrake}` extends this a little, 
+& lets us access documentation for this dataset directly from the workflow graph.
 
 ```{r}
 lookup_cache <- mandrake::load_package_colspec("mandrake")
