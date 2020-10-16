@@ -266,10 +266,15 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "7d651b7131794fe007b1ad6f21aaa401"
+      "Version": "0.5.0.9002",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "htmltools",
+      "RemoteRef": "master",
+      "RemoteSha": "079503c8548e3279bec7a91d6dc20d1af7f2e8b5",
+      "Hash": "1b90adcd663aeafcdc1a8d59ac138b98"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
