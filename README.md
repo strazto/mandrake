@@ -11,7 +11,7 @@ mandrake
 -   your `code`’s ⌨️ documentation & your data’s 📈 documentation.
 
 `{mandrake}` extends the communication tools provided by `{drake}` &
-supercharges to connect directly with your workflows at both an eage-eye
+supercharges them to connect directly with your workflows at both an eagle-eye
 view, & in intimate detail.
 
 `{mandrake}` also extends
