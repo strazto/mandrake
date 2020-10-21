@@ -283,7 +283,16 @@ attach_dependencies <- function(graph) {
     script = "fix_utf.js"
   )
 
-  graph$dependencies %<>% c(list(jquery, bootstrap, chroma, fix_utf, DOMPurify))
+  graph_events <- htmltools::htmlDependency(
+    "graph_event_handlers",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    script = "graph_events.js"
+  )
+
+  graph$dependencies %<>%
+    c(list(jquery, bootstrap, chroma, fix_utf, DOMPurify, graph_events))
 
   graph
 }
