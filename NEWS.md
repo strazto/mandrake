@@ -1,5 +1,13 @@
-# Mandrake 0.2.3.9001
+# Mandrake 1.0.0
 
+## BREAKING CHANGES IN VERSION 1.0.0
+
+- Deprecate `mandrake::embed_event_handler()` due to XSS vector, and its
+  annoying to maintain JS stored in R code. 
+  - Users now have to call:
+    - `mandrake::attach_dependencies()` &
+    - `drake::render_graph(on_select = "embed_event_handler")`
+  
 ## Fixes
 
 - Fix bug related to `htmlwidgets::saveWidget` when `selfcontained = TRUE` breaking embedded stylesheets.
