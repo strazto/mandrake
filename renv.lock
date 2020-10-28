@@ -329,10 +329,15 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "361811f31f71f8a617a9a68bf63f1f42"
+      "Version": "0.2.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "lifecycle",
+      "RemoteRef": "master",
+      "RemoteSha": "ba9f03c902a333f9472f1e5bb92bb7e3a5d460bc",
+      "Hash": "b8fbd93822e65e8e21fdcca138be41c7"
     },
     "magrittr": {
       "Package": "magrittr",

@@ -4,7 +4,7 @@
 \alias{alert_event_handler}
 \title{Handler for displaying node data as popup}
 \usage{
-alert_event_handler()
+alert_event_handler(warn_deprecated = FALSE)
 }
 \description{
 Mainly useful for testing - Basically chucks the data for that particular node
