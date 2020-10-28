@@ -4,6 +4,10 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Edit that file & knit to generate README -->
 
+<!-- badges: start -->
+[![R build status](https://github.com/matthewstrasiotto/mandrake/workflows/R-CMD-check/badge.svg)](https://github.com/matthewstrasiotto/mandrake/actions)
+<!-- badges: end -->
+
 # mandrake
 
 `{mandrake}` is an R package that aims to bridge the gap between:
