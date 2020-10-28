@@ -1,10 +1,15 @@
 Package: mandrake
-Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
+Title: Bringing Reading the man Page a Little Closer to the drake Workflow
 Version: 1.0.0
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
-Description: This package aims to 
+Description: 'mandrake' aims to bridge the gap between the manual and 
+    your drake workflow, as well as your code's documentation & your
+    datasets' documentation. It does this by providing efficient 
+    roxygen2 extensions / tags for document input + output columns
+    in your inline docstrings, which can then be imported into
+    drake workflow graphs, and inherited across packages.
 URL: https://mstrasiot.to/mandrake/, https://github.com/matthewstrasiotto/mandrake
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
@@ -30,7 +35,9 @@ Imports:
     yaml (>= 2.2.1),
     kableExtra,
     lifecycle,
-    htmltools
+    htmltools,
+    storr,
+    jsonlite
 Remotes: 
     r-lib/downlit,
     r-lib/pkgdown,
