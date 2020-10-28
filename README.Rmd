@@ -27,4 +27,4 @@ packages with minimal effort.
 </a>
 </center>
 
-See `vignette("mandrake")` for an interactive demo.
+See `vignette("mandrake")` for an interactive demo [[link]](https://mstrasiot.to/mandrake/articles/mandrake.html).
