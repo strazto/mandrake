@@ -60,7 +60,7 @@ test_that("parsing a block with 2 deffs of our tag works", {
 })
 
 test_that("May parse valid R columns, such as those with full-stops", {
-  fail("Test not implemented")
+  skip("Test not implemented")
 })
 
 setup_input_inherit <- function() {
