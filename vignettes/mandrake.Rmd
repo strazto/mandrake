@@ -86,13 +86,13 @@ This dataframe relates `cyl` (number of cylinders) to a few properties of mtcars
 Let's examine our plan as a dataframe:
 
 ```{r, echo=FALSE}
-my_plan %>% 
+html_plan <- my_plan %>% 
   dplyr::mutate(
     dplyr::across("command", rlang::as_label),
     desc = glue::glue("<code>{desc}</code>", .sep = "\n")
     ) %>% 
   knitr::kable("html", escape = FALSE) %>%
-  kableExtra::kable_styling(c("striped", "responsive", "condensed"))
+  kableExtra::kable_styling(c("striped", "responsive", "condensed")) 
 ```
 
 Now, let's build it.
@@ -161,9 +161,9 @@ graph_info <- drake_graph_info(
 
 graph <- render_drake_graph(
   graph_info, 
-  on_select = mandrake::embed_event_handler(),
+  on_select = "embedHandler",
   ncol_legend = 4
-  ) 
+  ) # %>% mandrake::attach_dependencies()
 ```
 ```{r, echo=FALSE}
 graph %<>%

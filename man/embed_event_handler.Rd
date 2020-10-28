@@ -2,7 +2,7 @@
 % Please edit documentation in R/js_handlers.R
 \name{embed_event_handler}
 \alias{embed_event_handler}
-\title{Handler for embedding data into the legend}
+\title{(DEPRECATED) Handler for embedding data into the legend}
 \usage{
 embed_event_handler()
 }
@@ -19,22 +19,31 @@ It looks like this:
 
 \preformatted{
 function(props) {
-container = this.body.container;
-legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
-node = this.body.data.nodes.get(props.nodes[0]);
-$(legend).css({
-         'font-size': '10px',
-         'width' : '30%',
-         'overflow-y' : 'scroll'
-       });
-$(container).css('width', '70%');
-legend.innerHTML = node.on_select_col;
-$(legend).find('pre').css('font-size', 'inherit');
+  node = this.body.data.nodes.get(props.nodes[0]);
+  cr = '\r\n';
+  alert(
+    '' + '
+using mandrake::embed_event_handler() is deprecated.
+please use mandrake::attach_dependencies & 
+on_select = "embed_event_handler()" when rendering graph
+'
+    'selected ' +  node.label + ':' + cr +
+    '=======' + cr +
+    'COLNAMES:' + cr +
+    node.on_select_col + cr +
+    '=============== '
+  );
 }
 }
 }
+\section{deprecation notice}{
+
+This function has been deprecated for security & maintainability reasons.
+}
+
 \seealso{
 Other js_handlers: 
 \code{\link{alert_event_handler}()}
 }
+\concept{deprecated}
 \concept{js_handlers}

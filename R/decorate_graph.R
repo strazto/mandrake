@@ -261,6 +261,17 @@ attach_dependencies <- function(graph) {
     stylesheet = "chroma.css"
   )
 
+  DOMPurify <- htmltools::htmlDependency(
+    "DOMPurify",
+    "2.1.1",
+    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/"),
+    script = list(
+      src = "purify.min.js",
+      integrity = "sha512-MyuIiR29IQaNvgQIvGVvOwtphjY82+ZoeopFcOyXrdsFbIiU6Sc3MRvpXRzOYtihMs83vT/rz8ArCM53l5Onqg==",
+      crossorigin = "anonymous"
+    )
+  )
+
   # This script fixes a mangled "type" attribute set on some stylesheets
   # by htmlwidgets saveWidget(selfcontained = TRUE)
   # Restores the type to simply "text/css"
@@ -272,7 +283,16 @@ attach_dependencies <- function(graph) {
     script = "fix_utf.js"
   )
 
-  graph$dependencies %<>% c(list(jquery, bootstrap, chroma, fix_utf))
+  graph_events <- htmltools::htmlDependency(
+    "graph_event_handlers",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib",
+    script = "graph_events.js"
+  )
+
+  graph$dependencies %<>%
+    c(list(jquery, bootstrap, chroma, fix_utf, DOMPurify, graph_events))
 
   graph
 }

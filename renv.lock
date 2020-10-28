@@ -266,10 +266,15 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "7d651b7131794fe007b1ad6f21aaa401"
+      "Version": "0.5.0.9002",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "rstudio",
+      "RemoteRepo": "htmltools",
+      "RemoteRef": "master",
+      "RemoteSha": "079503c8548e3279bec7a91d6dc20d1af7f2e8b5",
+      "Hash": "1b90adcd663aeafcdc1a8d59ac138b98"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
@@ -329,10 +334,15 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "361811f31f71f8a617a9a68bf63f1f42"
+      "Version": "0.2.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "lifecycle",
+      "RemoteRef": "master",
+      "RemoteSha": "ba9f03c902a333f9472f1e5bb92bb7e3a5d460bc",
+      "Hash": "b8fbd93822e65e8e21fdcca138be41c7"
     },
     "magrittr": {
       "Package": "magrittr",
