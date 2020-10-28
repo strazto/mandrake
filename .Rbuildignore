@@ -8,3 +8,4 @@
 ^pkgdown$
 !pkgdown\.yml$
 ^\.github$
+^README\.Rmd$

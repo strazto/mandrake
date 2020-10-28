@@ -11,7 +11,7 @@ tag_list_col <- function(x) {
   x
 }
 
-
+utils::globalVariables(c("where"))
 serialize_df <- function(x) {
 
   out <- x %>%
@@ -124,7 +124,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
 }
 
 
-#' Load colspec from a single file, to be imported into storr cache
+# Load colspec from a single file, to be imported into storr cache
 load_colspec_file <- function(path) {
   out <- path %>%
     readLines() %>%
@@ -133,6 +133,9 @@ load_colspec_file <- function(path) {
 
   out
 }
+
+# Squash check whine
+utils::globalVariables(c("name"))
 
 add_entry_to_cache <- function(entry, keys, lookup_cache = NULL) {
   if (rlang::is_empty(lookup_cache))

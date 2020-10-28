@@ -20,7 +20,7 @@ describe_event_handlers <- function(handler) {
 #'
 #' It looks like this:
 #'
-#' `r describe_event_handlers(mandrake::embed_event_handler)`
+#' `r suppressWarnings(describe_event_handlers(mandrake::embed_event_handler))`
 #'
 #' \lifecycle{deprecated}
 #' @export
@@ -53,7 +53,8 @@ embed_event_handler <- function() {
 #'
 #' Mainly useful for testing - Basically chucks the data for that particular node
 #' into a popup.
-#'
+#' @param warn_deprecated leave as-is - used interally by deprecated handlers that
+#'        call this to signal they're deprecated
 #' @export
 #' @family js_handlers
 alert_event_handler <- function(warn_deprecated = FALSE){

@@ -2,11 +2,11 @@ context("Does col roclet correctly process col tags?")
 
 
 test_that("Col roclet correctly handles col tags", {
-  fail("TNI")
+  skip("TNI")
 })
 
 test_that("Col roclet correctly handles inheritCol tags", {
-  fail("TNI")
+  skip("TNI")
 })
 
 setup_input_no_tags <- function() {
