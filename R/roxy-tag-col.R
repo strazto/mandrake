@@ -1,4 +1,6 @@
 
+# Squash check whine
+utils::globalVariables(c("direction", "aliases", "src"))
 
 #' @export
 #' @importFrom roxygen2 roxy_tag_parse
@@ -85,6 +87,9 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
 
   x
 }
+
+# Squash check whine
+utils::globalVariables(c("capture.start", "capture.length", "capture_end"))
 
 #' Extract named captures from gregexpr
 extract_named_captures <- function(string, match_object) {

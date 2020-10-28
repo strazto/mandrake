@@ -27,6 +27,8 @@ roclet_process.roclet_col <- function(
   out
 }
 
+# Squash check whine
+utils::globalVariables(c("rd_ref", "package", "columns"))
 
 roclet_col_process_col_tag <- function(roc, block, env, base_path) {
   `%||%` <- rlang::`%||%`

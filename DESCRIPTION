@@ -37,7 +37,8 @@ Imports:
     lifecycle,
     htmltools,
     storr,
-    jsonlite
+    jsonlite,
+    utils
 Remotes: 
     r-lib/downlit,
     r-lib/pkgdown,

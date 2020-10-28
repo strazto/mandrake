@@ -1,3 +1,6 @@
+# Squash check whine
+utils::globalVariables(c("src"))
+
 #' @export
 #' @importFrom roxygen2 roxy_tag_parse
 roxy_tag_parse.roxy_tag_inheritCol <- function(x) {

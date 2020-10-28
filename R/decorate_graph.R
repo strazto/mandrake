@@ -9,6 +9,8 @@ extract_target_column_names <- function(target, cache) {
   out
 }
 
+# Squash check whine
+utils::globalVariables(c("target"))
 
 #' Extract Column Names for targets in Drake Plan
 #'
@@ -65,7 +67,8 @@ missing_col_placeholder <- function(col_key) {
     html_ref = ""
   )
 }
-
+# Squash check whine
+utils::globalVariables(c("html", "html_ref", "description", "defined_at"))
 
 pull_out_coldocs <- function(columns, lookup_cache) {
   if (rlang::is_empty(columns)) return(NULL)
