@@ -29,9 +29,11 @@ Imports:
     tidyr (>= 1.1.0),
     yaml (>= 2.2.1),
     kableExtra,
-    lifecycle
+    lifecycle,
+    htmltools
 Remotes: 
     r-lib/downlit,
-    r-lib/pkgdown
+    r-lib/pkgdown,
+    r-lib/htmltools
 Roxygen: list(markdown = TRUE, roclets = list('rd', 'collate', 'namespace', 'mandrake::col_roclet'))
 RdMacros: lifecycle
