@@ -91,7 +91,7 @@ roxy_tag_parse.roxy_tag_col <- function(x) {
 # Squash check whine
 utils::globalVariables(c("capture.start", "capture.length", "capture_end"))
 
-#' Extract named captures from gregexpr
+# Extract named captures from gregexpr
 extract_named_captures <- function(string, match_object) {
 
   out <- list()

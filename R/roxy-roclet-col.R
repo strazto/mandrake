@@ -8,7 +8,9 @@ col_roclet <- function() {
 
 #' @rdname col_roclet
 #' @export
+#' @inheritParams roxygen2::roclet_process
 #' @importFrom roxygen2 roclet_process
+#' @param roc a `roclet` object
 roclet_process.roclet_col <- function(
   roc, blocks, env, base_path
 ) {
@@ -110,6 +112,8 @@ default_column_map_output_path <- function() {
 #' @export
 #' @inheritSection output_paths Output Paths Configuration
 #' @importFrom roxygen2 roclet_output
+#' @param ... reserved for future expansion
+#' @inheritParams roxygen2::roclet_output
 roclet_output.roclet_col <- function(roc, results, base_path, ...) {
   `%||%` <- rlang::`%||%`
 

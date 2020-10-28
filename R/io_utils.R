@@ -124,7 +124,7 @@ load_package_colspec <- function(pkg_name, lookup_cache = NULL) {
 }
 
 
-#' Load colspec from a single file, to be imported into storr cache
+# Load colspec from a single file, to be imported into storr cache
 load_colspec_file <- function(path) {
   out <- path %>%
     readLines() %>%
