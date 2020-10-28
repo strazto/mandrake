@@ -20,7 +20,7 @@ describe_event_handlers <- function(handler) {
 #'
 #' It looks like this:
 #'
-#' `r describe_event_handlers(mandrake::embed_event_handler)`
+#' `r suppressWarnings(describe_event_handlers(mandrake::embed_event_handler))`
 #'
 #' \lifecycle{deprecated}
 #' @export
