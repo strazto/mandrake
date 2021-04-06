@@ -1,0 +1,309 @@
+/* 
+ * Copied from:
+ * https://xyproto.github.io/splash/docs/longer/pygments.html
+ * */
+
+.downlit {}
+
+.downlit .err {}
+
+.downlit .lntd {
+	vertical-align: top;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.downlit .lntable {
+	border-spacing: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	width: auto;
+	overflow: auto;
+	display: block;
+}
+
+.downlit .hl {
+	display: block;
+	width: 100%;
+	background-color: #e5e5e5
+}
+
+.downlit .lnt {
+	margin-right: 0.4em;
+	padding: 0 0.4em 0 0.4em;
+	color: #7f7f7f
+}
+
+.downlit .ln {
+	margin-right: 0.4em;
+	padding: 0 0.4em 0 0.4em;
+	color: #7f7f7f
+}
+
+.downlit .k {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .kc {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .kd {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .kn {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .kp {
+	color: #008000
+}
+
+.downlit .kr {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .kt {
+	color: #b00040
+}
+
+.downlit .na {
+	color: #7d9029
+}
+
+.downlit .nb {
+	color: #008000
+}
+
+.downlit .nc {
+	color: #0000ff;
+	font-weight: bold
+}
+
+.downlit .no {
+	color: #880000
+}
+
+.downlit .nd {
+	color: #aa22ff
+}
+
+.downlit .ni {
+	color: #999999;
+	font-weight: bold
+}
+
+.downlit .ne {
+	color: #d2413a;
+	font-weight: bold
+}
+
+.downlit .nf {
+	color: #0000ff
+}
+
+.downlit .nl {
+	color: #a0a000
+}
+
+.downlit .nn {
+	color: #0000ff;
+	font-weight: bold
+}
+
+.downlit .nt {
+	color: #008000;
+	font-weight: bold
+}
+
+.downlit .nv {
+	color: #19177c
+}
+
+.downlit .s {
+	color: #ba2121
+}
+
+.downlit .sa {
+	color: #ba2121
+}
+
+.downlit .sb {
+	color: #ba2121
+}
+
+.downlit .sc {
+	color: #ba2121
+}
+
+.downlit .dl {
+	color: #ba2121
+}
+
+.downlit .sd {
+	color: #ba2121;
+	font-style: italic
+}
+
+.downlit .s2 {
+	color: #ba2121
+}
+
+.downlit .se {
+	color: #bb6622;
+	font-weight: bold
+}
+
+.downlit .sh {
+	color: #ba2121
+}
+
+.downlit .si {
+	color: #bb6688;
+	font-weight: bold
+}
+
+.downlit .sx {
+	color: #008000
+}
+
+.downlit .sr {
+	color: #bb6688
+}
+
+.downlit .s1 {
+	color: #ba2121
+}
+
+.downlit .ss {
+	color: #19177c
+}
+
+.downlit .m {
+	color: #666666
+}
+
+.downlit .mb {
+	color: #666666
+}
+
+.downlit .mf {
+	color: #666666
+}
+
+.downlit .mh {
+	color: #666666
+}
+
+.downlit .mi {
+	color: #666666
+}
+
+.downlit .il {
+	color: #666666
+}
+
+.downlit .mo {
+	color: #666666
+}
+
+.downlit .o {
+	color: #666666
+}
+
+.downlit .ow {
+	color: #aa22ff;
+	font-weight: bold
+}
+
+.downlit .c {
+	color: #408080;
+	font-style: italic
+}
+
+.downlit .ch {
+	color: #408080;
+	font-style: italic
+}
+
+.downlit .cm {
+	color: #408080;
+	font-style: italic
+}
+
+.downlit .c1 {
+	color: #408080;
+	font-style: italic
+}
+
+.downlit .cs {
+	color: #408080;
+	font-style: italic
+}
+
+.downlit .cp {
+	color: #bc7a00
+}
+
+.downlit .cpf {
+	color: #bc7a00
+}
+
+.downlit .gd {
+	color: #a00000
+}
+
+.downlit .ge {
+	font-style: italic
+}
+
+.downlit .gr {
+	color: #ff0000
+}
+
+.downlit .gh {
+	color: #000080;
+	font-weight: bold
+}
+
+.downlit .gi {
+	color: #00a000
+}
+
+.downlit .go {
+	color: #888888
+}
+
+.downlit .gp {
+	color: #000080;
+	font-weight: bold
+}
+
+.downlit .gs {
+	font-weight: bold
+}
+
+.downlit .gu {
+	color: #800080;
+	font-weight: bold
+}
+
+.downlit .gt {
+	color: #0044dd
+}
+
+.downlit .gl {
+	text-decoration: underline
+}
+
+.downlit .w {
+	color: #bbbbbb
+}

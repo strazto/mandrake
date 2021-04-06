@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
       </span>
     </div>
 
@@ -123,12 +123,51 @@
       <small>Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="mandrake-0239001" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.3.9001">
-<a href="#mandrake-0239001" class="anchor"></a>Mandrake 0.2.3.9001</h1>
+    <div id="mandrake-1009xxx" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0.9">
+<a href="#mandrake-1009xxx" class="anchor"></a>Mandrake 1.0.0.9xxx</h1>
 <div id="fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixes" class="anchor"></a>Fixes</h2>
+<ul>
+<li>Fix rmarkdown docomuments failing to render due to <a href="https://github.com/rstudio/rmarkdown/pull/1948" class="uri">https://github.com/rstudio/rmarkdown/pull/1948</a> not yet being merged.
+<ul>
+<li>
+<code>DOMPurify</code> js dependency (XSS Sanitization js lib) was previously included as <code>href</code> dependency
+<ul>
+<li>
+<code>href</code> dependencies are supported by <code>htmltools</code>, but not yet by <code>rmarkdown</code>.</li>
+</ul>
+</li>
+<li>Now <code>DOMPurify</code> is embedded directly (for now)</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+    <div id="mandrake-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#mandrake-100" class="anchor"></a>Mandrake 1.0.0</h1>
+<div id="breaking-changes-in-version-100" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes-in-version-100" class="anchor"></a>BREAKING CHANGES IN VERSION 1.0.0</h2>
+<ul>
+<li>Deprecate <code><a href="../reference/embed_event_handler.html">mandrake::embed_event_handler()</a></code> due to XSS vector, and its annoying to maintain JS stored in R code.
+<ul>
+<li>Users now have to call:
+<ul>
+<li>
+<code><a href="../reference/attach_dependencies.html">mandrake::attach_dependencies()</a></code> &amp;</li>
+<li><code><a href="https://docs.ropensci.org/drake/reference/render_graph.html">drake::render_graph(on_select = "embed_event_handler")</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#fixes-1" class="anchor"></a>Fixes</h2>
 <ul>
 <li>Fix bug related to <code><a href="https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html">htmlwidgets::saveWidget</a></code> when <code>selfcontained = TRUE</code> breaking embedded stylesheets.</li>
 </ul>
@@ -137,9 +176,9 @@
     <div id="mandrake-023" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.3">
 <a href="#mandrake-023" class="anchor"></a>Mandrake 0.2.3</h1>
-<div id="fixes-1" class="section level2">
+<div id="fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixes-1" class="anchor"></a>Fixes</h2>
+<a href="#fixes-2" class="anchor"></a>Fixes</h2>
 <ul>
 <li>Now gracefully handle when targets are not cached, or missing from cache</li>
 <li>Now gracefully handle duplication of column definitions across package
@@ -165,9 +204,9 @@
     <div id="mandrake-021" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.1">
 <a href="#mandrake-021" class="anchor"></a>Mandrake 0.2.1</h1>
-<div id="fixes-2" class="section level2">
+<div id="fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#fixes-2" class="anchor"></a>Fixes</h2>
+<a href="#fixes-3" class="anchor"></a>Fixes</h2>
 <ul>
 <li>Qualified a call to <code>rlang::\</code>%||%``</li>
 </ul>
