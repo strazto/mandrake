@@ -257,7 +257,7 @@ attach_dependencies <- function(graph) {
     "chroma",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     stylesheet = "chroma.css"
   )
 
@@ -279,7 +279,7 @@ attach_dependencies <- function(graph) {
     "fix_utf",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     script = "fix_utf.js"
   )
 
@@ -287,7 +287,7 @@ attach_dependencies <- function(graph) {
     "graph_event_handlers",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     script = "graph_events.js"
   )
 
