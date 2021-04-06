@@ -4,7 +4,13 @@
 \alias{attach_dependencies}
 \title{Attach Html Dependencies}
 \usage{
-attach_dependencies(graph)
+attach_dependencies(graph, standalone = T)
+}
+\arguments{
+\item{graph}{a graph made by \code{\link[drake:render_graph]{drake::render_graph()}}.}
+
+\item{standalone}{logical, whether the current graph is rendered on
+its own page, or is part of a larger rmarkdown document.}
 }
 \description{
 This should be done for self-contained instances of visNetwork, when
