@@ -263,13 +263,14 @@ attach_dependencies <- function(graph) {
 
   DOMPurify <- htmltools::htmlDependency(
     "DOMPurify",
-    "2.1.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/"),
-    script = list(
-      src = "purify.min.js",
-      integrity = "sha512-MyuIiR29IQaNvgQIvGVvOwtphjY82+ZoeopFcOyXrdsFbIiU6Sc3MRvpXRzOYtihMs83vT/rz8ArCM53l5Onqg==",
-      crossorigin = "anonymous"
-    )
+    "2.2.7",
+    # Unfortunately, rmarkdown has not reviewed my PR
+    # https://github.com/rstudio/rmarkdown/pull/1948
+    # Which allows href dependencies in rmarkdown docs
+    # As a result, for now, I will be embedding this dependency
+    package = "mandrake",
+    src = "lib/DOMPurify/2.2.7",
+    script = "purify.min.js"
   )
 
   # This script fixes a mangled "type" attribute set on some stylesheets
