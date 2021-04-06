@@ -74,7 +74,7 @@ It sets up some stylesheet + javascript dependencies." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
       </span>
     </div>
 
@@ -133,8 +133,21 @@ not being rendered as part of a larger document.
 It sets up some stylesheet + javascript dependencies.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>attach_dependencies</span><span class='op'>(</span><span class='va'>graph</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>attach_dependencies</span><span class='op'>(</span><span class='va'>graph</span>, standalone <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>graph</th>
+      <td><p>a graph made by <code><a href='https://docs.ropensci.org/drake/reference/render_graph.html'>drake::render_graph()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>standalone</th>
+      <td><p>logical, whether the current graph is rendered on
+its own page, or is part of a larger rmarkdown document.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

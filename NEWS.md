@@ -1,3 +1,19 @@
+# Mandrake 1.0.0.9xxx
+
+## Fixes
+
+- Fix rmarkdown docomuments failing to render due to
+https://github.com/rstudio/rmarkdown/pull/1948 not yet being merged.
+  - `DOMPurify` js dependency (XSS Sanitization js lib) was previously included as `href`
+    dependency
+    - `href` dependencies are supported by `htmltools`, but not yet by `rmarkdown`.
+  - Now `DOMPurify` is embedded directly (for now)
+
+### Minor
+
+- Add a `warn_deprecated` option to old js handlers so that they can be evaluated in generating docs
+without triggering a warning
+
 # Mandrake 1.0.0
 
 ## BREAKING CHANGES IN VERSION 1.0.0

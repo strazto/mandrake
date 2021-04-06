@@ -163,7 +163,7 @@ graph <- render_drake_graph(
   graph_info, 
   on_select = "embedHandler",
   ncol_legend = 4
-  ) # %>% mandrake::attach_dependencies()
+  ) %>% mandrake::attach_dependencies(standalone = F)
 ```
 ```{r, echo=FALSE}
 graph %<>%

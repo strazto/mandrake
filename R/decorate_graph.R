@@ -234,13 +234,17 @@ decorate_plan <- function(
 #' ```
 #'
 #' @family widget_dependencies
+#' @param graph a graph made by [drake::render_graph()].
+#' @param standalone logical, whether the current graph is rendered on
+#'        its own page, or is part of a larger rmarkdown document.
 #' @export
-attach_dependencies <- function(graph) {
+attach_dependencies <- function(graph, standalone = T) {
   # Jquery is used for manipulating the dom, and dynamically
   # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
     "jquery", version = "3.4.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
+    src = "lib/jquery/3.4.1/",
+    #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
     script = "jquery.min.js"
     )
 
@@ -248,7 +252,9 @@ attach_dependencies <- function(graph) {
   bootstrap <- htmltools::htmlDependency(
     "bootstrap",
     version = "3.4.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
+    package = "mandrake",
+    src = "lib/twitter-bootstrap/3.4.1/css/",
+    #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
     stylesheet = "bootstrap.min.css"
   )
 
@@ -257,19 +263,20 @@ attach_dependencies <- function(graph) {
     "chroma",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     stylesheet = "chroma.css"
   )
 
   DOMPurify <- htmltools::htmlDependency(
     "DOMPurify",
-    "2.1.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.1.1/"),
-    script = list(
-      src = "purify.min.js",
-      integrity = "sha512-MyuIiR29IQaNvgQIvGVvOwtphjY82+ZoeopFcOyXrdsFbIiU6Sc3MRvpXRzOYtihMs83vT/rz8ArCM53l5Onqg==",
-      crossorigin = "anonymous"
-    )
+    "2.2.7",
+    # Unfortunately, rmarkdown has not reviewed my PR
+    # https://github.com/rstudio/rmarkdown/pull/1948
+    # Which allows href dependencies in rmarkdown docs
+    # As a result, for now, I will be embedding this dependency
+    package = "mandrake",
+    src = "lib/DOMPurify/2.2.7",
+    script = "purify.min.js"
   )
 
   # This script fixes a mangled "type" attribute set on some stylesheets
@@ -279,7 +286,7 @@ attach_dependencies <- function(graph) {
     "fix_utf",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     script = "fix_utf.js"
   )
 
@@ -287,12 +294,18 @@ attach_dependencies <- function(graph) {
     "graph_event_handlers",
     "0.0.0.9001",
     package = "mandrake",
-    src = "lib",
+    src = "lib/mandrake",
     script = "graph_events.js"
   )
 
   graph$dependencies %<>%
-    c(list(jquery, bootstrap, chroma, fix_utf, DOMPurify, graph_events))
+    c(list(chroma, fix_utf, DOMPurify, graph_events))
+
+  # Only add jquery and bootstrap if standalone
+  if (standalone) {
+    graph$dependencies %<>%
+      c(list(jquery, bootstrap))
+  }
 
   graph
 }

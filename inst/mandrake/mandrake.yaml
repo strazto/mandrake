@@ -16,7 +16,7 @@ am:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 carb:
   name: carb
   direction: !<list> out
@@ -33,7 +33,7 @@ carb:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 cyl:
   name: cyl
   direction: !<list> out
@@ -50,7 +50,7 @@ cyl:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 disp:
   name: disp
   direction: !<list> out
@@ -67,7 +67,7 @@ disp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 drat:
   name: drat
   direction: !<list> out
@@ -87,7 +87,7 @@ drat:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 gear:
   name: gear
   direction: !<list> out
@@ -107,7 +107,7 @@ gear:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 hp:
   name: hp
   direction: !<list> out
@@ -127,7 +127,7 @@ hp:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 mpg:
   name: mpg
   direction: !<list> out
@@ -147,7 +147,7 @@ mpg:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 qsec:
   name: qsec
   direction: !<list> out
@@ -164,7 +164,7 @@ qsec:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 vs:
   name: vs
   direction: !<list> out
@@ -175,7 +175,7 @@ vs:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 wt:
   name: wt
   direction: !<list> out
@@ -198,7 +198,7 @@ wt:
   topic: mtcars_dataset
   package: mandrake
   rd_ref: \code{\link[mandrake:mtcars_dataset]{mandrake::mtcars_dataset}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/mtcars_dataset.html'>mandrake::mtcars_dataset</a></code>
 call:
   name: call
   direction: !<list> out
@@ -209,7 +209,7 @@ call:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 coefficients:
   name: coefficients
   direction: !<list> out
@@ -220,7 +220,7 @@ coefficients:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 contrasts:
   name: contrasts
   direction: !<list> out
@@ -231,7 +231,7 @@ contrasts:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 df.residual:
   name: df.residual
   direction: !<list> out
@@ -242,7 +242,7 @@ df.residual:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 fitted.values:
   name: fitted.values
   direction: !<list> out
@@ -253,7 +253,7 @@ fitted.values:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 model:
   name: model
   direction: !<list> out
@@ -264,7 +264,7 @@ model:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 na.action:
   name: na.action
   direction: !<list> out
@@ -278,7 +278,7 @@ na.action:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 offset:
   name: offset
   direction: !<list> out
@@ -289,7 +289,7 @@ offset:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 rank:
   name: rank
   direction: !<list> out
@@ -300,7 +300,7 @@ rank:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 residuals:
   name: residuals
   direction: !<list> out
@@ -311,7 +311,7 @@ residuals:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 terms:
   name: terms
   direction: !<list> out
@@ -323,7 +323,7 @@ terms:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 weights:
   name: weights
   direction: !<list> out
@@ -334,7 +334,7 @@ weights:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 x:
   name: x
   direction: !<list> out
@@ -345,7 +345,7 @@ x:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 xlevels:
   name: xlevels
   direction: !<list> out
@@ -357,7 +357,7 @@ xlevels:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 'y':
   name: 'y'
   direction: !<list> out
@@ -368,5 +368,5 @@ xlevels:
   topic: lm_object
   package: mandrake
   rd_ref: \code{\link[mandrake:lm_object]{mandrake::lm_object}}
-  html_ref: <code><a href='https://mstr3336.github.io/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
+  html_ref: <code><a href='https://mstrasiot.to/mandrake//reference/lm_object.html'>mandrake::lm_object</a></code>
 

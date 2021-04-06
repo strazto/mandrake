@@ -2,16 +2,16 @@
 % Please edit documentation in R/js_handlers.R
 \name{embed_event_handler}
 \alias{embed_event_handler}
-\title{(DEPRECATED) Handler for embedding data into the legend}
+\title{(DEPRECATED) Handler for embedding data into the legend
+\lifecycle{deprecated}}
 \usage{
-embed_event_handler()
+embed_event_handler(warn_deprecated = TRUE)
 }
 \description{
 If attached as onSelect behaviour for a visNetwork graph,
 will allow clicking of nodes to replace the legend for the graph
 with metadata about that node.
-}
-\details{
+
 Presently requires JQuery to operate, so may not work when launched from
 R session, but does work in pkgdown.
 
@@ -36,11 +36,6 @@ on_select = "embed_event_handler()" when rendering graph
 }
 }
 }
-\section{deprecation notice}{
-
-This function has been deprecated for security & maintainability reasons.
-}
-
 \seealso{
 Other js_handlers: 
 \code{\link{alert_event_handler}()}
