@@ -243,7 +243,8 @@ attach_dependencies <- function(graph, standalone = T) {
   # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
     "jquery", version = "3.4.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
+    src = "lib/jquery/3.4.1/",
+    #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
     script = "jquery.min.js"
     )
 
@@ -251,7 +252,9 @@ attach_dependencies <- function(graph, standalone = T) {
   bootstrap <- htmltools::htmlDependency(
     "bootstrap",
     version = "3.4.1",
-    src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
+    package = "mandrake",
+    src = "lib/twitter-bootstrap/3.4.1/css/",
+    #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
     stylesheet = "bootstrap.min.css"
   )
 
