@@ -234,8 +234,11 @@ decorate_plan <- function(
 #' ```
 #'
 #' @family widget_dependencies
+#' @param graph a graph made by [drake::render_graph()].
+#' @param standalone logical, whether the current graph is rendered on
+#'        its own page, or is part of a larger rmarkdown document.
 #' @export
-attach_dependencies <- function(graph) {
+attach_dependencies <- function(graph, standalone = T) {
   # Jquery is used for manipulating the dom, and dynamically
   # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
@@ -293,7 +296,13 @@ attach_dependencies <- function(graph) {
   )
 
   graph$dependencies %<>%
-    c(list(jquery, bootstrap, chroma, fix_utf, DOMPurify, graph_events))
+    c(list(chroma, fix_utf, DOMPurify, graph_events))
+
+  # Only add jquery and bootstrap if standalone
+  if (standalone) {
+    graph$dependencies %<>%
+      c(list(jquery, bootstrap))
+  }
 
   graph
 }
