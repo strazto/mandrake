@@ -1,5 +1,5 @@
 describe_event_handlers <- function(handler) {
-  out <- handler()
+  out <- handler(warn_deprecated = FALSE)
 
   out <- c(
     "\\preformatted{",
@@ -9,8 +9,10 @@ describe_event_handlers <- function(handler) {
   out
 }
 
-#' (DEPRECATED) Handler for embedding data into the legend
+#' @title (DEPRECATED) Handler for embedding data into the legend
+#' \lifecycle{deprecated}
 #'
+#' @description
 #' If attached as onSelect behaviour for a visNetwork graph,
 #' will allow clicking of nodes to replace the legend for the graph
 #' with metadata about that node.
@@ -22,30 +24,31 @@ describe_event_handlers <- function(handler) {
 #'
 #' `r describe_event_handlers(mandrake::embed_event_handler)`
 #'
-#' \lifecycle{deprecated}
+#'
 #' @export
 #' @family js_handlers
 #' @family deprecated
-embed_event_handler <- function() {
-  lifecycle::deprecate_warn(
-    "1.0.0",
-    "mandrake::embed_event_handler()",
-    "mandrake::attach_dependencies()",
-    details = paste0(
-      "calling embed_event_handler from R is DEPRECATED ",
-      "due to lacking sanitization for XSS attacks\n",
-      "the built-in JS deps + functions may be loaded using",
-      "mandrake::attach_dependencies().",
-      'and use drake::render_graph(on_select = "embed_event_handler") ',
-      'to access this function.\n',
-      "If you implement your own selection handler, ",
-      "mandrake::attach_dependencies() imports the JS package DOMPurify\n",
-      "You are strongly advised to use DOMPurify to sanitize any HTML you ",
-      "render.\n",
-      "to load other external JS deps, use htmltools::htmlDependency().\n"
+embed_event_handler <- function(warn_deprecated = TRUE) {
+  if (warn_deprecated) {
+    lifecycle::deprecate_warn(
+      "1.0.0",
+      "mandrake::embed_event_handler()",
+      "mandrake::attach_dependencies()",
+      details = paste0(
+        "calling embed_event_handler from R is DEPRECATED ",
+        "due to lacking sanitization for XSS attacks\n",
+        "the built-in JS deps + functions may be loaded using",
+        "mandrake::attach_dependencies().",
+        'and use drake::render_graph(on_select = "embed_event_handler") ',
+        'to access this function.\n',
+        "If you implement your own selection handler, ",
+        "mandrake::attach_dependencies() imports the JS package DOMPurify\n",
+        "You are strongly advised to use DOMPurify to sanitize any HTML you ",
+        "render.\n",
+        "to load other external JS deps, use htmltools::htmlDependency().\n"
+      )
     )
-  )
-
+  }
   alert_event_handler(TRUE)
 }
 
