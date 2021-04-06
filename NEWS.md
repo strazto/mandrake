@@ -9,6 +9,10 @@ https://github.com/rstudio/rmarkdown/pull/1948 not yet being merged.
     - `href` dependencies are supported by `htmltools`, but not yet by `rmarkdown`.
   - Now `DOMPurify` is embedded directly (for now)
 
+### Minor
+
+- Add a `warn_deprecated` option to old js handlers so that they can be evaluated in generating docs
+without triggering a warning
 
 # Mandrake 1.0.0
 
