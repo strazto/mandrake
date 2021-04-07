@@ -119,6 +119,13 @@ link_col2doc <- function(target_column_list, lookup_cache) {
       pull_out_coldocs, lookup_cache = lookup_cache
     )
   out %<>%
+    link_col2doc_html_table()
+
+  out
+}
+
+link_col2doc_html_table <- function(coldoc_df) {
+  out <- coldoc_df %>%
     purrr::map_chr(
       ~knitr::kable(
         .,
@@ -126,7 +133,14 @@ link_col2doc <- function(target_column_list, lookup_cache) {
         escape = FALSE) %>%
         kableExtra::kable_styling(c("striped", "responsive", "condensed"))
     )
+  out
+}
 
+link_col2doc_json <- function(coldoc_df) {
+  out <- coldoc_df %>%
+    purrr::map_chr(
+      jsonlite::toJSON
+    )
   out
 }
 
@@ -198,20 +212,14 @@ decorate_plan <- function(
         ~link_col2doc(
           .,lookup_cache = lookup_cache)))
 
+
   rendered_col <- plan %>%
-    glue::glue_data(
-    "<h3>{target}</h3>",
-    "{output_column}",
-    "<h4>Command</h4>",
-    "<details><summary>Command</summary>",
-    "{highlight_commands(command)}",
-    "</details>",
-    "<h4>Columns</h4>",
-    "{cols_extracted}",
-    output_column = .[[colname_out]],
-    cols_extracted = .[[tmp_extracted_nm]],
-    .sep = "\n"
-  )
+    render_col_html(
+      target = target,
+      description_colname = colname_out,
+      extracted_colname = tmp_extracted_nm,
+      command = command
+    )
 
 
   plan %<>%
@@ -219,6 +227,29 @@ decorate_plan <- function(
     dplyr::select(-c(tmp_extracted_nm))
 
   plan
+}
+
+
+render_col_html <- function(
+  plan, target, description_colname,
+  colname_out, extracted_colname, command
+) {
+  rendered_col <- plan %>%
+    glue::glue_data(
+      "<h3>{target}</h3>",
+      "{output_column}",
+      "<h4>Command</h4>",
+      "<details><summary>Command</summary>",
+      "{highlight_commands(command)}",
+      "</details>",
+      "<h4>Columns</h4>",
+      "{cols_extracted}",
+      output_column = .[[description_colname]],
+      cols_extracted = .[[extracted_colname]],
+      .sep = "\n"
+    )
+
+  rendered_col
 }
 
 #' Attach Html Dependencies
