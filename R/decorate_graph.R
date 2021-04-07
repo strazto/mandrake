@@ -152,6 +152,7 @@ enrich_docstrings <- function(docstrings) {
 highlight_single_command <- function(x) {
   x %<>%
     rlang::expr_deparse(width = Inf) %>%
+    styler::style_text(scope = "line_breaks") %>%
     paste(sep = "\n", collapse = "\n") %>%
     downlit::highlight(pre_class = "downlit")
   x
