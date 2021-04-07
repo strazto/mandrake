@@ -306,8 +306,16 @@ attach_dependencies <- function(graph, standalone = T) {
     script = "mustache.min.js"
   )
 
+  templates <- htmltools::htmlDependency(
+    "mandrake_templates",
+    "0.0.0.9001",
+    package = "mandrake",
+    src = "lib/mandrake/templates",
+    all_files = TRUE
+  )
+
   graph$dependencies %<>%
-    c(list(chroma, fix_utf, DOMPurify, mustache, graph_events))
+    c(list(chroma, fix_utf, DOMPurify, mustache, graph_events, templates))
 
   # Only add jquery and bootstrap if standalone
   if (standalone) {
