@@ -17,6 +17,9 @@ const embedHandler = function(props) {
 const alert_handler = function(props) {
   node = this.body.data.nodes.get(props.nodes[0]);
   cr = '\\r\\n';
+
+  console.log({props: props, object: this});
+
   alert('selected ' +  node.label + ':' + cr +
     '=======' + cr +
     'COLNAMES:' + cr +
