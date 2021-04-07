@@ -306,13 +306,7 @@ attach_dependencies <- function(graph, standalone = T) {
     script = "mustache.min.js"
   )
 
-  templates <- htmltools::htmlDependency(
-    "mandrake_templates",
-    "0.0.0.9001",
-    package = "mandrake",
-    src = "lib/mandrake/templates",
-    all_files = TRUE
-  )
+  templates <- get_template_dependencies()
 
   graph$dependencies %<>%
     c(list(chroma, fix_utf, DOMPurify, mustache, graph_events, templates))
@@ -326,3 +320,46 @@ attach_dependencies <- function(graph, standalone = T) {
   graph
 }
 
+
+get_template_dependencies <- function() {
+
+  template_dir <- system.file(
+    file.path("lib", "mandrake", "templates"),
+    package = "mandrake"
+  )
+
+  templates <- template_dir %>%
+    tools::list_files_with_exts("html.mustache")
+
+  templates %<>%
+    purrr::map_chr(function(template_path) {
+      elem_id <- template_path %>%
+        basename() %>%
+        stringr::str_remove("\\.html\\.mustache$")
+
+      elem_id <- paste0(
+        c("mandrake", "template", elem_id),
+        collapse = "-"
+      )
+
+      out <- template_path %>%
+        htmltools::includeScript(
+          id = elem_id,
+          type = "x-tmpl-mustache"
+        ) %>%
+        as.character()
+      return(out)
+    })
+
+  templates <- htmltools::htmlDependency(
+    "mandrake_templates",
+    "0.1",
+    package = "mandrake",
+    src = "lib/mandrake/templates",
+    script = list(src = "test.html.mustache", type = "x-tmpl-mustache"),
+    head = templates
+  )
+
+  return(templates)
+
+}
