@@ -450,7 +450,7 @@ get_template_dependencies <- function() {
     "0.1",
     package = "mandrake",
     src = "lib/mandrake/templates",
-    script = list(src = "test.html.mustache", type = "x-tmpl-mustache"),
+    script = list(src = "display.html.mustache", type = "x-tmpl-mustache"),
     head = templates
   )
 
