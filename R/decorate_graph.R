@@ -104,8 +104,8 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 #' cross reference these columns with the `lookup_cache`, and produce html tables
 #' for each set of columns.
 #'
-#' @return a character vector, of the same length as the outer dimension of
-#'         the input list, each element being a html table describing each
+#' @return a list column, of the same length as the outer dimension of
+#'         the input list, each element being a dataframe describing each
 #'         column.
 #' @export
 #' @family graph_decoration
@@ -118,28 +118,19 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     purrr::map(
       pull_out_coldocs, lookup_cache = lookup_cache
     )
-  out %<>%
-    link_col2doc_html_table()
+  # out %<>% coldoc_df_2_html_table()
 
   out
 }
 
-link_col2doc_html_table <- function(coldoc_df) {
-  out <- coldoc_df %>%
+coldoc_df_2_html_table <- function(list_coldoc_dfs) {
+  out <- list_coldoc_dfs %>%
     purrr::map_chr(
       ~knitr::kable(
         .,
         format = "html",
         escape = FALSE) %>%
         kableExtra::kable_styling(c("striped", "responsive", "condensed"))
-    )
-  out
-}
-
-link_col2doc_json <- function(coldoc_df) {
-  out <- coldoc_df %>%
-    purrr::map_chr(
-      jsonlite::toJSON
     )
   out
 }
