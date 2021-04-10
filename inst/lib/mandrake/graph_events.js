@@ -16,9 +16,9 @@ const embedHandler = function(props) {
 
 const alert_handler = function(props) {
   node = this.body.data.nodes.get(props.nodes[0]);
-  cr = '\\r\\n';
+  cr = '\r\n';
 
-  console.log({props: props, object: this});
+  console.log({props: props, object: this, node : node});
 
   alert('selected ' +  node.label + ':' + cr +
     '=======' + cr +
@@ -30,9 +30,9 @@ const alert_handler = function(props) {
 
 
 const dummy_template_handler = function(props) {
-  container = this.body.container;
-  legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
-  node = this.body.data.nodes.get(props.nodes[0]);
+  var container = this.body.container;
+  var legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
+  var node = this.body.data.nodes.get(props.nodes[0]);
   $(legend).css({
     'font-size': '10px',
     'width' : '30%',
@@ -41,7 +41,10 @@ const dummy_template_handler = function(props) {
 
   $(container).css('width', '70%');
 
-  //legend.innerHTML = DOMPurify.sanitize(node.on_select_col);
+  var template = $("#mandrake-template-test").html();
+  var rendered = Mustache.render(template, {name : node.label});
+
+  legend.innerHTML = DOMPurify.sanitize(rendered);
 
   $(legend).find('pre').css('font-size', 'inherit');
 
