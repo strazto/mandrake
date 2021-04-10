@@ -1,0 +1,19 @@
+
+.row-striped:nth-of-type(odd) {
+  background-color: #efefef;
+}
+
+.row-striped:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+.row-striped {
+  border-bottom: thin solid;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.column-desc-name {
+  padding-right: 0.5rem;
+  padding-left: 0.1rem;
+}
