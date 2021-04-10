@@ -118,22 +118,10 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     purrr::map(
       pull_out_coldocs, lookup_cache = lookup_cache
     )
-  # out %<>% coldoc_dfs_2_html_tables()
 
   out
 }
 
-coldoc_dfs_2_html_tables <- function(list_coldoc_dfs) {
-  out <- list_coldoc_dfs %>%
-    purrr::map_chr(
-      ~knitr::kable(
-        .,
-        format = "html",
-        escape = FALSE) %>%
-        kableExtra::kable_styling(c("striped", "responsive", "condensed"))
-    )
-  out
-}
 
 # Embedded Docstring Parsing ====
 
@@ -274,6 +262,19 @@ render_col_html <- function(
   description_colname,
   extracted_colname
 ) {
+
+  coldoc_dfs_2_html_tables <- function(list_coldoc_dfs) {
+    out <- list_coldoc_dfs %>%
+      purrr::map_chr(
+        ~knitr::kable(
+          .,
+          format = "html",
+          escape = FALSE) %>%
+          kableExtra::kable_styling(c("striped", "responsive", "condensed"))
+      )
+    out
+  }
+
   sym <- rlang::sym
 
   rendered_col <- plan %>%
