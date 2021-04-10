@@ -14,8 +14,8 @@ link_col2doc(target_column_list, lookup_cache)
 mapping to column metadata lists.}
 }
 \value{
-a character vector, of the same length as the outer dimension of
-the input list, each element being a html table describing each
+a list column, of the same length as the outer dimension of
+the input list, each element being a dataframe describing each
 column.
 }
 \description{
