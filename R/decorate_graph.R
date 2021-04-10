@@ -206,12 +206,9 @@ decorate_plan <- function(
 
   rendered_col <- plan %>%
     render_col_html(
-      target = target,
       description_colname = colname_out,
-      extracted_colname = tmp_extracted_nm,
-      command = command
+      extracted_colname = tmp_extracted_nm
     )
-
 
   plan %<>%
     dplyr::mutate(!!colname_out := rendered_col) %>%
@@ -222,8 +219,8 @@ decorate_plan <- function(
 
 
 render_col_html <- function(
-  plan, target, description_colname,
-  colname_out, extracted_colname, command
+  plan, description_colname,
+  extracted_colname
 ) {
   rendered_col <- plan %>%
     glue::glue_data(
