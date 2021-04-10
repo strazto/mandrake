@@ -338,9 +338,9 @@ attach_dependencies <- function(graph, standalone = T) {
     "bootstrap",
     version = "3.4.1",
     package = "mandrake",
-    src = "lib/twitter-bootstrap/3.4.1/css/",
+    src = "lib/twitter-bootstrap/3.4.1/",
     #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/"),
-    stylesheet = "bootstrap.min.css"
+    stylesheet = "css/bootstrap.min.css"
   )
 
   # Custom Syntax Highlighting Classes
