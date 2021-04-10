@@ -118,12 +118,12 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     purrr::map(
       pull_out_coldocs, lookup_cache = lookup_cache
     )
-  # out %<>% coldoc_df_2_html_table()
+  # out %<>% coldoc_dfs_2_html_tables()
 
   out
 }
 
-coldoc_df_2_html_table <- function(list_coldoc_dfs) {
+coldoc_dfs_2_html_tables <- function(list_coldoc_dfs) {
   out <- list_coldoc_dfs %>%
     purrr::map_chr(
       ~knitr::kable(
@@ -219,10 +219,17 @@ decorate_plan <- function(
 
 
 render_col_html <- function(
-  plan, description_colname,
+  plan,
+  description_colname,
   extracted_colname
 ) {
+  sym <- rlang::sym
+
   rendered_col <- plan %>%
+    # Transform list of dfs to character vector of html
+    dplyr::mutate(
+      !!extracted_colname := coldoc_dfs_2_html_tables(!!sym(extracted_colname))
+    ) %>%
     glue::glue_data(
       "<h3>{target}</h3>",
       "{output_column}",
