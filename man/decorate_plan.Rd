@@ -35,7 +35,8 @@ that you specify in the \code{group} argument to \code{drake_graph_info()}.}
 \code{load_package_colspec()}, containing keys (given by column aliases)
 mapping to column metadata lists.}
 
-\item{json_render}{logical. if \code{TRUE}, render the output as json, otherwise, render it as \code{html}}
+\item{json_render}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} logical. if \code{TRUE}, render the output as json, otherwise, render it as \code{html}
+setting this to \code{FALSE} is not recommended, this parameter was added for backward compatibility.}
 }
 \description{
 Decorate Plan with a Rich html Description

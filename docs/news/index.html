@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mandrake</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -123,9 +123,22 @@
       <small>Source: <a href='https://github.com/matthewstrasiotto/mandrake/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="mandrake-1009xxx" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0.9">
-<a href="#mandrake-1009xxx" class="anchor"></a>Mandrake 1.0.0.9xxx</h1>
+    <div id="mandrake-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#mandrake-110" class="anchor"></a>Mandrake 1.1.0</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<ul>
+<li>Implement front-end rendering of metadata in network.
+<ul>
+<li>This allows for more flexible rendering of data in general.</li>
+<li>Exceptions include highlighted code - <code>R</code> does a better job of linking documentation</li>
+</ul>
+</li>
+<li>Improve responsiveness of column documentation.</li>
+</ul>
+</div>
 <div id="fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fixes" class="anchor"></a>Fixes</h2>
@@ -150,6 +163,17 @@
 <li>Add a <code>warn_deprecated</code> option to old js handlers so that they can be evaluated in generating docs without triggering a warning</li>
 </ul>
 </div>
+</div>
+<div id="deprecations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deprecations" class="anchor"></a>Deprecations</h2>
+<ul>
+<li>Deprecate backend rendering of <code>html</code> - <code>R</code> does not have great tools for this.
+<ul>
+<li>Now pass <code>json</code> to the frontend handler, which renders it using <code>mustache.js</code>.</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
     <div id="mandrake-100" class="section level1">

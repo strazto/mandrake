@@ -51,6 +51,5 @@ const embedHandler = function(props) {
 
   legend.innerHTML = DOMPurify.sanitize(rendered);
 
-  // $(legend).find('pre').css('font-size', 'inherit');
   $(legend).find('pre').addClass('pl-0 text-small');
 }
