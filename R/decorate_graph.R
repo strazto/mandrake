@@ -167,7 +167,8 @@ highlight_commands <- function(commands) {
 #' @inheritParams load_package_colspec
 #' @param desc_colname the name of the column that provides the markdown description
 #' @param colname_out the name of the column in which to store the enriched description
-#' @param json_render logical. if `TRUE`, render the output as json, otherwise, render it as `html`
+#' @param json_render `r lifecycle::badge("deprecated")` logical. if `TRUE`, render the output as json, otherwise, render it as `html`
+#'                    setting this to `FALSE` is not recommended, this parameter was added for backward compatibility.
 #' @export
 #' @family graph_decoration
 decorate_plan <- function(
@@ -180,6 +181,10 @@ decorate_plan <- function(
 
   render_handler <- render_col_json
   if (json_render != TRUE) {
+    lifecycle::deprecate_warn(
+      "1.1.0", "decorate_plan(json_render = 'should be left unchanged unless absolutely necessary')",
+      )
+
     render_handler <- render_col_html
   }
 
@@ -256,7 +261,7 @@ render_col_json <- function(
   out
 }
 
-
+# This is mostly deprecated as of 1.1.0 consider removing it.
 render_col_html <- function(
   plan,
   description_colname,
