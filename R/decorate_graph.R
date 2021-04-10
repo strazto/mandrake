@@ -176,14 +176,21 @@ highlight_commands <- function(commands) {
 #' @inheritParams load_package_colspec
 #' @param desc_colname the name of the column that provides the markdown description
 #' @param colname_out the name of the column in which to store the enriched description
+#' @param json_render logical. if `TRUE`, render the output as json, otherwise, render it as `html`
 #' @export
 #' @family graph_decoration
 decorate_plan <- function(
   plan, cache, group = NULL, clusters = NULL,
   desc_colname = "desc", colname_out = desc_colname,
   lookup_cache = NULL,
+  json_render = TRUE,
   ...) {
   sym <- rlang::sym
+
+  render_handler <- render_col_json
+  if (json_render != TRUE) {
+    render_handler <- render_col_html
+  }
 
   plan %<>%
     dplyr::mutate(
@@ -205,7 +212,7 @@ decorate_plan <- function(
 
 
   rendered_col <- plan %>%
-    render_col_html(
+    render_handler(
       description_colname = colname_out,
       extracted_colname = tmp_extracted_nm
     )
