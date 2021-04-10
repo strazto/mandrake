@@ -1,4 +1,4 @@
-const embedHandler = function(props) {
+const embedHandler_legacy = function(props) {
   container = this.body.container;
   legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
   node = this.body.data.nodes.get(props.nodes[0]);
@@ -29,7 +29,7 @@ const alert_handler = function(props) {
 }
 
 
-const dummy_template_handler = function(props) {
+const embedHandler = function(props) {
   var container = this.body.container;
   var legend = $(container).parent().children("[id*='legendhtmlwidget']")[0];
   var node = this.body.data.nodes.get(props.nodes[0]);
@@ -52,5 +52,4 @@ const dummy_template_handler = function(props) {
   legend.innerHTML = DOMPurify.sanitize(rendered);
 
   $(legend).find('pre').css('font-size', 'inherit');
-
 }
