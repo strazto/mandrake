@@ -1,0 +1,33 @@
+<h3>{{label}}</h3>
+{{{x.description}}}
+
+<h4>Command</h4>
+
+<details>
+  <summary>Click To View Target's Code</summary>
+  {{{x.command}}}
+</details>
+
+<p>
+  <small>
+    Functions in target's code automatically link to their documentation.
+    <br>
+    Click a function in target's code to view its documentation.
+  </small>
+</p>
+
+<h4>Columns</h4>
+<div class="container-fluid">
+
+  {{#x.column_descriptions}}
+    <div class="row row-striped">
+      <div class="col-xs-12 col-12 col-md-3">
+        <strong>{{name}}</strong>
+      </div>
+      <div class="col-xs-12 col-12 col-md-8">
+        {{{description}}}
+      </div>
+    </div>
+  {{/x.column_descriptions}}
+</div>
+
