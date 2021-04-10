@@ -217,6 +217,45 @@ decorate_plan <- function(
   plan
 }
 
+collect_enriched_data_list_col <- function(
+  plan, description_colname, extracted_colname
+) {
+  out <- plan %>%
+    dplyr::rowwise() %>%
+    dplyr::group_map(
+      function(row_data, group_key) {
+        row_data %>%
+          {
+            list(
+              target = .$target,
+              command = highlight_single_command(.$command),
+              descripton = .[[description_colname]],
+              column_descriptions = .[[extracted_colname]]
+              )
+          }
+      }
+    )
+  out
+}
+
+render_col_json <- function(
+  plan,
+  description_colname,
+  extracted_colname
+) {
+  sym <- rlang::sym
+
+  out <- plan %>%
+    collect_enriched_data_list_col(
+      description_colname,
+      extracted_colname
+    )
+
+  out %<>%
+    purrr::map_chr(jsonlite::toJSON)
+  out
+}
+
 
 render_col_html <- function(
   plan,
