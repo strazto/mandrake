@@ -40,15 +40,20 @@ const embedHandler = function(props) {
   });
 
   $(container).css('width', '70%');
+  var rendered = node.on_select_col;
 
-  node['x'] = JSON.parse(node.on_select_col);
-  node.x.column_descriptions = node.x.column_descriptions[0];
+  try {
+    node['x'] = JSON.parse(node.on_select_col);
+    node.x.column_descriptions = node.x.column_descriptions[0];
 
-  var template = $("#mandrake-template-display").html();
-  var rendered = Mustache.render(template, node);
+    var template = $("#mandrake-template-display").html();
+    rendered = Mustache.render(template, node);
+  } catch (e) {
+    if (! (e instanceof SyntaxError)) {
+      throw e;
+    }
 
-  // console.log({props: props, object: this, node : node});
-
+  }
   legend.innerHTML = DOMPurify.sanitize(rendered);
 
   $(legend).find('pre').addClass('pl-0 text-small');
