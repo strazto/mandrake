@@ -342,6 +342,16 @@ attach_dependencies <- function(graph, standalone = T) {
     stylesheet = "chroma.css"
   )
 
+  # Custom Mandrake css
+  mandrake_css <- htmltools::htmlDependency(
+    "mandrake-css",
+    "0.1",
+    package = "mandrake",
+    src = "lib/mandrake",
+    stylesheet = "mandrake.css"
+  )
+
+
   DOMPurify <- htmltools::htmlDependency(
     "DOMPurify",
     "2.2.7",
@@ -384,7 +394,7 @@ attach_dependencies <- function(graph, standalone = T) {
   templates <- get_template_dependencies()
 
   graph$dependencies %<>%
-    c(list(chroma, fix_utf, DOMPurify, mustache, graph_events, templates))
+    c(list(chroma, mandrake_css, fix_utf, DOMPurify, mustache, graph_events, templates))
 
   # Only add jquery and bootstrap if standalone
   if (standalone) {
