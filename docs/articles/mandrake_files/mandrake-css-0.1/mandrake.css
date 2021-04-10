@@ -17,3 +17,11 @@
   padding-right: 0.5rem;
   padding-left: 0.1rem;
 }
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.text-small {
+  font-size: 85%;
+}
