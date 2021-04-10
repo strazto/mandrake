@@ -41,8 +41,13 @@ const dummy_template_handler = function(props) {
 
   $(container).css('width', '70%');
 
-  var template = $("#mandrake-template-test").html();
-  var rendered = Mustache.render(template, {name : node.label});
+  node['x'] = JSON.parse(node.on_select_col);
+  node.x.column_descriptions = node.x.column_descriptions[0];
+
+  var template = $("#mandrake-template-display").html();
+  var rendered = Mustache.render(template, node);
+
+  console.log({props: props, object: this, node : node});
 
   legend.innerHTML = DOMPurify.sanitize(rendered);
 
