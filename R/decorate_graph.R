@@ -227,6 +227,8 @@ decorate_plan <- function(
 collect_enriched_data_list_col <- function(
   plan, description_colname, extracted_colname
 ) {
+  unbox <- jsonlite::unbox
+
   out <- plan %>%
     dplyr::rowwise() %>%
     dplyr::group_map(
@@ -234,9 +236,9 @@ collect_enriched_data_list_col <- function(
         row_data %>%
           {
             list(
-              target = .$target,
-              command = highlight_single_command(.$command),
-              descripton = .[[description_colname]],
+              target = unbox(.$target),
+              command = unbox(highlight_commands(.$command)),
+              descripton = unbox(.[[description_colname]]),
               column_descriptions = .[[extracted_colname]]
               )
           }
