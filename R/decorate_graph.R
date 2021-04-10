@@ -408,8 +408,7 @@ attach_dependencies <- function(graph, standalone = T) {
 
   # Only add jquery and bootstrap if standalone
   if (standalone) {
-    graph$dependencies %<>%
-      c(list(jquery, bootstrap))
+    graph$dependencies <- c(list(jquery, bootstrap), graph$dependencies)
   }
 
   graph
