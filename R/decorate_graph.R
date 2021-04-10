@@ -104,8 +104,8 @@ pull_out_coldocs <- function(columns, lookup_cache) {
 #' cross reference these columns with the `lookup_cache`, and produce html tables
 #' for each set of columns.
 #'
-#' @return a character vector, of the same length as the outer dimension of
-#'         the input list, each element being a html table describing each
+#' @return a list column, of the same length as the outer dimension of
+#'         the input list, each element being a dataframe describing each
 #'         column.
 #' @export
 #' @family graph_decoration
@@ -118,17 +118,10 @@ link_col2doc <- function(target_column_list, lookup_cache) {
     purrr::map(
       pull_out_coldocs, lookup_cache = lookup_cache
     )
-  out %<>%
-    purrr::map_chr(
-      ~knitr::kable(
-        .,
-        format = "html",
-        escape = FALSE) %>%
-        kableExtra::kable_styling(c("striped", "responsive", "condensed"))
-    )
 
   out
 }
+
 
 # Embedded Docstring Parsing ====
 
@@ -152,6 +145,10 @@ enrich_docstrings <- function(docstrings) {
 highlight_single_command <- function(x) {
   x %<>%
     rlang::expr_deparse(width = Inf) %>%
+    styler::style_text(
+      scope = "line_breaks",
+      indent_by = 1
+      ) %>%
     paste(sep = "\n", collapse = "\n") %>%
     downlit::highlight(pre_class = "downlit")
   x
@@ -170,14 +167,26 @@ highlight_commands <- function(commands) {
 #' @inheritParams load_package_colspec
 #' @param desc_colname the name of the column that provides the markdown description
 #' @param colname_out the name of the column in which to store the enriched description
+#' @param json_render `r lifecycle::badge("deprecated")` logical. if `TRUE`, render the output as json, otherwise, render it as `html`
+#'                    setting this to `FALSE` is not recommended, this parameter was added for backward compatibility.
 #' @export
 #' @family graph_decoration
 decorate_plan <- function(
   plan, cache, group = NULL, clusters = NULL,
   desc_colname = "desc", colname_out = desc_colname,
   lookup_cache = NULL,
+  json_render = TRUE,
   ...) {
   sym <- rlang::sym
+
+  render_handler <- render_col_json
+  if (json_render != TRUE) {
+    lifecycle::deprecate_warn(
+      "1.1.0", "decorate_plan(json_render = 'should be left unchanged unless absolutely necessary')",
+      )
+
+    render_handler <- render_col_html
+  }
 
   plan %<>%
     dplyr::mutate(
@@ -197,27 +206,102 @@ decorate_plan <- function(
         ~link_col2doc(
           .,lookup_cache = lookup_cache)))
 
-  rendered_col <- plan %>%
-    glue::glue_data(
-    "<h3>{target}</h3>",
-    "{output_column}",
-    "<h4>Command</h4>",
-    "<details><summary>Command</summary>",
-    "{highlight_commands(command)}",
-    "</details>",
-    "<h4>Columns</h4>",
-    "{cols_extracted}",
-    output_column = .[[colname_out]],
-    cols_extracted = .[[tmp_extracted_nm]],
-    .sep = "\n"
-  )
 
+  rendered_col <- plan %>%
+    render_handler(
+      description_colname = colname_out,
+      extracted_colname = tmp_extracted_nm
+    )
 
   plan %<>%
     dplyr::mutate(!!colname_out := rendered_col) %>%
     dplyr::select(-c(tmp_extracted_nm))
 
   plan
+}
+
+collect_enriched_data_list_col <- function(
+  plan, description_colname, extracted_colname
+) {
+  unbox <- jsonlite::unbox
+
+  out <- plan %>%
+    dplyr::rowwise() %>%
+    dplyr::group_map(
+      function(row_data, group_key) {
+        row_data %>%
+          {
+            list(
+              target = unbox(.$target),
+              command = unbox(highlight_commands(.$command)),
+              descripton = unbox(.[[description_colname]]),
+              column_descriptions = .[[extracted_colname]]
+              )
+          }
+      }
+    )
+  out
+}
+
+render_col_json <- function(
+  plan,
+  description_colname,
+  extracted_colname
+) {
+  sym <- rlang::sym
+
+  out <- plan %>%
+    collect_enriched_data_list_col(
+      description_colname,
+      extracted_colname
+    )
+
+  out %<>%
+    purrr::map_chr(jsonlite::toJSON)
+  out
+}
+
+# This is mostly deprecated as of 1.1.0 consider removing it.
+render_col_html <- function(
+  plan,
+  description_colname,
+  extracted_colname
+) {
+
+  coldoc_dfs_2_html_tables <- function(list_coldoc_dfs) {
+    out <- list_coldoc_dfs %>%
+      purrr::map_chr(
+        ~knitr::kable(
+          .,
+          format = "html",
+          escape = FALSE) %>%
+          kableExtra::kable_styling(c("striped", "responsive", "condensed"))
+      )
+    out
+  }
+
+  sym <- rlang::sym
+
+  rendered_col <- plan %>%
+    # Transform list of dfs to character vector of html
+    dplyr::mutate(
+      !!extracted_colname := coldoc_dfs_2_html_tables(!!sym(extracted_colname))
+    ) %>%
+    glue::glue_data(
+      "<h3>{target}</h3>",
+      "{output_column}",
+      "<h4>Command</h4>",
+      "<details><summary>Command</summary>",
+      "{highlight_commands(command)}",
+      "</details>",
+      "<h4>Columns</h4>",
+      "{cols_extracted}",
+      output_column = .[[description_colname]],
+      cols_extracted = .[[extracted_colname]],
+      .sep = "\n"
+    )
+
+  rendered_col
 }
 
 #' Attach Html Dependencies
@@ -267,6 +351,16 @@ attach_dependencies <- function(graph, standalone = T) {
     stylesheet = "chroma.css"
   )
 
+  # Custom Mandrake css
+  mandrake_css <- htmltools::htmlDependency(
+    "mandrake-css",
+    "0.1",
+    package = "mandrake",
+    src = "lib/mandrake",
+    stylesheet = "mandrake.css"
+  )
+
+
   DOMPurify <- htmltools::htmlDependency(
     "DOMPurify",
     "2.2.7",
@@ -298,8 +392,18 @@ attach_dependencies <- function(graph, standalone = T) {
     script = "graph_events.js"
   )
 
+  mustache <- htmltools::htmlDependency(
+    "mustache.js",
+    "4.2.0",
+    package = "mandrake",
+    src = "lib/mustache.js/4.2.0",
+    script = "mustache.min.js"
+  )
+
+  templates <- get_template_dependencies()
+
   graph$dependencies %<>%
-    c(list(chroma, fix_utf, DOMPurify, graph_events))
+    c(list(chroma, mandrake_css, fix_utf, DOMPurify, mustache, graph_events, templates))
 
   # Only add jquery and bootstrap if standalone
   if (standalone) {
@@ -310,3 +414,46 @@ attach_dependencies <- function(graph, standalone = T) {
   graph
 }
 
+
+get_template_dependencies <- function() {
+
+  template_dir <- system.file(
+    file.path("lib", "mandrake", "templates"),
+    package = "mandrake"
+  )
+
+  templates <- template_dir %>%
+    tools::list_files_with_exts("html.mustache")
+
+  templates %<>%
+    purrr::map_chr(function(template_path) {
+      elem_id <- template_path %>%
+        basename() %>%
+        stringr::str_remove("\\.html\\.mustache$")
+
+      elem_id <- paste0(
+        c("mandrake", "template", elem_id),
+        collapse = "-"
+      )
+
+      out <- template_path %>%
+        htmltools::includeScript(
+          id = elem_id,
+          type = "x-tmpl-mustache"
+        ) %>%
+        as.character()
+      return(out)
+    })
+
+  templates <- htmltools::htmlDependency(
+    "mandrake_templates",
+    "0.1",
+    package = "mandrake",
+    src = "lib/mandrake/templates",
+    script = list(src = "test.html.mustache", type = "x-tmpl-mustache"),
+    head = templates
+  )
+
+  return(templates)
+
+}

@@ -23,6 +23,34 @@
       "Repository": "CRAN",
       "Hash": "08588806cba69f04797dab50627428ed"
     },
+    "R.cache": {
+      "Package": "R.cache",
+      "Version": "0.14.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1ca02d43e1a4d49e616bd23bb39b17e6"
+    },
+    "R.methodsS3": {
+      "Package": "R.methodsS3",
+      "Version": "1.8.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4bf6453323755202d5909697b6f7c109"
+    },
+    "R.oo": {
+      "Package": "R.oo",
+      "Version": "1.24.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5709328352717e2f0a9c012be8a97554"
+    },
+    "R.utils": {
+      "Package": "R.utils",
+      "Version": "2.10.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a9e316277ff12a43997266f2f6567780"
+    },
     "R6": {
       "Package": "R6",
       "Version": "2.4.1",
@@ -346,10 +374,10 @@
     },
     "magrittr": {
       "Package": "magrittr",
-      "Version": "1.5",
+      "Version": "2.0.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1bb58822a20301cee84a41678e25d9b7"
+      "Hash": "41287f1ac7d28a92f0a286ed507928d3"
     },
     "markdown": {
       "Package": "markdown",
@@ -498,15 +526,15 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.3.2",
+      "Version": "2.5.2",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "rmarkdown",
       "RemoteRef": "master",
-      "RemoteSha": "ff1b279e795b62b1ffeabcc9aa5bf7386a7ebb83",
-      "Hash": "563d18379e83e2c2da4f0e093ec66c05"
+      "RemoteSha": "8b66a7394dee0b23cc1ffd85fee4f66ef7aae260",
+      "Hash": "53ef8a07bf011657cebfd79ecb34aff4"
     },
     "roxygen2": {
       "Package": "roxygen2",
@@ -570,6 +598,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "0759e6b6c0957edb1311028a49a35e76"
+    },
+    "styler": {
+      "Package": "styler",
+      "Version": "1.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2ec6308547ffe73208cef3ef3766fc33"
     },
     "sys": {
       "Package": "sys",
