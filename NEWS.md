@@ -1,4 +1,12 @@
-# Mandrake 1.0.0.9xxx
+# Mandrake 1.1.0
+
+## Features
+
+- Implement front-end rendering of metadata in network.
+  - This allows for more flexible rendering of data in general.
+  - Exceptions include highlighted code - `R` does a better job of linking
+    documentation
+- Improve responsiveness of column documentation.
 
 ## Fixes
 
@@ -13,6 +21,13 @@ https://github.com/rstudio/rmarkdown/pull/1948 not yet being merged.
 
 - Add a `warn_deprecated` option to old js handlers so that they can be evaluated in generating docs
 without triggering a warning
+
+## Deprecations
+
+- Deprecate backend rendering of `html` - `R` does not have great tools for this.
+  - Now pass `json` to the frontend handler, which renders it using `mustache.js`.
+
+
 
 # Mandrake 1.0.0
 
