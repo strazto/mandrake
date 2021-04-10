@@ -47,7 +47,7 @@ const dummy_template_handler = function(props) {
   var template = $("#mandrake-template-display").html();
   var rendered = Mustache.render(template, node);
 
-  console.log({props: props, object: this, node : node});
+  // console.log({props: props, object: this, node : node});
 
   legend.innerHTML = DOMPurify.sanitize(rendered);
 
