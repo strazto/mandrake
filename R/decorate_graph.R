@@ -327,6 +327,7 @@ attach_dependencies <- function(graph, standalone = T) {
   # Modifying the sidebar
   jquery <- htmltools::htmlDependency(
     "jquery", version = "3.4.1",
+    package = "mandrake",
     src = "lib/jquery/3.4.1/",
     #src = list(href = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/"),
     script = "jquery.min.js"
