@@ -1,4 +1,4 @@
-# Mandrake 1.1.0.9xxx
+# Mandrake 1.1.1
 
 ## Fixes
 
@@ -15,7 +15,7 @@ Fix dependency problems when using `attach_dependencies(standalone = TRUE)`:
   as other dependencies require `jquery` (especially) to be loaded already. 
   - I named a fixup commit `"idk"`, sorry @me [aebf9372] [a2eb660]
 - `mustache` templates:
-  - Fix outdated reference to template file `test.html.mustache`, which was deleted.
+  - Fix outdated refEREnce to template file `test.html.mustache`, which was deleted.
   - Now include `display.html.mustache`
 
 ### Frontend
@@ -30,6 +30,17 @@ to `visNetwork`, which can be decoded & flexibly rendered by the frontend.
 into a template, but if `JSON.parse` raises a syntax error, the input will be
 given directly to the `DOM`
 - (Everything to be given to the DOM is still cleaned by `DOMPurify`)
+
+### Backend
+
+- When styling code from plan commands, now wrap `styler::style_text()` in `try` block
+- That way, if code that can't be parsed by styler (eg, contains a pretty printed quosure),
+it won't crash the workflow
+
+### Misc
+
+- Remove "Remotes" section from DESCRIPTION, change a few dependency packages from github/development head to 
+  CRAN
 
 
 # Mandrake 1.1.0
