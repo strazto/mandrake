@@ -31,9 +31,5 @@ Imports:
     kableExtra,
     lifecycle,
     htmltools
-Remotes: 
-    r-lib/downlit,
-    r-lib/pkgdown,
-    rstudio/htmltools
 Roxygen: list(markdown = TRUE, roclets = list('rd', 'collate', 'namespace', 'mandrake::col_roclet'))
 RdMacros: lifecycle
