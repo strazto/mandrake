@@ -1,6 +1,6 @@
 Package: mandrake
 Title: Bringing Reading the man Page a Little Closer to the drake Workflow.
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(person("Matthew", "Strasiotto", email = "matthew.strasiotto@gmail.com", role = c("aut", "cre")))
 Description: This package aims to 
 URL: https://mstrasiot.to/mandrake/, https://github.com/matthewstrasiotto/mandrake
@@ -31,9 +31,5 @@ Imports:
     kableExtra,
     lifecycle,
     htmltools
-Remotes: 
-    r-lib/downlit,
-    r-lib/pkgdown,
-    rstudio/htmltools
 Roxygen: list(markdown = TRUE, roclets = list('rd', 'collate', 'namespace', 'mandrake::col_roclet'))
 RdMacros: lifecycle

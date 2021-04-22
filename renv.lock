@@ -294,15 +294,10 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.0.9002",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "htmltools",
-      "RemoteRef": "master",
-      "RemoteSha": "079503c8548e3279bec7a91d6dc20d1af7f2e8b5",
-      "Hash": "1b90adcd663aeafcdc1a8d59ac138b98"
+      "Version": "0.5.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "af2c2531e55df5cf230c4b5444fc973c"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
@@ -437,15 +432,10 @@
     },
     "pkgdown": {
       "Package": "pkgdown",
-      "Version": "1.6.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "r-lib",
-      "RemoteRepo": "pkgdown",
-      "RemoteRef": "master",
-      "RemoteSha": "e1e46f2e13c7efdb17bc4eae40bc3779c2b0b517",
-      "Hash": "5a3d8fbca5bfcb13625bf94efccdd1a6"
+      "Version": "1.6.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8896076540d9e9b556a2ec658c81f916"
     },
     "pkgload": {
       "Package": "pkgload",

@@ -143,12 +143,17 @@ enrich_docstrings <- function(docstrings) {
 # Command Highlighting ============
 
 highlight_single_command <- function(x) {
+  x %<>% rlang::expr_deparse(width = Inf)
+
+  try({
+    x %<>%
+      styler::style_text(
+        scope = "line_breaks",
+        indent_by = 1
+        )
+    })
+
   x %<>%
-    rlang::expr_deparse(width = Inf) %>%
-    styler::style_text(
-      scope = "line_breaks",
-      indent_by = 1
-      ) %>%
     paste(sep = "\n", collapse = "\n") %>%
     downlit::highlight(pre_class = "downlit")
   x
